@@ -1,0 +1,598 @@
+\documentclass{tufte-handout} 
+\usepackage{amsmath,stmaryrd,amssymb,amsthm,url,booktabs,hyperref,enumerate}
+
+% \usepackage{enumitem} \setlist[itemize]{noitemsep, topsep=0pt}
+
+\makeatletter
+% Paragraph indentation and separation for normal text
+\renewcommand{\@tufte@reset@par}{% 
+  \setlength{\RaggedRightParindent}{0pc}% 1.0pc 
+  \setlength{\JustifyingParindent}{0pc}% 1.0pc 
+  \setlength{\parindent}{0pc}% 1pc 
+  \setlength{\parskip}{0pt}%
+}
+\@tufte@reset@par
+
+\makeatother
+
+
+\ifpdf 
+	\usepackage[all,pdf]{xy} %% NB this MUST be loaded last.
+\else
+	\input xy 
+	\xyoption{all} 
+	\xyoption{2cell} 
+	\xyoption{v2}
+\fi 
+
+\parskip = 10pt
+
+\def\into {\hookrightarrow} 
+\def\cE {\mathcal{E}} 
+\def\cC {\mathcal{C}} 
+\def\cR {\mathcal{R}} 
+\def\cD {\mathcal{D}} 
+\def\cP {\mathcal{P}} 
+\def\cT {\mathcal{T}} 
+\def\cN {\mathcal{N}}
+
+\def\op {\mathrm{op}}
+
+\def\Set {\mathbf{Set}}
+\def\Top {\mathbf{Top}}
+
+
+\def\RR{\mathbb{R}} \def\NN{\mathbb{N}}
+
+\newcommand{\lecturenum}[1]{\marginnote{\color{red}Lecture #1}}
+
+\DeclareMathOperator*{\colim}{colim} 
+\DeclareMathOperator{\Sh}{Sh} 
+\DeclareMathOperator{\id}{id} 
+\DeclareMathOperator{\Sub}{Sub} 
+\DeclareMathOperator{\Aut}{Aut} 
+\DeclareMathOperator{\Cont}{Cont}
+
+\theoremstyle{definition} 
+\newtheorem{prop}{Proposition} 
+\newtheorem{lemma}{Lemma} 
+\newtheorem{definition}{Definition} 
+\newtheorem{example}{Example} 
+\newtheorem{exercise}{Exercise} 
+\newtheorem{theorem}{Theorem} 
+\newtheorem{corollary}{Corollary} 
+\newtheorem{q}{Question} 
+\newtheorem*{conj}{Conjecture} 
+\newtheorem*{rem}{Remark} 
+\newtheorem*{fact}{Fact}
+
+\title{Algebraic Topology\thanks{This document is released under a CC-By license: 
+\href{https://creativecommons.org/licenses/by/4.0/}{\texttt{creativecommons.org/licenses/by/4.0/}}.}
+}
+\author[D.M.~Roberts]{David Michael Roberts} 
+\date{2019} 
+
+\begin{document} 
+
+\maketitle
+
+\lecturenum{1} \section{What is it?}
+
+Algebraic topology is the study of maps 
+\[
+	\{\text{`Spaces'}\} \longrightarrow \{\text{Algebraic objects}\}
+\] 
+%
+Or rather, `well-behaved' such maps---they should also send maps between spaces to 
+algebraic maps, respecting composition (so: \emph{functors}); they should send spaces built 
+out of smaller units to algebraic objects built out of smaller units, in a compatible way, 
+etc.
+
+Here, `Spaces' roughly means topological spaces up to deformation (usually homotopy, but not 
+always). Such equivalence classes are called \emph{homotopy types}. `Algebraic objects': 
+(abelian) groups, rings, modules, chain complexes ($\cdots \to V_0 \to V_1 \to V_2 \to 
+\cdots$).
+
+\begin{example} 
+	How can we tell if the sphere $S^2$ and the torus $S^1\times S^1$ can or 
+	cannot be deformed into each other? How would you prove it cannot be done? 
+\end{example}
+
+\begin{example} 
+	For a positive example, we \emph{can} squash $\RR^3 \setminus \{0\} \to S^2 \into 
+	\RR^3 \setminus \{0\} $, sending $x\mapsto \frac{x}{|x|}$. This map continuously 
+	deforms to the identity map. So dimension not necessarily preserved.
+\end{example}
+
+\begin{example} 
+	Can we have $S^1 \sim S^2$? 
+\end{example} 
+
+\noindent We first need to understand how spaces are built
+
+\section{Topological spaces}
+
+Recall\ldots\marginnote{From Topology and Analysis III}
+
+\begin{definition} 
+	A \emph{topology} on a set $S$ is a collection $\cT$ of subsets of $X$ 
+	such that 
+	\begin{enumerate} 
+	
+		\item $\emptyset,X\in\cT$ 
+		
+		\item If $U,V\in \cT$ then $U\cap V\in \cT$ \item If $U_\alpha\in \cT$, 
+		$\alpha\in I$ is an arbitrary family, then $\bigcup_{\alpha\in I} U_\alpha 
+		\in \cT$
+
+	\end{enumerate}
+ 
+	If $U\in \cT$ we say $U$ is \emph{open}. A \emph{topological space} is a set $X$ 
+	eqipped with a topology $\cT$.
+\end{definition}
+
+\begin{example} 
+	Take the set of real numbers, the \emph{Euclidean (`usual') topology} is 
+	defined by saying a set is open iff it is a union of open intervals $(a,b)$ (including the 
+	union of no sets ie $\emptyset$).\\ 
+	The \emph{discrete topology} on a set $X$ is defined by 
+	taking every $\cT$ to consist of all subsets. The \emph{indiscrete topology} is defined by 
+	taking $\cT$ to consist of just $\emptyset$ and $X$. 
+\end{example}
+
+This definition is concise, but not always the best way to define a topology. We will also 
+use \emph{neighbourhoods}
+
+\begin{definition} 
+	A set $N\subseteq X$ is a \emph{neighbourhood}\marginnote{`nhd' is a good 
+	abbreviation} (in a given topology $\cT$) of a point $x\in X$ if there is an open 
+	set $U\subseteq N$ with $x\in U$.
+\end{definition}
+
+
+\begin{example} 
+	Take $\RR$ with the Euclidean topology. $(-1,1)$, $[-1,1]$, $[-1,1)$ are all 
+	neighbourhoods of every $-1<x<1$, but $[0,1)$ is not a neighbourhood of $0$. More 
+	complicated: $[0,1] \cup \{2\}\cup [5,6]$ is a nhd of all $0<x<1$ and $5<x<6$.
+\end{example}
+
+\begin{example} 	
+	Consider a metric space $(X,d)$. The \emph{metric topology} is defined by saying a 
+	subset $U\subseteq X$ is open iff for every $x\in U$ there is some $\varepsilon_x > 
+	0$ with the open ball $B(x,\varepsilon_x) \subseteq U$. Open balls around $x$ are 
+	neighbouhoods of $x$, as are closed balls.
+\end{example}
+
+Here is a more concrete approach that allows concise definitions of topologies:
+
+\begin{definition} 
+	A \emph{neighbourhood base} $\cN$ on a set $X$ is a family 
+	$\{\cN(x)\}_{x\in X}$ where each $\cN(x)$ is a nonempty collection of subsets of $X$, 
+	satisfying the following, for all $x\in X$: 
+
+	\begin{enumerate} 
+
+	\item For all $N\in \cN(x)$, $x\in N$;
+ 
+	\item For all $N_1,N_2 \in \cN(x)$, there is some $N\in \cN(x)$ with $N\subseteq N_1 
+	\cap N_2$;
+
+	\item For all $N\in \cN(x)$ there is a subset $U\subseteq N$ such that for 
+	all $y\in U$, there is some $V \in \cN(y)$ such that $V\subseteq U$. 
+
+	\end{enumerate} 
+
+	We say the sets in $\cN(x)$ are \emph{basic neighbourhoods} of $x$. 
+\end{definition}
+
+As an example: given a topological space $(X,\cT)$ defining $\cN(x)$ to consist of all nhds 
+of $x$ gives a nhd base. Similarly, defining $\cN'(x)$ to consist of all open sets 
+containing $x$ defines a nhd base.
+
+
+Given a neighbourhood base $\cN$ on a set $X$, define a subset $U\subseteq X$ to be 
+\emph{$\cN$-open} iff for all $x\in U$, there is an $N\in \cN(x)$ with $N\subseteq U$.
+
+\begin{prop} 
+The $\cN$-open sets define a topology on $X$. 
+\end{prop} 
+
+\begin{proof} 
+We verify the axioms for a topology on $X$. 
+
+\begin{enumerate}
+
+\item The condition that $\emptyset$ is $\cN$-open is vacuously true. And since $\cN(x)$ is 
+not empty, there is a basic nhd around every point, so $X$ is $\cN$-open.
+
+\item Given $U,V$ both $\cN$-open, we want to show $U\cap V$ is $\cN$-open. So take $x\in 
+U\cap V$. We know there is $N_U,N_V \in \cN(x)$ with $N_U \subseteq U$ and $N_V \subseteq 
+V$, and also that $x\in N_U \cap N_V$, since it is in each of them. Thus there is some $N\in 
+\cN(x)$ with $N \subseteq N_U \cap N_V \subseteq U\cap V$, and this is true for all $x\in 
+U\cap V$. Hence $U\cap V$ is $\cN$-open.
+
+\item Given a family $U_\alpha$, $\alpha\in I$, with each $U_\alpha$ $\cN$-open, we want to 
+show $U := \bigcup_{\alpha\in I}U_\alpha$ is $\cN$-open. Take $x\in U$, so there is some 
+$\alpha_0$ with $x\in U_{\alpha_0}$. But this set in $\cN$-open, so there is some nhd $N$ of 
+$x$ with $N\subseteq U_{\alpha_0} \subseteq U$, and this is true for all $x\in U$. So $U$ is 
+$\cN$-open. \qedhere
+
+\end{enumerate} 
+\end{proof}
+
+We call the topology from this proposition the topology generated by $\cN$. Neighbourhoods 
+in this topology are sets that contain a basic neighbourhood: $V$ is a neighbourhood of $x$ 
+if there is some $N\in \cN(x)$ with $N\subseteq V$.
+
+\begin{example} 
+Given a metric space $(X,d)$ the open balls form a nhd base on $X$ and the 
+topology they generate is the metric topology. 
+\end{example}
+
+So many definitions you are familiar with from metric spaces work for topological spaces, if 
+they can be phrased in terms of basic nhds. In particular, continuity!
+
+\begin{definition} 
+Let $\cN_X$ and $\cN_Y$ be neibourhood bases on sets $X$ and $Y$ 
+respectively. A function $f\colon X\to Y$ is \emph{continuous} if for every $x\in X$ and 
+$N\in \cN_Y(f(x))$, the set $f^{-1}(N)$ contains a basic nhd of $x$. 
+\end{definition}
+
+This is a big generalisation of the $\varepsilon$-$\delta$ definition of continuity.
+
+\begin{exercise} 
+Show\marginnote{Recall a function is continuous for topologies if 
+$f^{-1}(U)$ is open for all open $U$.} that if $f\colon (X,\cN_X)\to (Y,\cN_Y)$ is 
+continuous as just defined, it is continuous for the topologies generated on $X$ and $Y$ by 
+these nhd bases. 
+\end{exercise}
+
+As a sanity check,\marginnote{You can check every function \emph{to} an indiscrete space is continuous, as is every function \emph{on} a discrete space} the identity function $\id_X$ on a space $X$ is indeed continuous.
+
+\begin{definition}
+A continuous function $f\colon X\to Y$ is a \emph{homeomorphism} if there is a continuous function $g\colon Y\to X$ with $g\circ f = \id_X$ and $g\circ f = \id_Y$. 
+We then call $X$ and $Y$ \emph{homeomorphic}\marginnote{or just isomorphic, if I'm being lazy} if there is a homeomorphism between them.
+\end{definition}
+
+
+Now we need to show how to build new spaces, and continuous maps relating them to the 
+original spaces.
+
+\begin{definition} 
+Let $X$ be a set, $(Y_\alpha,\cN_\alpha)$, $\alpha \in I$ a family of 
+sets with nhd bases (not necessarily all unique), and $f_\alpha\colon X\to Y_\alpha$ a 
+family of functions. The \emph{initial topology} on $X$ is generated by the following nhd 
+base: a subset of $X$ is a basic nhd of $x$ iff\marginnote{Verify this is a nhd base!} 
+ it is of the form $f_{\alpha_1}^{-1}(N_1) \cap \ldots \cap f_{\alpha_k}^{-1}(N_k)$ for $N_i \in 
+\cN_{\alpha_i}(f_{\alpha_i}(x))$, and some $\alpha_1,\ldots,\alpha_k$. 
+\end{definition}
+
+This generalises the product topology, which is the case that $X = Y_1 \times Y_2$, and 
+$f_i\colon X\to Y_i$ is the projection $f_i(y_1,y_2) = y_i$, where $i=1,2$. But this 
+\emph{also} gives the subspace topology: take $f\colon X\into Y$ to be injective and define 
+the initial topology on $X$.
+
+\begin{lemma} 
+Giving $X$ the initial topology, all the functions $f_\alpha\colon X\to 
+Y_\alpha$ are continuous. Moreover, a function $k\colon Z\to X$ is continuous iff 
+$f_\alpha\circ k\colon Z\to Y_\alpha$ is continuous for every $\alpha$. 
+\end{lemma}
+
+\noindent The following will be even more important for us, and will be new to most.
+
+\begin{definition} 
+Let $X$ be a set, $(Z_\beta,\cN_\beta)$, $\beta \in J$ a family of sets 
+with nhd bases (not necessarily all unique), and $g_\beta\colon Z_\beta\to X$ a family of 
+functions (note the other direction!). The \emph{final topology} on $X$ has open sets as 
+following: $U\subset X$ is open iff for all $\beta\in J$, $g_\beta^{-1}(U)$ is open in 
+$Z_\beta$. 
+\end{definition}
+
+\begin{lemma} 
+Giving $X$ the final topology, all the functions $g_\beta\colon Z_\beta\to X$ 
+are continuous. Moreover a function $h\colon X\to W$ is continuous for the final topology on 
+$X$ iff $h\circ g_\beta\colon Z_\beta\to W$ is continous for every $\beta\in J$. 
+
+EXPAND THIS TO REALLY EXPLORE THE GLUING LEMMA. EG OPEN COVERS, COVERS BY CLOSED SETS. EXAMPLE OF INTERVAL OR SQUARES OR INTERVAL TIMES SPACE.
+
+\end{lemma}
+
+We will give two special cases of this, and we will see them often.
+
+\begin{example} 
+Let $(Z,\cT)$ be a topological space, and let $\sim$ be an equivalence 
+relation on $Y$, and define $X = Z/\sim$ to be the quotient by this relation. There is a 
+function $ \pi\colon Z\to X$ sending $y\mapsto [y]$. The final topology on $X$ has as open 
+sets those $U\subseteq X$ such that $\pi^{-1}(U)$ is open in $Z$. 
+\end{example}
+
+For instance, we can give $S^2$ the initial topology for the maps $x,y\colon S^2 \to \RR^2 
+\to \RR$ (this is the usual topology on $S^2$), and then define an equivalence relation on 
+$S^2$ by $x\sim y$ iff $x = - y$. The quotient is $\mathbb{RP}^2$, the real projective 
+plane, and we give it the final topology coming from $S^2\to \mathbb{RP}^2$. This is the 
+topology it carries as a manifold. Incidentally, $S^2$ is an example of a \emph{covering 
+space} of $\mathbb{RP}^2$, the study of which will occupy the first section of the course.
+
+
+
+Recall \lecturenum{2} the definition of disjoint union of sets: given $Z_\beta$, 
+ $\beta\in J$, a family of sets, we have $\mathrm{in}_\gamma \colon Z_\gamma \into 
+ \bigsqcup_{\beta} Z_\beta$ with $Z_\beta \cap Z_\gamma = \emptyset$ for $\beta\neq \gamma$. 
+ If $Z_\beta$ are spaces, then we give $\bigsqcup_{\beta} Z_\beta$ the final topology for 
+ the maps $\mathrm{in}_\gamma$. This is \emph{disjoint union} or \emph{sum} topology, and 
+ $\bigsqcup_{\beta} Z_\beta$ is called the \emph{topological sum}. A point in $ 
+ \bigsqcup_{\beta} Z_\beta$ can be described by a pair $(\beta,z)$, where $z \in Z_\beta$.
+
+\begin{fact} 
+Given functions $h_\beta\colon Z_\beta \to W$, there is a unique function $h = 
+\langle h_\beta \rangle \colon \bigsqcup_\beta Z_\beta\to W$ with $h_\beta = h\circ 
+\mathrm{in}_\beta$, or in other words this diagram commutes: 
+\[
+	\xymatrix{ 
+		Z_\gamma \ar[r]^{\mathrm{in}_\gamma} \ar[dr]_{h_\gamma} & \bigsqcup_\beta 
+		Z_\beta \ar[d]^h \\ & W
+	}
+\] 
+\end{fact}
+
+\begin{lemma} 
+The final topology on $X$ for $g_\beta\colon Z_\beta \to X$ agrees with the 
+final topology on $X$ for $g = \langle g_\beta \rangle\colon \bigsqcup_\beta Z_\beta \to X$, 
+using the sum topology. 
+\end{lemma}
+
+\begin{proof} 
+We have that $U\subseteq X$ is open iff $\forall \beta$ $g_\beta^{-1}(U)$ is 
+open iff $\forall \beta$, $(g\circ \mathrm{in}_\beta)^{-1}(U) = 
+\mathrm{in}_\beta^{-1}\left(g^{-1}(U)\right)$ is open iff $g^{-1}(U)$ is open in the sum 
+topology. 
+\end{proof}
+
+Idea behind final topology, when $g_\beta\colon Z_\beta \to X$ are jointly 
+surjective\marginnote{%
+this means $\forall x\in X$, $\exists \beta, x\in Z_\beta$ with 
+$g_\beta(z) = x$} 
+is that we can put an equivalence relation on $\bigsqcup_\beta Z_\beta$ 
+with $(\beta_1,z_1)\sim (\beta_2,z_2)$ iff $g_{\beta_1}(z_1) = g_{\beta_2}(z_2)\in X$. As a 
+set, $X$ is the set of equivalence classes under this relation, so you can think of it as 
+gluing together the underlying sets of the spaces $Z_\beta$. The final topology on $X$ is 
+then the only sensible topology to described the space we get by gluing together the 
+\emph{spaces} $Z_\beta$. Leter we'll see spaces that are built uop by gluing together lots 
+of `simple' spaces, like disks $D^n := \{x\in \RR^n\mod |x|\leq 1\}$ (with the subspace 
+topology from $\RR^n$). But what does `simple' here mean? Roughly, ``shrinkable to a 
+point''.
+
+\section{Homotopy}
+
+``Shrinkable'' implies a kind of continuous process in time. Consider the function $I\times D^n \to D^n$. Consider the map
+\begin{align*}
+	H\colon I \times D^n & \to D^n\\
+	(t,\mathbf{x}) & \mapsto (1-t)\mathbf{x}
+\end{align*}
+Note that this gives maps $H_0\colon D^n\to D^n$ (the identity map) and $H_1$ (constant at $0$).
+The function $H$ is continuous! 
+How should we see this? 
+The topology on $D^n$ is the subspace topology $D^n \subset \RR^n$,\marginnote{And $I\subset \RR$ has subspace topology}  and $\RR^n$ has the product topology. 
+It is not too difficult to see (Exercise!) that the topology on $D^n$ is the final topology for the coordinate functions $x_i\colon D^n \to \RR^n \to \RR$. 
+So $H\colon I\times D^n \to D^n$ is continuous iff [[FIX LINE SPACING]]
+\[
+	\xymatrix{
+	I\times D^n \ar[r]^{\id\times x_i} & I\times \RR \ar[r]& \RR\times\RR \ar[r]& \RR\\
+	(t,\mathbf{x}) \ar@{|->}[rr] && (t,x_i) \ar@{|->}[r] & tx_i 
+	}
+\]
+But $I\times D^n \to \RR \times \RR$ is continuous by definition of final topology, and the following fact:
+
+\begin{fact}
+	If $f\colon X\to W$ and $g\colon X\to Z$ are continuous, then so is $f\times g\colon X\times Y\to W\times Z$. 
+	If both $X$ and $Y$ have at least one point each, then the reverse implication also holds.
+\end{fact}
+
+So if we can prove that multiplication $\RR\times \RR \to \RR$ is continuous, then $H$ is continuous.
+But the standard topology on $\RR$ comes from the metric space structure, so can use sequential criterion for continuity.
+Take $(a_n,b_n)\to (a,b)$ in $\RR\times \RR$, then:
+\begin{align*}
+	|a_nb_n - ab| 	& = |a_nb_n -ab_n + ab_n - ab| \\
+			& \leq |a_n - a|\,|b_n| + |a|\,|b_n - b| \\
+			& \leq |a_n-a| \sup|b_n| + |a| \, |b_n - b|\qquad\text{(as $(b_n)$ converges, it is bounded)} \\
+			& \to 0+0  
+\end{align*}
+Hence $H$ is continuous.
+
+\begin{definition}
+	A space $X$ is \emph{contractible} if there is a point $x_0\in X$ and a continuous function $H\colon I\times X\to X$ such that $H(0,x) = x$ and $H(1,x) = x_0$ for all $x\in X$. 
+Such a function is called a \emph{contraction}.
+\end{definition}
+
+We have shown $D^n$ is contractible.
+
+\begin{example}
+$\RR$ is contractible. A finite product of contractible spaces is contractible.
+\end{example}
+
+\begin{example}
+Consider what it would mean if a discrete space $S$ were contractible: there would be an element $*\in S$ and a continuous function $h\colon I\times S \to S$ such that $h(0,s) = s$ and $h(1,s) = *$. 
+Restricting $h$ to $I\times \{s\}$ for some given $s$, we get a continuous function $I \into I\times S \to S$, whose range includes $*$ and $s$.
+Since all functions with discrete domain are continuous, let us compose with the continuous function $\chi_{\{*\}}\colon S\to \RR$ that sends $*\mapsto 1$ and $s\mapsto 0$ for all $s\neq *$. 
+So we have a continuous function $\widetilde{h}\colon I\to \RR$ with $\widetilde{h}(0)=0$ and range contained in $\{0,1\}$.
+By the intermediate value theorem, we must have $\widetilde{h}(1) = \chi_{\{*\}}(h(1,s))= 0$, so that $h(1,s) = *$, and hence $s=*$ for all $s\in S$. 
+Thus $S$ has exactly one element.
+\end{example}
+
+The interval can only map continuously to a discrete space if it is constant at some element, or equivalently, its image consists of a single point, and this property is important enough to have a name.
+
+\begin{definition}
+A space $X$ is \emph{connected} if the only continuous maps to a discrete space have image a single point.\marginnote{If you know the `usual' definition, this is equivalent to it} 
+\end{definition}
+
+This is our first example of an invariant of spaces,\marginnote{%
+Consider $\xymatrix@=1pc{X\ar[r]^\simeq \ar[d] & Z \ar[dl]\\ S}$ with $S$ discrete.
+}
+ namely whether they are connected or not: a connected space $X$ cannot be homeomorphic to a space $Z$ that is not connected. But, how can we tell non-connected spaces apart?
+
+\begin{definition}
+\begin{enumerate}
+
+	\item For any space $X$, a subset $Y\subseteq X$ is a \emph{connected component} of $X$ if $Y$ is connected and the indicator function $\chi_Y\colon X\to \{0,1\}$ is continuous.
+	
+	\item Put an equivalence relation on $X$ with $x_1\sim x_2$ iff $x_1$ and $x_2$ are both in a given connected component.
+Then define $\pi_0(X) = X/\sim$, the \emph{set of connected components}. There is a continuous function $X\to \pi_0(X)$.
+
+\end{enumerate}
+\end{definition}
+
+A connected space $X$ has $\pi_0(X) = *$, but now we can tell apart non-connected spaces.
+
+\begin{lemma}
+Every space can be written as $X = \bigsqcup_{\alpha\in\pi_0(X)} X_\alpha$, with $X_\alpha$ connected.
+\end{lemma}
+
+As a result, we need to try to understand \emph{connected} spaces, though we will still \emph{use} non-connected spaces.
+
+Can we get more out of the idea of contractions? Given $H\colon I\times X\to X$, we have maps $_i$ for $i=0,1$, namely $H_0 = \id_X$ and $H_1$ is constant at $x_0$. 
+What if $H_0$ and $H_1$ were other sorts of continuous maps?
+\medskip
+
+[example: retraction of annulus to inner and outer circles]
+\medskip
+
+What if we considered general continuous maps $X\to Y$ instead of just $X\to X$?
+
+\begin{definition}
+	A \emph{homotopy} is a continuous function $H\colon I \times X\to Y$. 
+	If $f = H(0,-)$ and $g = H(1,-)$, we say $H$ is a \emph{homotopy from $f$ to $g$}, and that $f$ and $g$ are \emph{homotopic}, written $f\sim g$.
+\end{definition}
+
+Algebraic topology most of the time considers functions \emph{up to homotopy}, and also ``spaces up to homotopy''.
+
+\begin{definition}
+A continuous function $f\colon X\to Y$ is called a \emph{homotopy equivalence} if there is a continuous function $g\colon Y\to X$ such that $g\circ f\sim \id_X$ and $f\circ g\sim \id_Y$. We then say $X$ and $Y$ are \emph{homotopy equivalent}.
+\end{definition}
+
+\begin{example}
+A contractible space is homotopy equivalent to a one-point space.
+\end{example}
+
+You should think of homotopy equivalences as being `kinda like isomorphism', but coarser.
+Going back to our original motivation, the assignment
+\[
+	\{\text{`Spaces'}\} \longrightarrow \{\text{Algebraic objects}\}
+\]
+should take homotopy equivalent spaces to isomorphic algebraic objects. 
+To make this more rigorous we will use the language of category theory.
+
+
+\lecturenum{3}
+%
+Here is a super-important property of homotopies.
+
+\begin{prop}
+Homotopy between maps is an equivalence relation.
+\end{prop}
+
+\begin{proof}
+sorry.
+\end{proof}
+
+Here is a supply of many homotopies.
+
+\begin{lemma}
+Every continuous function $f\colon X\to Y$, with $Y$ a contractible space (say to $y_0in Y$), is homotopic to a function with range contained in $\{y_0\}$.
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+As a corollary, every pair of functions to a contractible space are homotopic.
+Since contractible spaces are in some sense trivial, maps to them are in the same sense trivial.
+
+NEED: distributivity (prove in assignment 1)
+
+We have been discussing topological spaces and continuous maps, but also implicitly sets and functions, not necessarily continuous, and passing between these two pictures.
+In both cases we have composition that is associative, and identity maps.
+
+\begin{definition}
+A \emph{category} $\cC$ consists of a collection of \emph{objects} $W,X,Y,Z,\ldots$ and for each pair of objects $X,Y$ a collection of \emph{morphisms}, denoted $\cC(X,Y)$, together with the following data:
+\begin{enumerate}[i)]
+	
+	\item For each pair $f\in \cC(X,Y)$ and $g\in \cC(Y,Z)$, a specified morphism $g\circ f\in \cC(X,Z)$,
+
+	\item For every object a specified morphism $\id_X\in\cC(X,X)$,
+
+\end{enumerate}
+\noindent
+such that:
+\begin{enumerate}
+
+	\item For every triple $h\in \cC(W,X)$, $f\in \cC(X,Y)$ and $g\in \cC(Y,Z)$ we have $g\circ(f\circ h) = (g\circ f)\circ h$,
+
+	\item For every object $X$ and $h\in \cC(W,X)$, $f\in \cC(X,Y)$ we have $\id_X\circ h = h$ and $f\circ \id_X = f$.
+
+\end{enumerate}
+For $f\in \cC(X,Y)$ we say $X$ is the \emph{source} of $f$, $Y$ is the \emph{target} of $f$, and write $X=s(f)$, $Y=t(f)$.
+We also write $f\colon X\to Y$ or $X\xrightarrow{f} Y$ to indicate that $f\in \cC(X,Y)$.
+\end{definition}
+
+Many examples of categories have objects sets carrying extra structure (for instance a topology) and morphisms that are functions compatible with that structure---but not all categories.
+We have seen $\Top$, the category of topological spaces (and continuous maps) and $\Set$, the category of sets (and functions), and you implicitly already know\marginnote{%
+Vector spaces, (abelian) groups, manifolds, rings, \ldots}
+ many other examples.
+The whole point of categories is how they relate to each other, an isolated category can only tell us so much.
+
+\begin{definition}
+Given categories $\cC$ and $\cD$, a \emph{functor} from $\cC$ to $\cD$, denoted $F\colon \cC\to \cD$ consists of the data:
+
+\begin{enumerate}[i)]
+
+	\item For every object $X$ of $\cD$, a specified object $F(X)$ of $\cD$,
+
+	\item For every morphism $f\colon X\to Y$ of $\cC$, a specified morphism $F(f)\colon F(X) \to F(Y)$ of $\cD$
+
+\end{enumerate}
+\noindent
+such that for every pair $f\colon X\to Y$ and $g\colon Y\to Z$ of morphisms of $\cC$, $F(g\circ f) = F(g)\circ F(f)$. This latter property is called `functoriality'.
+
+\end{definition}
+
+We have already see at least four examples of functors:
+\begin{itemize}
+
+	\item The underlying set functor $U\colon \Top \to \Set$
+	\item The discrete topology functor $\Set \to \Top$
+	\item The indiscrete topology functor $\Set \to \Top$
+	\item The set of connected components functor $\pi_0\colon \Top \to \Set$
+
+\end{itemize}
+
+\noindent
+although we haven't yet seen why $\pi_0$ is a functor.
+
+\begin{prop}
+The assignment $X\mapsto \pi_0(X)$ is a functor $\Top \to \Set$.
+\end{prop}
+
+\begin{proof}
+We need to show there is an assignment $(f\colon X\to Y)\mapsto (\pi_0(f)\colon \pi_0(X) \to \pi_0(Y))$, for an arbitrary continuous function $f$.
+We already know we have a map $X\to Y \to \pi_0(Y)$, and we want to show this \emph{descends} along $X\to \pi_0(X)$. Given any $\alpha \in \pi_0(X)$, it corresponds to a connected component of $X$, namely $X_\alpha$. Look at the restriction of $X\to Y\to\pi_0(Y)$ to $X_\alpha$: since $X_\alpha$ is connected, its image is exactly one point in $\pi_0(Y)$. So define $\pi_0(f)(\alpha)=f(x)$ for an arbitrary $x\in X_\alpha$.
+This defines $\pi_0(f)$. Moreover, the following diagram \emph{commutes}:
+\[
+	\xymatrix{
+		X\ar[r]^f \ar[d] & Y \ar[d]\\
+		\pi_0(X) \ar[r]_{\pi_0(f)} & \pi_0(Y) 
+	}
+\]
+
+Now we want to show that $\pi_0(g\circ f) = \pi_0(g)\circ \pi_0(f)$.
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+\end{document}
