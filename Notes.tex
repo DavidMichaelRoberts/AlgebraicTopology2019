@@ -37,9 +37,11 @@
 \def\cN {\mathcal{N}}
 
 \def\op {\mathrm{op}}
+\def\pt {\mathrm{pt}}
 
 \def\Set {\mathbf{Set}}
 \def\Top {\mathbf{Top}}
+\def\Ho {\mathbf{Ho}}
 
 
 \def\RR{\mathbb{R}} \def\NN{\mathbb{N}}
@@ -58,7 +60,8 @@
 \newtheorem{lemma}{Lemma} 
 \newtheorem{definition}{Definition} 
 \newtheorem{example}{Example} 
-\newtheorem{exercise}{Exercise} 
+\newtheorem{ex}{Exercise}
+% \newtheorem{exercise}{Exercise} 
 \newtheorem{theorem}{Theorem} 
 \newtheorem{corollary}{Corollary} 
 \newtheorem{q}{Question} 
@@ -229,7 +232,7 @@ Given a metric space $(X,d)$ the open balls form a nhd base on $X$ and the
 topology they generate is the metric topology. 
 \end{example}
 
-So many definitions you are familiar with from metric spaces work for topological spaces, if 
+Hence many definitions you are familiar with from metric spaces work for topological spaces, if 
 they can be phrased in terms of basic nhds. In particular, continuity!
 
 \begin{definition} 
@@ -240,12 +243,12 @@ $N\in \cN_Y(f(x))$, the set $f^{-1}(N)$ contains a basic nhd of $x$.
 
 This is a big generalisation of the $\varepsilon$-$\delta$ definition of continuity.
 
-\begin{exercise} 
+\begin{ex} 
 Show\marginnote{Recall a function is continuous for topologies if 
 $f^{-1}(U)$ is open for all open $U$.} that if $f\colon (X,\cN_X)\to (Y,\cN_Y)$ is 
 continuous as just defined, it is continuous for the topologies generated on $X$ and $Y$ by 
 these nhd bases. 
-\end{exercise}
+\end{ex}
 
 As a sanity check,\marginnote{You can check every function \emph{to} an indiscrete space is continuous, as is every function \emph{on} a discrete space} the identity function $\id_X$ on a space $X$ is indeed continuous.
 
@@ -292,9 +295,6 @@ $Z_\beta$.
 Giving $X$ the final topology, all the functions $g_\beta\colon Z_\beta\to X$ 
 are continuous. Moreover a function $h\colon X\to W$ is continuous for the final topology on 
 $X$ iff $h\circ g_\beta\colon Z_\beta\to W$ is continous for every $\beta\in J$. 
-
-EXPAND THIS TO REALLY EXPLORE THE GLUING LEMMA. EG OPEN COVERS, COVERS BY CLOSED SETS. EXAMPLE OF INTERVAL OR SQUARES OR INTERVAL TIMES SPACE.
-
 \end{lemma}
 
 We will give two special cases of this, and we will see them often.
@@ -314,16 +314,17 @@ topology it carries as a manifold. Incidentally, $S^2$ is an example of a \emph{
 space} of $\mathbb{RP}^2$, the study of which will occupy the first section of the course.
 
 
-
 Recall \lecturenum{2} the definition of disjoint union of sets: given $Z_\beta$, 
  $\beta\in J$, a family of sets, we have $\mathrm{in}_\gamma \colon Z_\gamma \into 
  \bigsqcup_{\beta} Z_\beta$ with $Z_\beta \cap Z_\gamma = \emptyset$ for $\beta\neq \gamma$. 
  If $Z_\beta$ are spaces, then we give $\bigsqcup_{\beta} Z_\beta$ the final topology for 
- the maps $\mathrm{in}_\gamma$. This is \emph{disjoint union} or \emph{sum} topology, and 
+ the maps $\mathrm{in}_\gamma$. This is \emph{disjoint union} or \emph{sum} topology,\marginnote{%
+an important fact is that the map $ \bigsqcup_\beta X\times Z_\beta \to X\times \bigsqcup_\beta Z_\beta$ 
+is a homeomorphism (exercise!)} and 
  $\bigsqcup_{\beta} Z_\beta$ is called the \emph{topological sum}. A point in $ 
  \bigsqcup_{\beta} Z_\beta$ can be described by a pair $(\beta,z)$, where $z \in Z_\beta$.
 
-\begin{fact} 
+\begin{ex} 
 Given functions $h_\beta\colon Z_\beta \to W$, there is a unique function $h = 
 \langle h_\beta \rangle \colon \bigsqcup_\beta Z_\beta\to W$ with $h_\beta = h\circ 
 \mathrm{in}_\beta$, or in other words this diagram commutes: 
@@ -333,7 +334,7 @@ Given functions $h_\beta\colon Z_\beta \to W$, there is a unique function $h =
 		Z_\beta \ar[d]^h \\ & W
 	}
 \] 
-\end{fact}
+\end{ex}
 
 \begin{lemma} 
 The final topology on $X$ for $g_\beta\colon Z_\beta \to X$ agrees with the 
@@ -357,7 +358,26 @@ with $(\beta_1,z_1)\sim (\beta_2,z_2)$ iff $g_{\beta_1}(z_1) = g_{\beta_2}(z_2)\
 set, $X$ is the set of equivalence classes under this relation, so you can think of it as 
 gluing together the underlying sets of the spaces $Z_\beta$. The final topology on $X$ is 
 then the only sensible topology to described the space we get by gluing together the 
-\emph{spaces} $Z_\beta$. Leter we'll see spaces that are built uop by gluing together lots 
+\emph{spaces} $Z_\beta$. 
+
+\begin{ex}
+
+	Given an open cover $\{U_\alpha\}$ of a space $X$, then $X$ carries the final topology for 
+	the inclusion maps $U_\alpha \into X$, or equivalently for the map $\bigsqcup_\alpha U_\alpha\to X$.
+
+\end{ex}
+
+\begin{ex}\label{ex:closed_cover_gluing_lemma}
+
+	Given a \emph{finite} closed cover $\{V_i\}_{i=1}^n$ of $X$, then $X$ carries the final 
+	topology for $\bigsqcup_{i=1}^n V_i \to X$.
+
+\end{ex}
+
+
+
+
+Later we'll see spaces that are built uop by gluing together lots 
 of `simple' spaces, like disks $D^n := \{x\in \RR^n\mod |x|\leq 1\}$ (with the subspace 
 topology from $\RR^n$). But what does `simple' here mean? Roughly, ``shrinkable to a 
 point''.
@@ -374,19 +394,19 @@ The function $H$ is continuous!
 How should we see this? 
 The topology on $D^n$ is the subspace topology $D^n \subset \RR^n$,\marginnote{And $I\subset \RR$ has subspace topology}  and $\RR^n$ has the product topology. 
 It is not too difficult to see (Exercise!) that the topology on $D^n$ is the final topology for the coordinate functions $x_i\colon D^n \to \RR^n \to \RR$. 
-So $H\colon I\times D^n \to D^n$ is continuous iff [[FIX LINE SPACING]]
+So $H\colon I\times D^n \to D^n$ is continuous iff
 \[
-	\xymatrix{
+	\xymatrix@R=0.5pc{
 	I\times D^n \ar[r]^{\id\times x_i} & I\times \RR \ar[r]& \RR\times\RR \ar[r]& \RR\\
 	(t,\mathbf{x}) \ar@{|->}[rr] && (t,x_i) \ar@{|->}[r] & tx_i 
 	}
 \]
-But $I\times D^n \to \RR \times \RR$ is continuous by definition of final topology, and the following fact:
+But $I\times D^n \to \RR \times \RR$ is continuous by definition of final topology, and the following result:
 
-\begin{fact}
+\begin{ex}
 	If $f\colon X\to W$ and $g\colon X\to Z$ are continuous, then so is $f\times g\colon X\times Y\to W\times Z$. 
 	If both $X$ and $Y$ have at least one point each, then the reverse implication also holds.
-\end{fact}
+\end{ex}
 
 So if we can prove that multiplication $\RR\times \RR \to \RR$ is continuous, then $H$ is continuous.
 But the standard topology on $\RR$ comes from the metric space structure, so can use sequential criterion for continuity.
@@ -406,9 +426,9 @@ Such a function is called a \emph{contraction}.
 
 We have shown $D^n$ is contractible.
 
-\begin{example}
+\begin{ex}
 $\RR$ is contractible. A finite product of contractible spaces is contractible.
-\end{example}
+\end{ex}
 
 \begin{example}
 Consider what it would mean if a discrete space $S$ were contractible: there would be an element $*\in S$ and a continuous function $h\colon I\times S \to S$ such that $h(0,s) = s$ and $h(1,s) = *$. 
@@ -422,7 +442,7 @@ Thus $S$ has exactly one element.
 The interval can only map continuously to a discrete space if it is constant at some element, or equivalently, its image consists of a single point, and this property is important enough to have a name.
 
 \begin{definition}
-A space $X$ is \emph{connected} if the only continuous maps to a discrete space have image a single point.\marginnote{If you know the `usual' definition, this is equivalent to it} 
+A space $X$ is \emph{connected}\marginnote{If you know the `usual' definition, this is equivalent to it} if every continuous map to a discrete space has image a single point.
 \end{definition}
 
 This is our first example of an invariant of spaces,\marginnote{%
@@ -449,7 +469,7 @@ Every space can be written as $X = \bigsqcup_{\alpha\in\pi_0(X)} X_\alpha$, with
 
 As a result, we need to try to understand \emph{connected} spaces, though we will still \emph{use} non-connected spaces.
 
-Can we get more out of the idea of contractions? Given $H\colon I\times X\to X$, we have maps $_i$ for $i=0,1$, namely $H_0 = \id_X$ and $H_1$ is constant at $x_0$. 
+Can we get more out of the idea of contractions? Given $H\colon I\times X\to X$, we have maps $H_i$ for $i=0,1$, namely $H_0 = \id_X$ and $H_1$ is constant at $x_0$. 
 What if $H_0$ and $H_1$ were other sorts of continuous maps?
 \medskip
 
@@ -484,33 +504,49 @@ To make this more rigorous we will use the language of category theory.
 
 \lecturenum{3}
 %
-Here is a super-important property of homotopies.
+Here is a super-important property of homotopies we will use continuously.
 
 \begin{prop}
-Homotopy between maps is an equivalence relation.
+Given homotopies $H\colon I \times X \to Y$ and $H'\colon I \times X \to Y$ such that $H_1 = H'_0\colon X\to Y$, there is a homotopy $H''$ from $H_0$ to $H_1$, and a homotopy $\widetilde{H}$ from $H_1$ to $H_0$.
 \end{prop}
 
 \begin{proof}
-sorry.
+We will use Exercise~\ref{ex:closed_cover_gluing_lemma} applied to the closed cover $\{[0,\frac12]\times X, [\frac12,1]\times X\}$ of $I\times X$. 
+Since $I \simeq [0,\frac12]$ and $I\simeq [\frac12,1]$, $H$ and $H'$ give us maps $[0,\frac12]\times X \simeq I\times X\xrightarrow{H} Y$ and $[0,\frac12]\times X \simeq I\times X\xrightarrow{H'} Y$ respectively. By the assumption on $H_1$ and $H'_0$, we get a well-defined function $H''\colon I\times X\to Y$, which is then continuous by the Exercise. It is a simple check to see it is a homotopy from $H_0$ to $H'_1$. \\
+For the second part, let $c\colon I\to I$ be the function $c(t) = 1-t$. Then define $H''$ to be the composite $I\times X \xrightarrow{c\times \id_X} I \times X \xrightarrow{H}Y$, which has the required properties.
 \end{proof}
 
-Here is a supply of many homotopies.
+Contractible spaces supply many homotopies.
 
 \begin{lemma}
-Every continuous function $f\colon X\to Y$, with $Y$ a contractible space (say to $y_0in Y$), is homotopic to a function with range contained in $\{y_0\}$.
+Every continuous function $f\colon X\to Y$, with $Y$ a contractible space (say to $y_0\in Y$), is homotopic to a function with range contained in $\{y_0\}$.
 \end{lemma}
 
 \begin{proof}
-
+Let $H\colon I\times Y \to Y$ be a homotopy witnessing the contractility of $Y$. Then the composite $I\times X \xrightarrow{\id_I \times f} I\times Y \xrightarrow{H} Y$ is a homotopy from $f$ to the the desired function.
 \end{proof}
 
 As a corollary, every pair of functions to a contractible space are homotopic.
 Since contractible spaces are in some sense trivial, maps to them are in the same sense trivial.
 
-NEED: distributivity (prove in assignment 1)
+An important intermediate version of this is when we consider only the case where $X$ is discrete, or is even just $\pt$:
+
+\begin{definition}
+A space $Y$ is \emph{path-connected}\marginnote{This condition is equivalent to requiring it for all discrete spaces in place of $\pt$} if every map $\pt \to Y$ is homotopic to every other such map.
+\end{definition}
+
+Unpacking this, we see this means that for any two points $\pt \to Y$ there is a path $I\to Y$ connecting them.
+
+\begin{prop}
+A path-connected space is connected
+\end{prop}
+
+
+
 
 We have been discussing topological spaces and continuous maps, but also implicitly sets and functions, not necessarily continuous, and passing between these two pictures.
 In both cases we have composition that is associative, and identity maps.
+Later we shall be using different classes of topological spaces in order to ensure the behaviour we require will hold.
 
 \begin{definition}
 A \emph{category} $\cC$ consists of a collection of \emph{objects} $W,X,Y,Z,\ldots$ and for each pair of objects $X,Y$ a collection of \emph{morphisms}, denoted $\cC(X,Y)$, together with the following data:
@@ -532,6 +568,7 @@ such that:
 \end{enumerate}
 For $f\in \cC(X,Y)$ we say $X$ is the \emph{source} of $f$, $Y$ is the \emph{target} of $f$, and write $X=s(f)$, $Y=t(f)$.
 We also write $f\colon X\to Y$ or $X\xrightarrow{f} Y$ to indicate that $f\in \cC(X,Y)$.
+If $\cC(X,Y)$ is a set\marginnote{Most categories you will encounter are locally small} for all $X,Y$, then $\cC$ is called \emph{locally small}, and each $\cC(X,Y)$ is called a \emph{hom-set}.
 \end{definition}
 
 Many examples of categories have objects sets carrying extra structure (for instance a topology) and morphisms that are functions compatible with that structure---but not all categories.
@@ -551,22 +588,32 @@ Given categories $\cC$ and $\cD$, a \emph{functor} from $\cC$ to $\cD$, denoted 
 
 \end{enumerate}
 \noindent
-such that for every pair $f\colon X\to Y$ and $g\colon Y\to Z$ of morphisms of $\cC$, $F(g\circ f) = F(g)\circ F(f)$. This latter property is called `functoriality'.
-
+such that for every pair $f\colon X\to Y$ and $g\colon Y\to Z$ of morphisms of $\cC$, $F(g\circ f) = F(g)\circ F(f)$. This latter property is called `functoriality'. For locally small categories, the assignment on morphisms gives a function $\cC(X,Y) \to \cD(F(X),F(Y))$.\marginnote{We will use this notation even without making that assumption}
 \end{definition}
 
 We have already see at least four examples of functors:
 \begin{itemize}
 
 	\item The underlying set functor $U\colon \Top \to \Set$
-	\item The discrete topology functor $\Set \to \Top$
+	\item The discrete topology functor $\mathrm{disc}\colon \Set \to \Top$
 	\item The indiscrete topology functor $\Set \to \Top$
 	\item The set of connected components functor $\pi_0\colon \Top \to \Set$
 
 \end{itemize}
 
 \noindent
-although we haven't yet seen why $\pi_0$ is a functor.
+although we haven't yet seen why $\pi_0$ is a functor. First, a trivial example (aside from the identity functor)
+
+
+Let $\cC$ be a category, and $\cD$ a \emph{subcategory}: a collection of some of the objects of $\cC$ and some of the morphisms of $\cC$ that form a category by themselves. Then the inclusion of the objects and the morphisms forms a functor $\cD\into \cC$, the \emph{subcategory inclusion}.
+An important special case of this is when for every $X$ and $Y$ that are objects of $\cD$, every $\cD(X,Y) = \cC(X,Y)$; then $\cD$ is call a \emph{full} subcategory.
+More generally we can consider a functor that is injective on objects and morphisms to define a subcategory.
+
+\begin{example}
+The\marginnote{we have used and will use this result without comment} functor $\mathrm{disc}\colon \Set \to \Top$ makes $\Set$ a full subcategory of $\Top$.
+\end{example}
+
+We will be later restricting attention to certain full subcategories of $\Top$.
 
 \begin{prop}
 The assignment $X\mapsto \pi_0(X)$ is a functor $\Top \to \Set$.
@@ -574,7 +621,7 @@ The assignment $X\mapsto \pi_0(X)$ is a functor $\Top \to \Set$.
 
 \begin{proof}
 We need to show there is an assignment $(f\colon X\to Y)\mapsto (\pi_0(f)\colon \pi_0(X) \to \pi_0(Y))$, for an arbitrary continuous function $f$.
-We already know we have a map $X\to Y \to \pi_0(Y)$, and we want to show this \emph{descends} along $X\to \pi_0(X)$. Given any $\alpha \in \pi_0(X)$, it corresponds to a connected component of $X$, namely $X_\alpha$. Look at the restriction of $X\to Y\to\pi_0(Y)$ to $X_\alpha$: since $X_\alpha$ is connected, its image is exactly one point in $\pi_0(Y)$. So define $\pi_0(f)(\alpha)=f(x)$ for an arbitrary $x\in X_\alpha$.
+We already know we have a function $X\to Y \to \pi_0(Y)$, and we want to show this \emph{descends} along $X\to \pi_0(X)$. Given any $\alpha \in \pi_0(X)$, it corresponds to a connected component of $X$, namely $X_\alpha$. Look at the restriction of $X\to Y\to\pi_0(Y)$ to $X_\alpha$: since $X_\alpha$ is connected, its image is exactly one point in $\pi_0(Y)$. So define $\pi_0(f)(\alpha)=[f(x)]$ for an arbitrary $x\in X_\alpha$.
 This defines $\pi_0(f)$. Moreover, the following diagram \emph{commutes}:
 \[
 	\xymatrix{
@@ -583,15 +630,30 @@ This defines $\pi_0(f)$. Moreover, the following diagram \emph{commutes}:
 	}
 \]
 
-Now we want to show that $\pi_0(g\circ f) = \pi_0(g)\circ \pi_0(f)$.
-
-
+Now we want to show that $\pi_0(g\circ f) = \pi_0(g)\circ \pi_0(f)$. Given $\alpha \in \pi_0(X)$, and $x\in X_\alpha$, then $\pi_0(f)(\alpha) = [f(x)]$. 
+To define $\pi_0(g)\left(\pi_0(f)(\alpha)\right)$, we need to choose a point in the component $Y_{[f(x)]}$, so take it to be $f(x)$.
+Then $\pi_0(g)\left(\pi_0(f)(\alpha)\right) = [g(f(x))]$, but this is just  $\pi_0(g\circ f)(\alpha)$.
 \end{proof}
 
+Another important example of a category is the \emph{homotopy category} $\Ho$. \marginnote{exercise: prove this is a category} 
+The objects are topoloical spaces, 
+but $\Ho(X,Y) = \Top(X,Y)/\sim$ where $f\sim g$ iff $f$ is homotopic to $g$.
+There is a functor $\Top \to \Ho$, which is the identy on objects, and sends a map to its homotopy class.
+Objects are isomorphic in $\Ho$ iff they are homotopy equivalent.
 
+\begin{prop}
+The functor $\pi_0$ descends to a functor $\Ho \to \Set$
+\end{prop}
 
+\begin{proof}
+We will prove that this is well-defined on morphism on hom-sets, the rest is routine. 
+For $f,g\colon X\to Y$ be homotopic via $H\colon I\times X\to Y$, we need to show that for all $\alpha \in \pi_0(X)$, $\pi_0(f)(\alpha) = \pi_0(g)(\alpha)$. 
+Take $x$ in the connected component $X_\alpha$, then we have a map $I \to I \times X \xrightarrow{H} Y \to \pi_0(Y)$ sending $0\mapsto \pi_0(f)(\alpha)$ and $1\mapsto \pi_0(g)(\alpha)$. But $I$ is connected, so $\pi_0(f)(\alpha)=\pi_0(g)(\alpha)$.
+\end{proof}
 
+As a result, if $\pi_0(X) \not\simeq \pi_0(Y)$, the spaces $X$ and $Y$ cannot be homotopy equivalent.
 
+\lecturenum{4}
 
 
 
