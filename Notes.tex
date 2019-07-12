@@ -49,6 +49,7 @@
 
 \newcommand{\lecturenum}[1]{\marginnote{\color{red}Lecture #1}}
 
+\DeclareMathOperator{\disc}{disc}
 \DeclareMathOperator*{\colim}{colim} 
 \DeclareMathOperator{\Sh}{Sh} 
 \DeclareMathOperator{\id}{id} 
@@ -57,6 +58,9 @@
 \DeclareMathOperator{\Cont}{Cont}
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\Lift}{Lift}
+
 
 \theoremstyle{definition} 
 \newtheorem{prop}{Proposition} 
@@ -246,7 +250,7 @@ Hence many definitions you are familiar with from metric spaces work for topolog
 they can be phrased in terms of basic nhds. In particular, continuity!
 
 \begin{definition} 
-Let $\cN_X$ and $\cN_Y$ be neibourhood bases on sets $X$ and $Y$ 
+Let $\cN_X$ and $\cN_Y$ be neighbourhood bases on sets $X$ and $Y$ 
 respectively. A function $f\colon X\to Y$ is \emph{continuous} if for every $x\in X$ and 
 $N\in \cN_Y(f(x))$, the set $f^{-1}(N)$ contains a basic nhd of $x$. 
 \end{definition}
@@ -679,8 +683,8 @@ $[X,-]\colon \Top\to \Set$!}
 \end{ex}
 
 Another important example of a category is the \emph{homotopy category} $\Ho$. \marginnote{exercise: prove this is a category} 
-The objects are topoloical spaces, but $\Ho(X,Y) = [X,Y]$.
-There is a functor $\Top \to \Ho$, which is the identy on objects, and sends a map to its homotopy class.
+The objects are topological spaces, but $\Ho(X,Y) = [X,Y]$.
+There is a functor $\Top \to \Ho$, which is the identity on objects, and sends a map to its homotopy class.
 Objects are isomorphic in $\Ho$ iff they are homotopy equivalent.
 
 \begin{prop}
@@ -689,7 +693,7 @@ The functor $\pi_0$ descends to a functor $\Ho \to \Set$
 
 \begin{proof}
 We will prove that this is well-defined on morphism on hom-sets, the rest is routine. 
-For $f,g\colon X\to Y$ be homotopic via $H\colon I\times X\to Y$, we need to show that for all $\alpha \in \pi_0(X)$, $\pi_0(f)(\alpha) = \pi_0(g)(\alpha)$. 
+For $f,g\colon X\to Y$ to be homotopic via $H\colon I\times X\to Y$, we need to show that for all $\alpha \in \pi_0(X)$, $\pi_0(f)(\alpha) = \pi_0(g)(\alpha)$. 
 Take $x$ in the connected component $X_\alpha$, then we have a map $I \to I \times X \xrightarrow{H} Y \to \pi_0(Y)$ sending $0\mapsto \pi_0(f)(\alpha)$ and $1\mapsto \pi_0(g)(\alpha)$. But $I$ is connected, so $\pi_0(f)(\alpha)=\pi_0(g)(\alpha)$.
 \end{proof}
 
@@ -956,7 +960,7 @@ The fibre $(f^*Z)_y$ is canonically isomorphic to $Z_{f(y)}$.
 \end{corollary}
 
 Now given a path $\gamma\colon I \to X$ and a covering space $Z\xrightarrow{\pi}X$, we can 
-pull back $Z$ tp get a covering space $\gamma^*Z \to I$.
+pull back $Z$ to get a covering space $\gamma^*Z \to I$.
 So let us try to understand covering spaces of $I$. 
 Certainly for discrete $S$, the projection $S\times I \to I$ is a covering space.
 
@@ -972,7 +976,7 @@ We first need a little helper lemma
 A covering space of a compact space $X$ trivialises over a \emph{finite} cover of $X$ by nhds.
 \end{lemma}
 
-\begin{proof}(of Proposition~\ref{prop:covering_sp_of_interval_triv}
+\begin{proof}(of Proposition~\ref{prop:covering_sp_of_interval_triv})
 We use the lemma to trivialise $Z\to I$ over a finite cover of $I$, 
 which we can take to be by intervals $[0,t_1]$, $[s_2,t_2]$, \ldots, $[s_N,1]$ 
 for $s_1=0<s_2<t_1<s_3<t_2<\cdots<s_N <t_{N-1} <1=t_N$.
@@ -1092,8 +1096,100 @@ is always onto. There are a huge number of paths, and reparameterisations cuts t
 But we shall go even better, and put a topology on the space of paths.
 
 
-The fibres\lecturenum{6} $Z_x$ are discrete spaces, but the set $\Top(I,X)$ of paths $I\to X$ carries a topology when $X$ is a metric space; we can consider $C(I,X)$ with the sup metric.
+The fibres\lecturenum{6} $Z_x$ are discrete spaces, but the set $\Top(I,X)$ of paths $I\to X$ carries a topology when $X$ is a metric space; we can consider $C(I,X)$ with the sup metric $d_\infty$.
 The aim is to give $\Top(I,X)$ a topology for \emph{any} space, not necessarily metric.
 
+\begin{lemma}\label{lemma:compact_open_base}
+Let $X$ be a topological space, $\gamma\in \Top(I,X)$ a path, 
+$0=t_0 < t_1 < \ldots < t_N < t_{N+1} = 1$ a partition of $[0,1]$, and $U_0, \ldots, U_N \subseteq X$ 
+a collection of open sets such that $\gamma([t_i,t_{i+1}])\subseteq U_i$.
+Define the subsets
+\[
+	N_\gamma(t_1<\ldots<t_N;U_0,\ldots,U_n) :=\{\eta\colon I\to X\mid\forall i=0,\ldots N,\ 
+		\eta([t_i,t_{i+1}]) \subseteq U_i\} \subseteq \Top(I,X)
+\]
+Then these sets give a neighbourhood base on $\Top(I,X)$
+\end{lemma}
 
+\begin{definition}
+The \emph{path space} $X^I$ is the set $\Top(I,X)$ equipped with the topology defined by
+Lemma~\ref{lemma:compact_open_base}, which we call the \emph{compact-open topology}.
+\end{definition}
+
+When $X$ is a metric space, then the compact-open topology and the topology arising from the 
+sup metric coincide. A key property of the compact-open topology is that homotopies $H\colon 
+I\times I \to X$ give continuous paths $h\colon I \to X^I$ (defined by $h_t\colon s\mapsto H(t,s)$) and vice-versa. Moreover:
+
+\begin{lemma}
+The evaluation map $\ev\colon X^I \times I\to X$, $\ev(\gamma,x) = \gamma(x)$ is continuous.
+\end{lemma}
+
+Then given $t\in I$, the composite map $\ev_t\colon X^I \simeq X^I\times\{t\} \into X^I \times I \xrightarrow{\ev} X$ is continuous.
+Usually we care just about the cases $t=0,1$. 
+We can then look at various subspaces of $X^I$, for a given $x\in X$:
+\begin{align*}
+P_xX & := \{\gamma \in X^I\mid \gamma(0)=x\} = \ev_0^{-1}(x)\\
+P_x^yX & := \{\gamma \in X^I\mid \gamma(0)=x,\ \gamma(1)=y\} = \ev_0^{-1}(x)\cap \ev_1^{-1}(y)\\
+\Omega_x X & := P_x^x X = \{\gamma \in X^I \mid \gamma(0) = x = \gamma(1)\}
+\end{align*}
+In particular, we have already seen the last two, albeit without their topologies. We also see that path 
+components of these spaces have something to do with homotopy classes of paths, perhaps with
+constraints on endpoints.
+
+A key property of the natural transformation $\id \Rightarrow \disc\pi_0\colon \lpcTop\to\lpcTop$
+is that it has a universal property: given a discrete space $S$, an lpc space $X$ and a continuous
+map $X\xrightarrow{f} S$, there is a \emph{unique} $\pi_0(X)\to S$ such that
+\[
+\xymatrix{
+X \ar[r] \ar[d] & S\\
+\pi_0(X) \ar[ur]
+}
+\]
+commutes. Hence if we take our function 
+\begin{equation}\label{eq:path_space_action_fibres}
+P_x^y\times Z_x \to Z_y
+\end{equation}
+from the previous lecture, 
+arising from a covering space $Z\to X$, and if we can show it is continuous, we would get a 
+factorisation
+\[
+P_x^y\times Z_x\to \pi_0(P_x^y\times Z_x) \simeq \pi_0(P_x^y)\times Z_x \to Z_y
+\]
+where the unmarked isomorphism exist due to $Z_x$ being discrete.
+If $Z$ is path connected, a fixing some $z\in Z_x$, we get a surjective map $\pi_0(P_x^y)\to Z_y$,
+which further constrains both the topology of the space of paths, and the possible fibres of 
+$Z\to X$. However, there are two issues:
+\begin{enumerate}[(1)]
+\item We yet don't know our path lifting function is continuous
+\item We don't know if $P_x^y$ is lpc, hence if path components and components agree.
+\end{enumerate}
+
+To address (1), the unique path lifting property from last lecture will be promoted to a
+\marginnote{$X^I \times_X Z = \{(\gamma,z)\mid \gamma(0) = \pi(z)\}$} 
+\emph{continuous function} $\Lift\colon X^I\times_X Z \to Z^I$. Combined with $Z^I \xrightarrow{\ev} Z$
+we will be able to reconstruct (\ref{eq:path_space_action_fibres}) as
+\[
+P_x^y \times Z_x \into X^I \times_X Z \xrightarrow{\Lift} Z^I \xrightarrow{\ev_1} Z
+\]
+factors through $Z_y \subset Z$. We already have the definition of $\Lift$, but we need to show 
+continuity.
+
+\begin{theorem}
+The function $\Lift\colon X^I\times_X Z \to Z$ is continuous.
+\end{theorem}
+
+\begin{proof}
+We need to set up the ingredients, so take $\gamma \in X^I$, 
+define $x=\gamma(0)$, $y=\gamma(1)$, and take $z\in Z_x$.
+Let $\widetilde{\gamma} = \Lift(\gamma,z)$, and $z'=\widetilde{\gamma}(1)\in Z_y$.
+Take a basic nhd $N_{\widetilde{\gamma}} = N_{\widetilde{\gamma}}(t_1 < \cdots<t_n;U_0,\ldots, U_n)$.
+We want to construct a basic nhd
+\[
+M(\gamma,z) := \left(N_\gamma(s_1<\cdots<s_m;V_0,\ldots, V_m)\times W \right) \cap X^I \times_X Z
+\]
+of $(\gamma,z)$ such that $M(\gamma,z) \subseteq \Lift^{-1}(N_{\widetilde{\gamma}})$.
+
+[\ldots]
+
+\end{proof}
 \end{document}
