@@ -43,7 +43,7 @@
 \def\Top {\mathbf{Top}}
 \def\Ho {\mathbf{Ho}}
 \def\lpcTop {\mathbf{lpcTop}}
-
+\def\Cov {\mathbf{Cov}}
 
 \def\RR{\mathbb{R}} \def\NN{\mathbb{N}}
 
@@ -56,6 +56,7 @@
 \DeclareMathOperator{\Aut}{Aut} 
 \DeclareMathOperator{\Cont}{Cont}
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\pr}{pr}
 
 \theoremstyle{definition} 
 \newtheorem{prop}{Proposition} 
@@ -564,9 +565,9 @@ A path-connected space is connected
 
 Let us define $[X,Y] = \{\text{continuous }f\colon X\to Y\}/\text{homotopy}$. 
 The set of \emph{path components} of $Y$ is then the set $[\pt,Y]$. 
-If equipped with the final topology arising from the surjective function $Y\to [\pt,Y]$, we 
-denote the resulting topological space by $[\pt,Y]^{top}$.
-
+% If equipped with the final topology arising from the surjective function $Y\to [\pt,Y]$, we 
+% denote the resulting topological space by $[\pt,Y]^{top}$.
+The space $Y$ is called \emph{path connected} if $[\pt,Y]=*$.
 
 We have been discussing topological spaces and continuous maps, but also implicitly sets and functions, not necessarily continuous, and passing between these two pictures.
 In both cases we have composition that is associative, and identity maps.
@@ -692,7 +693,7 @@ For $f,g\colon X\to Y$ be homotopic via $H\colon I\times X\to Y$, we need to sho
 Take $x$ in the connected component $X_\alpha$, then we have a map $I \to I \times X \xrightarrow{H} Y \to \pi_0(Y)$ sending $0\mapsto \pi_0(f)(\alpha)$ and $1\mapsto \pi_0(g)(\alpha)$. But $I$ is connected, so $\pi_0(f)(\alpha)=\pi_0(g)(\alpha)$.
 \end{proof}
 
-As a result, if $\pi_0(X) \not\simeq \pi_0(Y)$, the spaces $X$ and $Y$ cannot be homotopy equivalent.
+As a result, if $\pi_0(X) \not\simeq \pi_0(Y)$, the spaces $X$ and $Y$ cannot be homotopy equivalent, let alone homeomorphic.
 
 \begin{ex}
 Show the functor $[\pt,-]\colon \Top\to \Set$ descends to $\Ho\to\Set$.
@@ -776,7 +777,7 @@ isomorphisms.
 For example, there are natural transformations 
 $\mathrm{disc}\;U \Rightarrow \id\colon \Top \to \Top$, 
 with component at $X$ the identity map $\mathrm{disc}(U(X)) \to X$, and 
-$\id\Rightarrow \mathrm{disc}\;\pi_0(X)\colon \Top \to \Top$, with component $X\to \pi_0(X)$.
+$\id\Rightarrow \mathrm{disc}\;\pi_0\colon \Top \to \Top$, with component $X\to \pi_0(X)$.
 
 We seek conditions that will define a full subcategory of $\Top$ such that the components
 $[\pt,X] \to \pi_0(X)$ are isomorphisms for all spaces $X$ in the subcategory.
@@ -816,7 +817,10 @@ But $X$ is connected, and $\chi(x) = 1$, so that $\im\chi=\{1\}$, and so $C_x = 
 Thus $[\pt,X] \to \pi_0(X) = *$ is an isomorphism.
 \end{proof}
 
-So we will consider for the rest of this section of the course only lpc spaces, which form a full subcategory $\lpcTop \hookrightarrow \Top$.
+So we will consider for the rest of this section of the course only lpc spaces, which form a full 
+subcategory $\lpcTop \hookrightarrow \Top$.
+Note that discrete spaces are lpc, so $\Set \hookrightarrow \lpcTop$ is a subcategory.
+
 
 \begin{ex}
 Show that the product of lpc spaces is lpc, and that any locally convex topological vector space is lpc.
@@ -865,22 +869,231 @@ We would like fibres `close' to a given $p^{-1}(y)$ to `vary continuously'. For 
 But for discrete spaces, homotopy equivalence is isomorphism.
 
 \begin{definition}
-A \emph{covering space} $Z\xrightarrow{\pi} X$ of $X$ is a map such that for all $x\in X$ 
-there is a nhd $V_x \ni x$ such that $\pi^{-1}(V_x) \simeq V_x \times \pi^{-1}(x)$ over $V_x$ [[expand, maybe?]]
+A\marginnote{%
+\[
+\xymatrix{\pi^{-1}(V_x) \ar[r]^-\simeq \ar[d]_{\pi} & V_x \times \pi^{-1}(x)\ar[dl]^{\pr_1}\\V_x}
+\]
+}
+ \emph{covering space} $Z\xrightarrow{\pi} X$ of $X$ is a map such that for all $x\in X$ 
+there is a nhd $V_x \ni x$ such that $\pi^{-1}(V_x) \simeq V_x \times \pi^{-1}(x)$ over $V_x$. 
+We will also call $\pi$ a \emph{covering map}.
 \end{definition}
 
-Examples include: $\exp\colon \mathbb{C} \to \mathbb{C}^\times$, $S^2 \to \RR\mathbb{P}^2$, $U(1) \xrightarrow{(-)^n} U(1)$, covers of the join $\infty$ of two circles.
+For a covering space $Z\xrightarrow{\pi}X$ and $x\in X$, let $Z_x :=\pi^{-1}(x)$.
+We will also call $X$ the \emph{base space}.
 
-\begin{prop}
-For a covering space $Z\xrightarrow{\pi}X$, if $\exists x_0 \rightsquigarrow x_1$, then $\pi^{-1}(x_0) \simeq \pi^{-1}(x_1)$.
+Examples include: $\exp\colon \mathbb{C} \to \mathbb{C}^\times$, $S^2 \to \RR\mathbb{P}^2$, 
+$U(1) \xrightarrow{(-)^n} U(1)$, covers of the join $\infty$ of two circles.
+
+\begin{ex}
+Show that a covering map is a local homeomorphism.
+\end{ex}
+
+
+\begin{prop}\label{prop:iso_fibres_of_cov_sp}
+For a covering space $Z\xrightarrow{\pi}X$, if $\exists x_0 \rightsquigarrow x_1$, then $Z_{x_0} \simeq Z_{x_1}$.
 \end{prop}
 
 \begin{proof}
-(First proof) Take $\gamma \colon I \to X$, $\gamma(i) = x_i$, and an open cover $\{U_\alpha\}$ of $X$
-over which $Z$ trivialises. We thus get an open cover $\gamma^{-1}(U_\alpha)$ of $I$, which has a finite subcover $U_0,\ldots, U_N$, with $x_0 \in U_0$, $x_1 \in U_N$.
-We have isomorphisms $Z_{U_n} := \pi^{-1}(U_n) \xrightarrow{\phi_n} U_n \times F_n$ with discrete spaces $F_n$.
-We have $\pi^{-1}(x_0) \simeq F_0$, and for all $t\in \gamma^{-1}(U_0)$, $\pi^{-1}(\gamma(t)) \simeq F_0$.
+(First proof of Proposition~\ref{prop:iso_fibres_of_cov_sp}) Take $\gamma \colon I \to X$, $\gamma(i) = x_i$, and an open cover $\{U_\alpha\}$ of $X$
+over which $Z$ trivialises. We thus get an open cover $\gamma^{-1}(U_\alpha)$ of $I$, which has a finite subcover $U_0,\ldots, U_N$, with $x_0 \in U_0$, $x_1 \in U_N$. 
+The ordering is chosen\marginnote{we can shrink the cover slightly to make this ordering well-defined, if need be} so that the path enters $U_i$ before it enters $U_{i+1}$, and $U_i\cap U_{i+1}$ has at least one point of the path in it.
 
+We have isomorphisms $Z_{U_n} := \pi^{-1}(U_n) \xrightarrow{\phi_n} U_n \times F_n$ with discrete spaces $F_n$.
+We have $Z_{x_0} \simeq F_0$, and for all $t\in \gamma^{-1}(U_0)$, $Z_{\gamma(t)} \simeq F_0$.
+So for $\gamma(t) \in U_0\cap U_1$, we have $F_0 \simeq Z_{\gamma(t)} \simeq F_1$. 
+We can then prove by induction on $N$ that $F_0 \simeq F_1 \simeq \cdots \simeq F_N$.
 \end{proof}
+
+So for lpc $X$ and each $\alpha \in \pi_0(X)$, there is associated to $Z\xrightarrow{\pi}X$ 
+an isomorphism class of sets, the \emph{typical fibre} over all $x$ in the connected component 
+$X_\alpha\subseteq X$.
+
+\textbf{Note:} Fibres can be empty! But we usually don't think about this case too much. For 
+$X$ pointed (by $x\in X$), we can consider pointed covering spaces $(Z,x) \to (X,x)$.
+This is from one perspective just a choice of point $z\in Z_x$. For $X$ connected and lpc, 
+a pointed covering space has every fibre contain at least one point, namely the image of $z$ under
+$Z_x \simeq Z_{x'}$.
+
+We have categories $\Cov_X$ and $\Cov_{(X,x)}$ with objects covering spaces of $X$ 
+(resp.\ pointed covering spaces of $(X,x)$) and maps
+\[
+\xymatrix{Z_1 \ar[rr] \ar[dr] && Z_2\ar[dl]\\& X}
+\]
+and analogously in the pointed case. We will study these categories and see what they 
+tell us about the topology of $X$.
+
+For \lecturenum{5} lpc and connected $X$, the fact that for a covering space $Z$ of $X$, $Z_{x_0} \simeq Z_{x_1}$ 
+for arbitrary $x_0,x_1\in X$ can be improved. We first need a construction on covering spaces.
+
+\begin{definition}\label{def:pullback_of_cov_sp}
+Given a covering space $Z\xrightarrow{\pi} X$ and a map $Y\xrightarrow{f} X$, the \emph{pullback} 
+of $Z$\marginnote{this construction works for any pair of maps, not just one of them a covering space} is the subspace 
+\[
+f^*Z := Y\times_X Z = \{ (y,z)\in Y\times Z \mid f(y) = \pi(z)\}.
+\]
+ It fits in a commutative square
+\[
+\xymatrix{
+f^*Z \ar[d]_{p} \ar[r] & Z \ar[d] \\
+Y \ar[r] & X
+}
+\]
+\end{definition}
+
+\begin{prop}
+In the setting of Definition~\ref{def:pullback_of_cov_sp}
+\begin{enumerate}
+\item $f^*Z\to Y$ is a covering space.
+\item $f^*$ is a functor $\Cov_X \to \Cov_Y$.
+\item Given $Y_2 \xrightarrow{g} Y_1 \xrightarrow{f} X$ and $Z\xrightarrow{\pi} X$, there is 
+a canonical isomorphism $(f\circ g)^*Z \simeq g^*f^*Z$ in $\Cov_{Y_2}$.
+\end{enumerate}
+\end{prop}
+
+\begin{corollary}
+The fibre $(f^*Z)_y$ is canonically isomorphic to $Z_{f(y)}$.
+\end{corollary}
+
+Now given a path $\gamma\colon I \to X$ and a covering space $Z\xrightarrow{\pi}X$, we can 
+pull back $Z$ tp get a covering space $\gamma^*Z \to I$.
+So let us try to understand covering spaces of $I$. 
+Certainly for discrete $S$, the projection $S\times I \to I$ is a covering space.
+
+
+\begin{prop}\label{prop:covering_sp_of_interval_triv}
+A covering space $Z\xrightarrow{\pi} I$ is isomorphic to $\pi^{-1}(0) \times I \xrightarrow{\pr_2} I$ 
+in $\Cov_I$.
+\end{prop}
+
+We first need a little helper lemma
+
+\begin{lemma}
+A covering space of a compact space $X$ trivialises over a \emph{finite} cover of $X$ by nhds.
+\end{lemma}
+
+\begin{proof}(of Proposition~\ref{prop:covering_sp_of_interval_triv}
+We use the lemma to trivialise $Z\to I$ over a finite cover of $I$, 
+which we can take to be by intervals $[0,t_1]$, $[s_2,t_2]$, \ldots, $[s_N,1]$ 
+for $s_1=0<s_2<t_1<s_3<t_2<\cdots<s_N <t_{N-1} <1=t_N$.
+We will proceed by induction on $N$, but this quickly reduces to the case of $N=2$.
+So take a cover of $I$ by $[0,t]$ and $[s,1]$, where $\tau\colon Z_0 \times [0,t] \xrightarrow{\simeq}Z_{[0,t]}$ 
+and we are given $\sigma\colon F\times [s,1]\xrightarrow{\simeq} Z_{[s,1]}$.\marginnote{we know abstractly that $F\simeq Z_0$, but this 
+proof will construct an isomorphism}
+
+By restriction there is the composite map
+\[
+Z_0\times [s,t] \underset{\simeq}{\xrightarrow{\tau|_{[s,t]}}} Z_{[s,t]} 
+\underset{\simeq}{\xrightarrow{\sigma^{-1}|_{[s,t]}}} F\times [s,t] \xrightarrow{\pr_1} F.
+\]
+If we fix $z\in Z_0$, we get a continuous map $\{z\}\times [s,t] \to F$, which is thus constant, say at $p_z\in F$.
+The function $z\mapsto p_z = \sigma^{-1}(\tau(z,s))$ is then a bijection $\phi\colon Z_0 \xrightarrow{\simeq} F$.
+
+We thus get maps $Z_0\times [0,t] \hookrightarrow Z \hookleftarrow F\times [s,1] \xleftarrow{\phi\times \id} Z_0\times [s,1]$, 
+which by construction agree on $Z_0\times [s,t]$.
+There is thus a continuous map $Z_0 \times [0,1] \to Z$. Moreover, you can check this map 
+is a morphism of $\Cov_I$. There are likewise maps
+\[
+Z_{[0,t]}\xrightarrow{\simeq} Z_0\times [0,t] \hookrightarrow Z_0\times I \hookleftarrow Z_0\times [s,1] \xleftarrow{\phi^{-1}\times \id} F\times [s,1] \xleftarrow{\simeq} Z_{[s,1]}
+\]
+which agree on $Z_{[s,t]}$, hence a continuous map $Z\to Z_0\times I$. 
+This map is in $\Cov_I$ and cen be checked by pointwise evaluation to be inverse to the first one.
+Hence We have an isomorphism $Z\simeq Z_0\times I$ in $\Cov_I$.
+\end{proof}
+
+%The isomorphism the proof constructs is even unqiue if we assume the isomorphism $\tau$ is the identity on $Z_0$.
+
+\begin{corollary}
+Given a covering space $Z\xrightarrow{\pi}I$ and a point $z\in Z_0$, there is a unique path
+$\eta_z\colon I \to Z$ with $\eta_z(0)=z$ such that $\pi\circ \eta_z = \id$ (i.e.\ $\eta_z$ is a section of $\pi$)..
+\end{corollary}
+
+\begin{proof}
+We can construct \emph{a} path, given $\tau\colon Z_0 \times I \xrightarrow{\simeq} Z$, by $\eta(x) = \tau(z,x)$. Since $\pi\circ\tau = \pr_2$, this has the required property.
+Connectedness of $I$ and discreteness of $Z_0$ implies that given any other path $\eta'\colon I \to Z$ with $\eta'(0) = z$ and $\pi\circ \eta'=\pi$, we must have $\tau^{-1}\circ \eta = \tau^{-1}\circ \eta'\colon I\to Z_0\times I$ which implies $\eta'=\eta$.
+\end{proof}
+
+And now we have a really important property of covering spaces
+
+\begin{prop}\label{prop:unique_path_lifting}
+Given any covering space $Z\xrightarrow{\pi}X$, path $\gamma\colon I\to X$ and point $z\in Z_{\gamma(0)}$, 
+there is a unique lift $\widetilde{\gamma_z}\colon I\to Z$\marginnote{a \emph{lift} of a path $\gamma\colon I\to X$ is a path $\widetilde{\gamma}\colon I \to Z$ with $\pi\widetilde{\gamma}=\gamma$}  with $\widetilde{\gamma_z}(0)=z$.
+\end{prop}
+
+\begin{proof}
+We can pull back $Z$ to get $p\colon \gamma^*Z\to I$. We have unique $\eta_z\colon I\to \gamma^*Z$
+so that $\eta_z(0) = (0,z)$. Define $\widetilde{\gamma_z} = \pr_2\circ \eta_z\colon I \to Z$.
+This path satisfies $\pi\widetilde{\gamma_z} = \gamma p\eta_z = \gamma$.
+Given any other lift $\lambda\colon I\to Z$, we get a second section of $p$ by $x\mapsto (x,\lambda(x))$, which by uniqueness of $\eta_z$ has to be equal to it, so that $\lambda = \widetilde{\gamma_z}$.
+\end{proof}
+
+We can then give a second proof of Proposition~\ref{prop:iso_fibres_of_cov_sp}.
+
+\begin{corollary}
+A path $\gamma\colon I\to X$ defines a bijection $[\gamma]\colon Z_{\gamma(0)} \xrightarrow{\simeq} Z_{\gamma(1)}$, by $[\gamma](z) = \widetilde{\gamma_z}(1)$.
+\end{corollary}
+
+\begin{proof}
+We only have to start with that $[\gamma]$ is a function $Z_{\gamma(0)} \to Z_{\gamma(1)}$, but the function 
+$[-\gamma]\colon Z_{\gamma(1)} \to Z_{\gamma(0)}$, where $-\gamma\colon I \to X$ is the path
+$-\gamma(x) = \gamma(1-x)$, is inverse to $[\gamma]$.
+This is because the path $-\widetilde{\gamma_z}$ is a lift of $-\gamma$, hence 
+$[-\gamma]([\gamma](z)) = \widetilde{-\gamma_{[\gamma](z)}}(1) = -\widetilde{\gamma_z}(0) = z$.
+A symmetric argument shows that $[\gamma]([-\gamma](z))=z$ for $z\in Z_{\gamma(1)}$.
+\end{proof}
+
+A first observation is that this bijection is invariant\marginnote{consider 
+$\psi$ as a path in $I$ and see what happens in that case} under reparameterisations of $\gamma$:
+given $\psi\colon I\xrightarrow{\simeq} I$ with $\psi(0)=0$ and $\psi(1)=1$, then clearly 
+$[\gamma\circ \psi]=[\gamma]\colon Z_{\gamma(0)} \to Z_{\gamma(1)}$.
+
+Even better, we get a function 
+\[
+\left(\{\text{paths }x_0 \rightsquigarrow x_1\text{ in }X\}/\text{param}\right) \times Z_{x_0} \to Z_{x_1}
+\]
+If we take $x_0 = x_1 = x$, then this is a map\marginnote{we can take quotient by reparams if desired}
+\[
+\{\text{loops }x \rightsquigarrow x\text{ in }X\} \times Z_x \to Z_x
+\]
+such that each loop $x\rightsquigarrow x$ gives a bijection $Z_x\to Z_x$. So we can think of this instead as 
+\[
+\{\text{loops }x \rightsquigarrow x\text{ in }X\} \to \Aut(Z_x).
+\]
+Alternatively, if we have a pointed covering space $(Z,z) \to (X,x)$, we have a canonical function
+\begin{equation}\label{eq:loops_to_fibre}
+\{\text{loops }x \rightsquigarrow x\text{ in }X\} \to Z_x
+\end{equation}
+
+\begin{example}
+For $Z = S\times X$, $[\gamma] = \id_S$ always, and the image of (\ref{eq:loops_to_fibre}) 
+(given some $(s,x)\in Z$) is just a single point. For instance, if $X=I$, we have seen this will be the case for every covering space.
+But for $X=S^1$, $Z=\RR \xrightarrow{\exp} S^1$, and taking 
+$x=1\in S^1$, $z = 0\in \RR$, then $Z_1 = \exp^{-1}(0) = 2\pi i \mathbb{Z}$, then 
+\[
+	\{\gamma\colon I\to S^1\mid \gamma(0) = \gamma(1) = 1\} \to 2\pi i \mathbb{Z}
+\]
+is \emph{onto}. The path $\widetilde{\gamma}_n = 2\pi inx$ lifts the path $\gamma(x) = \exp(2\pi inx)$,
+and $\widetilde{\gamma}_n(0) = 0$, $\widetilde{\gamma}_n(1) = 2\pi inx$. 
+The difference is that $\RR$ is path connected, but $X\times S$ is not, for $|S| > 1$. 
+\end{example}
+
+In fact, for a covering space $(Z,z)\xrightarrow{\pi} (X,x)$ with $Z$ path connected 
+and $z'\in Z_x$, there is $\widetilde{\gamma}\colon I\to Z$ with $\widetilde{\gamma}(0)=z$, 
+$\widetilde{\gamma}(1)=z'$. Since $\widetilde{\gamma}$ lifts $\gamma = \pi\circ \widetilde{\gamma}$, 
+which satsfies $\gamma(0) = x = \gamma(1)$, the map (\ref{eq:loops_to_fibre}) is \textbf{onto}.
+Thus paths constrain the sizes of fibres of connected covering spaces and vice versa. 
+Notice also that the set of loops is independent of the choice of covering space!
+
+More generally, given points $z_\alpha$ in $Z_x$,\marginnote{that is: a section of $Z\to \pi_0(Z)$} one per path component of $Z$,
+\[
+\{\text{loops }x \rightsquigarrow x\text{ in }X\}\times\{z_\alpha\} \to Z_x
+\]
+is always onto. There are a huge number of paths, and reparameterisations cuts things down somewhat. 
+But we shall go even better, and put a topology on the space of paths.
+
+
+The fibres\lecturenum{6} $Z_x$ are discrete spaces, but the set $\Top(I,X)$ of paths $I\to X$ carries a topology when $X$ is a metric space; we can consider $C(I,X)$ with the sup metric.
+The aim is to give $\Top(I,X)$ a topology for \emph{any} space, not necessarily metric.
+
 
 \end{document}
