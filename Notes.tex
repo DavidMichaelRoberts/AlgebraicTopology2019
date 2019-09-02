@@ -3014,5 +3014,170 @@ by $\prod_{i=1}^g[a_i,b_i]$, for $a_i$ and $b_i$ the generators of the $2i-1$th 
 $2i$th copy of $S^1$ respectively.
 \end{example}
 
+\section{Classifying covering spaces}
+
+Recall\lecturenum{14}
+ that for a covering space $Z\xrightarrow{\pi} X$ we get a representation 
+\begin{align*}
+\rho_Z\colon \Pi_1(X)& \longrightarrow \Set \\
+x & \mapsto Z_x\\
+[\gamma\colon x\rightsquigarrow y] & \mapsto \left(\gamma_*\colon Z_x\xrightarrow{\simeq} Z_y\right)
+\end{align*}
+
+of the fundamental\marginnote{$\xymatrix{Z_1 \ar[rr]^f \ar[dr]_{\pi_1} && Z_2 
+\ar[dl]^{\pi_2}\\ & X}$} groupoid of $X$. Given a pair of covering spaces $Z_1,Z_2\to X$ 
+and a map between them in $\Cov_X$, how are the representations $\rho_{Z_1}$ and 
+$\rho_{Z_2}$ related? Since the triangle at right commutes, we get for each $x\in X$ a 
+function between the corresponding fibres, $f\big|_x \colon (Z_1)_x \to (Z_2)_x$. Notice 
+that this is a function $\rho_{Z_1}(x) \to \rho_{Z_2}(x)$ for each object of $\Pi_1(X)$. 
+Given a path $\gamma\colon x\rightsquigarrow y$ in $X$ and $z\in (Z_1)_x$, we have the 
+unique lift to $Z_1$ starting at $z$, namely $\widetilde{\gamma_z}^1\colon 
+z\rightsquigarrow \gamma_*(z)$. By composing with $f$, we get a path $f\circ 
+\widetilde{\gamma_z}^1\colon I \to Z_2$ from $f(z)$ to $f(\gamma_*(z))$. But by 
+uniqueness of lifts of paths, this is the lift of $\gamma$ 
+to $Z_2$ starting at $f(z)$, which is a path from $f(z) \rightsquigarrow \gamma_*(f(z))$.
+We thus get $f(\gamma_*(z)) = \gamma_*(f(z))$ for every $z\in (Z_1)_x$, implying that the
+following square commutes:
+\[
+\xymatrix{
+	(Z_1)_x \ar[r]^{\gamma_*}  \ar[d]_{f\big|_x} &  (Z_1)_y \ar[d]^{f\big|_y} \\
+	(Z_2)_x \ar[r]_{\gamma_*} & (Z_2)_y
+}
+\]
+Or, in other words, the functions $f\big|_x$ define a natural transformation 
+$\rho_{Z_1}\Rightarrow \rho_{Z_2}$. This leads us to
+
+\begin{prop}
+The mapping $(Z \xrightarrow{\pi} X) \mapsto \rho_Z$\marginnote{Recall that the category $[\cC,\Set]$ has as objects the functors $\cC\to \Set$, and as morphisms the natural transformations} define a functor
+\[
+	\Cov_X \longrightarrow [\Pi_1(X),\Set].
+\]
+\end{prop}
+
+\begin{proof}
+The natural transformation $\rho_Z \Rightarrow \rho_Z$ associated to the identity map 
+$Z\to Z$ has a components the identity functions $Z_x\to Z_x$, hence is the identity 
+natural transformation. Also, using uniqueness of path lifting one can show that given 
+two composable maps of covering spaces, we get functoriality.
+\end{proof}
+
+\begin{example}
+
+Regard $S^1\subset \CC$. Recall the covering spaces $\exp(2\pi i(-))\colon \RR \to S^1$ and $S^1 
+\xrightarrow{(-)^n} S^1$, for $n>1$. There is a map of covering spaces
+\[
+\xymatrix{
+\RR \ar[rr]^{\exp(2\pi i(-)/n)} \ar[dr]_{\exp(2\pi i(-))} && S^1 \ar[dl]^{(-)^n} \\
+& S^1
+}
+\]
+The fibres of $\RR \to S^1$ are isomorphic to $\ZZ$, and indeed the fibre over $1\in 
+S^1$ \emph{is} $\ZZ$. The fibre over $1$ of $S^1 \to S^1$ is $\ZZ/n$, and we get the induced map
+\begin{align*}
+	\ZZ&\to \ZZ/n\\
+	k & \mapsto k \pmod{n}
+\end{align*}
+
+Now note that if we focus on the point $1\in S^1$, then a morphism in $\Pi_1(S^1)$ from 
+$1$ to itself is the homotopy class of some loop, which can identify with an integer 
+under $\pi_1(S^1,1) \simeq \ZZ$. Then the representation associated to $\RR\to S^1$ is
+\begin{align*}
+\rho_\RR\colon \Pi_1(S^1)& \longrightarrow \Aut(\ZZ) \\
+m &\mapsto (k\mapsto k+m)
+\end{align*}
+whereas the representation associated to $(-)^n\colon S^1\to S^1$ is
+\begin{align*}
+\rho_n\colon \Pi_1(S^1)& \longrightarrow \Aut(\ZZ/n)\simeq S_n \\
+m &\mapsto (k\mapsto k+m \pmod{n})
+\end{align*}
+The map $\ZZ\to \ZZ/n$ is clearly equivariant for the shift action of $\ZZ$ as shown, as 
+a special case of the naturality of the map $\ZZ\to \ZZ/n$.
+\end{example}
+
+
+\begin{q}
+What representations $\Pi_1(X) \to \Set$ can arise as $\rho_Z$ for some covering space $Z\to X$?
+\end{q}
+
+Recall that it is obvious that every set is the set of connected components of some 
+space, and while we didn't go into details, the construction of a space $X$ with 
+$\pi_1(X,\pt)\simeq G$ for any given $G$ is a relatively uncomplicated pushout. However, 
+given a representation $\Pi_1(X) \to \Set$, it is not immediately obvious how to build a 
+covering space giving rise to it. Indeed, all the covering spaces we have seen so far 
+are either natural examples we happen to have seen, or special toy cases chosen to 
+illustrate some small aspect of the fundamental groupoid of a particularly simple space. 
+We are going to look at doing some reductions to simpler cases, on both sides (the 
+topological, $\Cov_X$ and the algebraic, $[\Pi_1(X),\Set]$) to make the task easier.
+
+First, since we have the blanket assumption that out spaces are slpc, we can consider 
+finding a section to the continuous map $X\to [\pt,X]$, namely $A\colon [\pt,X] \to X$, 
+that picks out one point $a_i$ per path component $X_i \subseteq X$. We have the full 
+subgroupoid inclusion $\Pi_1(X,A) \into \Pi_1(X)$ that is additionally an 
+equivalence.\marginnote{by an argument as in the solutions for assignment 2, question 7} 
+Let us denote by $I$ the set $[\pt,X]$ in what follows.
+
+\begin{lemma}
+If $i\colon \cC\into \cD$ is a full subcategory inclusion that is also an equivalence, then 
+the restriction map
+\begin{align*}
+[\cD,\Set]& \xrightarrow{i^*} [\cC,\Set]\\
+F & \mapsto F\circ i
+\end{align*}
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+Now notice also that $\Pi_1(X,A) = \Pi_1(\bigsqcup_{i\in I}X_i,\bigsqcup_{i\in I}\{a_i\}) \simeq \bigsqcup_{i\in I} \mathbb{B}\pi_1(X_i,a_i)$
+
+\begin{lemma}
+For any family of categories $(\cC_i)_{i\in I}$ we have an isomorphism\marginnote{An object of a product of family of cateories is a tuple of objects, one from each of the categories, and similar with the morphisms}
+\[
+	[\bigsqcup_{i\in I} \cC_i,\Set] \xrightarrow{\simeq} \prod_{i\in I}[\cC_i,\Set]. 
+\]
+\end{lemma}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+Given a group $G$, we can define the category $G\Set$ which has as objects sets $S$ 
+equipped with a $G$-action, $G\to \Aut(S)$, and with morphisms \emph{equivariant} 
+functions.\marginnote{An equivariant function $f\colon S\to T$ satisfies $f(g\cdot p) = 
+g\cdot f(p)$ for all $p\in S$} Note that for any groupoid $\Gamma$ and representation 
+$\rho\colon \Gamma \to \Set$, for each object $x\in \Gamma_0$ there is a permutation 
+representation $\Gamma(x,x) \to \Aut(\rho(x))$. To any natural transformation 
+$\rho\Rightarrow \rho'$ between representations, there is an equivariant map between 
+$\Gamma(x,x)$-sets, and this is functorial.
+
+\begin{lemma}
+The functor just described gives an isomorphism $[\mathbb{B}G,\Set] \xrightarrow{\simeq} G\Set$ of categories
+\end{lemma}
+
+We can put all of these lemmas together and get an equivalence of categories
+\[
+[\Pi_1(X),\Set] \to [\Pi_1(X,A),\Set] \simeq \prod_{i\in I}[\mathbb{B}\pi_1(X_i,a_i),\Set]
+\simeq \prod_{i\in I}\pi_1(X_i,a_i)\Set.
+\]
+We can compose this with the original functor we were looking at, from covering spaces to representations, to get
+\begin{align*}
+	\Cov_X & \to \prod_{i\in I}\pi_1(X_i,a_i)\Set\\
+	(Z\to X) & \mapsto (\rho_i\colon \pi_1(X_i,a_i) \to Z_{a_i})_{i\in I}
+\end{align*}
+where now the codomain is much more tractable. Further, the objects in categories of the 
+form $G\Set$ are not unreasonable: we can break them down into smaller parts. Each 
+object $\rho\colon G\to \Aut(S)$ in $G\Set$ isomorphic to one of a particularly nice 
+form, namely $S\simeq \bigsqcup_{j\in S/G} G/\mathrm{Stab}(p_j)$, where the points 
+$p_j\in S$ are chosen so that there is one in each orbit of the $G$-action.
+
+\begin{rem}
+From now on, we will consider only spaces that are slsc, since this will ultimately be 
+the case in the classification theorem, and also because $X$ slsc implies that for every 
+covering space $Z\to X$, the space $Z$ is locally path connected, so that path 
+components and components agree.
+\end{rem}
+
 \end{document}
 
