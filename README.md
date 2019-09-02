@@ -9,6 +9,8 @@ Course notes for Pure Mathematics Topic D 2019. Work in progress. There will be 
 - Lecture 3 more homotopy, categories and functors
 - Lecture 4 locally path connected spaces, covering spaces
 - Lecture 5 path lifting for covering spaces
-- Lecture 6 ...
+- Lecture 6 ... (eventually to be filled in)
+
+**Completed up to lecture 13 so far.**
 
 
