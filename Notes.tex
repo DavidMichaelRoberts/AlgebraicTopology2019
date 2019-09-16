@@ -51,7 +51,11 @@
 \def\Cov {\mathbf{Cov}}
 \def\Grp {\mathbf{Grp}}
 \def\Gpd {\mathbf{Gpd}}
+\def\Mod {\mathbf{Mod}}
+\def\Ab {\mathbf{Ab}}
+\def\Fin {\mathbf{Fin}}
 \def\Vect {\mathbf{Vect}}
+
 
 \def\RR{\mathbb{R}} 
 \def\NN{\mathbb{N}}
@@ -82,6 +86,7 @@
 \newtheorem{definition}{Definition} 
 \newtheorem{example}{Example} 
 \newtheorem{ex}{Exercise}
+\newtheorem{construction}{Construction}
 % \newtheorem{exercise}{Exercise} 
 \newtheorem{theorem}{Theorem} 
 \newtheorem{corollary}{Corollary} 
@@ -1312,7 +1317,7 @@ which satsfies $\gamma(0) = x = \gamma(1)$, the map (\ref{eq:loops_to_fibre}) is
 Thus paths constrain the sizes of fibres of connected covering spaces and vice versa. 
 Notice also that the set of loops is independent of the choice of covering space!
 
-More generally, given points $z_\alpha$ in $Z_x$,\marginnote{that is: a section of $Z\to [\pt,Z]$} one per path component of $Z$,
+More generally, given points $z_\alpha$ in $Z_x$,\marginnote{that is: a section of $Z\to [\pt,Z]$} one per path component of $Z$,\label{eq:fibre_quotient_of_loops}
 \[
 \{\text{loops }x \rightsquigarrow x\text{ in }X\}\times [\pt,Z] \simeq \{\text{loops }x \rightsquigarrow x\text{ in }X\}\times\{z_\alpha\} \to Z_x
 \]
@@ -2281,11 +2286,11 @@ Let $\cC$ be an arbitrary category. A \emph{pushout square} is a commutative squ
 \[
 	\xymatrix{
 		W\ar[r]^b \ar[d]_a & Y \ar[d]^d \\
-		W \ar[r]_c & P
+		X \ar[r]_c & P
 	}
 \]
-is $\cC$ such that for any pair of morphisms $X\xrightarrow{f} Z \xleftarrow{g} Y$ such that 
-$f\circ a = g\circ d$,\marginnote{this unique existence is the \emph{universal property} of the pushout}
+in $\cC$ such that for any pair of morphisms $X\xrightarrow{f} Z \xleftarrow{g} Y$ such that 
+$f\circ a = g\circ b$,\marginnote{this unique existence is the \emph{universal property} of the pushout}
 \[
 	\exists!\ P\xrightarrow{k} Z \quad \text{such that} \quad  f=k\circ c \text{ and } g=k\circ d.
 \]
@@ -2815,29 +2820,28 @@ $\Gamma$ (coloured blue) and $H$ (coloured red), and with the identity morphisms
 We also don't need to include both a morphism and its inverse, since the inverse can be gotten by traversing a directed edge against the indicated direction.
 \begin{center}
 \begin{tikzpicture}
-	[object/.style={circle,fill=black,minimum size=0.3mm},
+	[object/.style={circle,fill=black,minimum size=1mm,inner sep=1.5pt},
 	 bluearrowpre/.style={->,shorten <=1pt,thick,blue},
 	 redarrowpre/.style={->,shorten <=1pt,thick,red},
 	 bluearrowpost/.style={<-,shorten <=1pt,thick,blue},
 	 redarrowpost/.style={<-,shorten <=1pt,thick,red}];
-\node[object] (a1) at (0,0) {};
-\node[object] (a2) at (1,1) {}
-	edge [bluearrowpost] node[auto,swap] {$\gamma_3$} (a1)
+\node[object,label={west:$a_1$}] (a1) at (0,0) {};
+\node[object,label={west:$a_2$}] (a2) at (1,1) {}
+	edge [bluearrowpost] node[auto,swap] {$\gamma_1$} (a1)
 	edge [redarrowpre,bend left] node[auto] {$\eta_2$} (a1.east);
-\node[object] (a3) at (0,2) {};
-\node[object] (a4) at (3,0) {}
+\node[object,label={south east:$a_3$}] (a3) at (0,2) {};
+\node[object,label={east:$a_4$}] (a4) at (3,0) {}
 	edge [redarrowpost] node[auto,swap] {$\eta_1$} (a2) 
-	edge [bluearrowpost,bend left] node[auto] {$\gamma_1$}(a2);
-\node[object] (a5) at (2,3) {}
+	edge [bluearrowpost,bend left] node[auto] {$\gamma_3$}(a2);
+\node[object,label={west:$a_5$}] (a5) at (2,3) {}
 	edge [bluearrowpost] node[auto] {$\gamma_2$} (a4)
-	edge [bluearrowpost] node[auto,swap] {$\gamma_4$} (a2);
-\node[object] (a6) at (-1,1) {}
+	edge [bluearrowpre] node[auto] {$\gamma_4$} (a2);
+\node[object,label={north west:$a_6$}] (a6) at (-1,1) {}
 	edge [redarrowpost] node[auto] {$\eta_4$}(a3);
 
-\draw[bluearrowpre] (a3) to [out=90,in=0,loop,looseness=10] node[auto] {$\gamma_5^n$} (a3);
-\draw[redarrowpre] (a5) to [out=90,in=0,loop,looseness=10] node[auto] {$\eta_3^n$} (a5);
-\draw[bluearrowpre] (a6) to [out=180,in=-90,loop,looseness=10] node[auto,swap] {$\gamma_6^n$} (a6);
-
+\draw[bluearrowpre] (a3) to [out=90,in=0,loop,looseness=10] node[auto] {$\gamma_5$} (a3);
+\draw[redarrowpre] (a5) to [out=90,in=0,loop,looseness=10] node[auto] {$\eta_3$} (a5);
+\draw[bluearrowpre] (a6) to [out=180,in=-90,loop,looseness=10] node[auto,swap] {$\gamma_6$} (a6);
 \end{tikzpicture}
 \end{center}
 Now\marginnote[-4cm]{in the graph shown, composites of various morphisms are omitted, 
@@ -2866,10 +2870,10 @@ $\gamma_1=\eta_1$. This would have the effect of making
 	{\color{blue}\gamma_3}{\color{red}\eta_1}{\color{blue}\gamma_2}{\color{red}(\eta_3)^5}{\color{blue}\gamma_4^{-1}} = 
 	{\color{blue}(\gamma_3\gamma_1\gamma_2)}{\color{red}(\eta_3)^5}{\color{blue}\gamma_4^{-1}}	
 \]
-Concatenation of strings and simplifying is the composition in $\Gamma\ast_\Lambda H$.
+Concatenation of strings and simplifying is the composition in ${\Gamma\ast_\Lambda H}$.
 
 \begin{ex}
-Prove that this construction gives a groupoid $\Gamma\ast_\Lambda H$.
+Prove that this construction makes $\Gamma\ast_\Lambda H$ a groupoid.
 \end{ex}
 
 If we are interested in merely looking at the group of morphisms from a single object $a_i$ to itself,
@@ -3162,10 +3166,10 @@ We can put all of these lemmas together and get an equivalence of categories
 \simeq \prod_{i\in I}\pi_1(X_i,a_i)\Set.
 \]
 We can compose this with the original functor we were looking at, from covering spaces to representations, to get
-\begin{align*}
-	\Cov_X & \to \prod_{i\in I}\pi_1(X_i,a_i)\Set\\
-	(Z\to X) & \mapsto (\rho_i\colon \pi_1(X_i,a_i) \to Z_{a_i})_{i\in I}
-\end{align*}
+\begin{align}
+	\Cov_X & \to \prod_{i\in I}\pi_1(X_i,a_i)\Set \label{eq:fibre_functor}\\
+	(Z\to X) & \mapsto (\rho_i\colon \pi_1(X_i,a_i) \to Z_{a_i})_{i\in I} \nonumber
+\end{align}
 where now the codomain is much more tractable. Further, the objects in categories of the 
 form $G\Set$ are not unreasonable: we can break them down into smaller parts. Each 
 object $\rho\colon G\to \Aut(S)$ in $G\Set$ isomorphic to one of a particularly nice 
@@ -3178,6 +3182,459 @@ the case in the classification theorem, and also because $X$ slsc implies that f
 covering space $Z\to X$, the space $Z$ is locally path connected, so that path 
 components and components agree.
 \end{rem}
+
+\lecturenum{15}
+\begin{lemma}
+For a space $X = \bigsqcup_{i\in I} X_i$, there is an equivalence of categories $\Cov_X \simeq \prod_{i\in I} \Cov_{X_i}$.
+\end{lemma}
+
+\begin{proof}
+A covering space $Z\to \bigsqcup_{i\in I} X_i$ gives covering spaces $Z_{X_j}:=\mathrm{in}_j^*X$ for each $j\in I$, where recall the inclusion maps $\mathrm{in}_j\colon X_j \to \bigsqcup_{i\in I} X_i$. We also get, from a map of covering space $Z\to Z'$ over $X$, a map $Z_{X_j} \to Z'_{X_j}$ of covering spaces over $X_j$, for each $j$. This gives a functor $\Cov_X \to \prod_{i\in I} \Cov_{X_i}$.
+
+Conversely, given a covering space $Z_i \to X_i$ for each $i\in I$, we get a covering space $\bigsqcup_{i\in I} Z_i \to \bigsqcup_{i\in I} X_i$, and for maps $Z_i \to Z'_i$ of covering spaces over $X_i$, there is a map $\bigsqcup_{i\in I} Z_i \to \bigsqcup_{i\in I} Z'_i$ of covering spaces over $\bigsqcup_{i\in I}X_i$. This gives a functor $\prod_{i\in I} \Cov_{X_i} \to \Cov_X$, and these two functors are an equivalence of categories.
+\end{proof}
+
+The functor in (\ref{eq:fibre_functor}) then factorises as the composite
+\begin{align*}
+	\Cov_X & \xrightarrow{\simeq} \prod_{i\in I} \Cov_{X_i} \longrightarrow \prod_{i\in I}\pi_1(X_i,a_i)\Set\\
+	\raisebox{4ex}{\xymatrix{Z\ar[d]\\X}} & \mapsto 
+	\raisebox{4ex}{\xymatrix{Z_{X_i}\ar[d]\\X_i} } \mapsto 
+	\left(\rho_i\colon \pi_1(X_i,a_i) \to \Aut(Z_{a_i}) \right)
+\end{align*}
+In particular, if we understand each $\Cov_{X_i} \to\pi_1(X_i,a_i)\Set$, then we are done. 
+
+So, we will consider from now on the case of a connected, slsc space $X$ with chosen $x_0\in X$, and the functor $\Cov_{X} \to\pi_1(X,x_0)\Set$. 
+
+Since $X$ is slsc, it is locally path connected, and the local trivialisation of any covering space $Z\to X$ shows that $Z$ is also locally path connected.\marginnote{there is a small subtlety here, in that we really require a basis of nhds that are path connected, I will expand on this point if pushed, but it is a technicality that can be ignored for our purposes} We can then write $Z = \bigsqcup_{\alpha \in I} Z_\alpha \to X$, where each $Z_\alpha \to X$ is a (path) connected covering space.\marginnote{Exercise!}
+
+\begin{example}
+Take $X=S^1$. Recall that we have various covering spaces: $S^1\times F\simeq \bigsqcup_{F} S^1\to S^1$ for discrete spaces $F$; the exponential map $\RR \to S^1$; the various $S^1 \xrightarrow{(-)^n} S^1$ with $n>1$, where we shall write $S^1_n$ for the total space of this covering space. Then we can form a covering space
+\[
+	S^1\times F \sqcup \bigsqcup \RR \sqcup \bigsqcup S^1_2 \sqcup \bigsqcup S^1_3\sqcup \ldots \to S^1.
+\]
+It remains to be seen, however, if there are any covering spaces not of this form.
+\end{example}
+
+Recall from lecture 6 (on page~\pageref{eq:fibre_quotient_of_loops}) that given a covering space $Z\to X$, there is a surjective map
+\[
+	\Omega_{x_0} X \times\{z_\alpha\mid \alpha \in I\} \to Z_{x_0}, \qquad z_\alpha \in Z_{x_0}\cap Z_\alpha,
+\]
+hence a surjective map \[
+	\pi_1(X,x_0) \times \{z_\alpha\mid \alpha \in I\} \simeq \bigsqcup_{\alpha\in I}\pi_1(X,x_0) \times  \{z_\alpha\} \to Z_{x_0} = \bigsqcup_{\alpha\in I} Z_{x_0}\cap Z_\alpha
+\]
+\begin{lemma}
+Given a covering space $Z\to X$ with $x_0\in X$, then $Z_{x_0} =\bigsqcup_{\alpha\in I} Z_{x_0}\cap Z_\alpha\simeq \bigsqcup_{\alpha\in I} \pi_1(X,x_0)/\pi_1(Z_\alpha,z_\alpha)$ as $\pi_1(X,x_0)$-sets, for any choice of $z_\alpha\in Z_{x_0}\cap Z_\alpha$.
+\end{lemma}
+
+\begin{proof}
+It is enough to show that the orbits of the $\pi_1(X,x_0)$-action are the sets $Z_{x_0}\cap Z_\alpha$, because then the general description of sets with transitive action takes over. Given $z\in Z_{x_0}\cap Z_\alpha$, there is a path $\gamma\colon z_\alpha \rightsquigarrow z$, and hence a loop $\pi\circ\gamma$ at $x_0$. This loop acts on $Z_{x_0}$, with $(\pi\circ \gamma)_*(z_\alpha)=z$. Hence $Z_{x_0}\cap Z_\alpha$ is contained in the orbit containing $z_\alpha$. Conversely, given any $z\in Z_{x_0}$ and a loop $\eta$ at $x_0$ such that $\eta_*(z_\alpha) = z$, then there is a lift $\widetilde{\eta}\colon z_\alpha \rightsquigarrow z$ of $\eta$, so that $z\in Z_\alpha$. Thus the orbit of $z_\alpha$ is contained in $Z_{x_0}\cap Z_\alpha$, and we are done.
+\end{proof}
+
+As a result, our functor $\Cov_X \to \pi_1(X,x_0)\Set$ preserves disjoint unions: it sends the covering space $\bigsqcup_{\alpha \in I} Z_\alpha\to X$ to the disjoint union of sets with a permutation representation $\bigsqcup_{\alpha\in I} Z_{x_0}\cap Z_\alpha$.
+
+\begin{rem}
+Given a group $G$ and a $G$-set $S$, such that $S=\bigsqcup_{\alpha\in I} S_\alpha$ is the partition into orbits of the action, then the representation $\rho \colon G\to \Aut(\bigsqcup S_{\alpha\in I})$ factors through the subgroup $\prod_{\alpha\in I} \Aut(S_i) < \Aut(\bigsqcup S_{\alpha\in I})$, hence $\rho = (\rho_\alpha)_{\alpha\in I}$, for $\rho_\alpha\colon G\to \Aut(S_\alpha)$ a transitive $G$-action.
+\end{rem}
+
+Recall what our original question was: what representations $\Pi_1(X)\to \Set$ arise from covering spaces of $X$ via the functor $\Cov_X \to [\Pi_1(X),\Set]$? We have now reduced this to the simpler aim of starting with a permutation representation of a fundamental group, and can reduce the input data even more. Inside $\Cov_X$ (for connected $X$) is the full subcategory $\Cov_X^\mathrm{conn}$ of \emph{connected} covering spaces, and inside $\pi_1(X,x_0)\Set$ is the full subcategory $\pi_1(X,x_0)\Set^\mathrm{tr}$ of sets with a \emph{transitive} action. Moreover, in both of these cases, arbitrary objects in $\Cov$ and $\pi_1(X,x_0)\Set$ can be gotten by disjoint union of objects in the respective subcategories. Thus it is sufficient to ask if we can get any transitive $\pi_1(X,x_0)$-set from some connected covering space of $X$. That is, we want to know what is the image of the functor
+\[
+	\Cov_X^\mathrm{conn} \longrightarrow  \pi_1(X,x_0)\Set^\mathrm{tr}.
+\]
+
+Note that in the category of transitive $G$-sets, every object $S$ with a point $p\in S$ is the quotient of the underlying set of $G$ equipped with the action by multiplication, via the map 
+\begin{align*}
+G& \to S \simeq G/\mathrm{Stab}(p)\\
+g & \mapsto g\cdot p
+\end{align*}
+and the $G$-action on $G$ is free and transitive. More generally, given any $G$-set $T$ with a free and transitive action, there is a surjective equivariant map $T\to S$ displaying $S$ as a quotient of $T$.
+
+\begin{example}
+Given a simply-connected covering space $Z\to X$ and $x_0\in X$, the fibre $Z_{x_0}$ is a free and transitive $\pi_1(X,x_0)$-set.
+\end{example}
+
+Recall also that for a general path connected covering space $Z\to X$, $Z_{x_0} \simeq \pi_1(X,X_0)/\pi_1(Z,z)$ for any $z\in Z_{x_0}$. If we start with a pointed covering space, then we don't have to choose a point, and every connected covering space of a pointed space can be gotten by forgetting the point from some pointed covering space.
+So we have the final form of the question
+
+\begin{q}
+Given a subgroup $H< \pi_1(X,x_0)$, is there a pointed covering space $(Z,z_0)\to (X,x_0)$ such that $\pi_1(Z,z_0) = H$ as subgroups of $\pi_1(X,x_0)$?\marginnote{Recall from assignment 2, where from a simply-connected space $Y$ with free $G$-action, we got a covering space $Y\to Y/G$ with $\pi_1(Y/G,\ast)\simeq G$}
+\end{q}
+
+
+Recall\lecturenum{16} that for a simply-connected covering space $Z^{(1)} \to X$ the fibre over $x_0$ is isomorphic to $\pi_1(X,x_0)$, and that our ultimate aim is to get a covering space with fibre isomorphic to $\pi_1(X,x_0)/H$. So one way to approach this is to see if there is a way to make sense of making a covering space by taking the quotient of some simply-connected covering space ``fibre by fibre''. It isn't possible to do this piecemeal, so we need to do this for all fibres at once.
+
+\begin{definition}
+Let $p\colon Y\to X$ be a map of spaces, $G$ a group acting on $Y$. We say the action is \emph{fibrewise} if $p(g\cdot y) = p(y)$ for all $y \in Y,g\in G$.
+\end{definition}
+
+It follows from the definition\marginnote{there is a commutative triangle $\xymatrix{Y \ar[d] \ar[r] & Y/G \ar[dl]\\ X}$} that there is map $Y/G \to X$, and the fibre of this map over $x$ is $p^{-1}(x)/G$.
+
+\begin{prop}
+Let $Z\xrightarrow{\pi} X$ be a covering space, and let $G$ act fibrewise on $Z$. Then $Z/G\to X$ is a covering space and $Z\to Z/G$ is a map of covering spaces.
+\end{prop}
+
+\begin{proof}
+First notice that since the action of $G$ is fibrewise, the orbits of $G$ are subspaces of discrete spaces, and hence are discrete.
+
+For $U\subseteq X$, we get an action of $G$ on $Z_U \subseteq Z$, also fibrewise for the restriction $Z_U \to U$ of $\pi$. If we take $U$ small enough nhd around $x\in X$ then $Z_U \simeq Z_x \times U$, and moreover this homeomorphism is $G$-equivariant and respects the maps to $U$. We thus get a homeomorphism $(Z_U)/G \simeq U \times (Z_x/G)$. Then, from the question in assignment 4, $(Z/G)_U$ is homeomorphic to $(Z_U)/G$ over $U$, so there is a homeomorphism $(Z/G)_U \simeq U \times (Z_x/G)$ over $U$, and hence $Z/G \to X$ is a covering space with fibre $Z_x/G$. The quotient map $Z \to Z/G$ respects the maps to $X$ by construction, so is a map of covering spaces.
+\end{proof}
+
+Thus if $Z^{(1)} \to X$ is a simply-connected covering space and $H< \pi_1(X,x_0)$ acts fibrewise on $Z^{(1)}$, we get a covering space $Z^{(1)}/H \to X$ with fibre $\pi_1(X,x_0)/H$ \emph{as sets}. However, more is true.
+
+\begin{lemma}
+Assuming there is a simply-connected covering space $Z^{(1)} \to X$, the morphism $Z^{(1)}_x \to Z^{(1)}_x/H$ is $\pi_1(X,x)$-equvariant.
+\end{lemma}
+
+\begin{proof}
+Exercise. Uses path lifing and the map $Z^{(1)} \to Z^{(1)}/H$ over $X$.
+\end{proof}
+
+We have have two problems:
+\begin{enumerate}
+\item How do we construct a simply-connected covering space of $X$? Or how do we know one exists?
+\item Given such a thing, and an arbitrary subgroup $H<\pi_1(X,x_0)$, how do we construct a fibrewise $H$-action?
+\end{enumerate}
+
+
+We can reduce the second problem to the case of finding a fibrewise $\pi_1(X,x_0)$-action, because then by restriction, any subgroup will also act fibrewise. As it turns out, the construction that will address the first point will also automatically come with the required fibrewise action of the fundamental group.
+
+\begin{construction}
+Fix a pointed space $(X,x_0)$. Consider the quotient space $X^{(1)} := P_{x_0}X/\sim$ where $\gamma_1\sim \gamma_2$ if $\gamma_1(1)=\gamma_2(1)$ and $[\gamma_1]=[\gamma_2]$ in $\Pi_1(X)$. From the definition of the equivalence relation and the quotient topology, we get a continuous pointed map $X^{(1)} \to X$ and a commutative triangle\marginnote{we will denote the class of the constant path also by $c_{x_0}$ to de-clutter the notation}
+\[
+	\xymatrix{
+	(P_{x_0},c_{x_0}) \ar[rr] \ar[dr] && (X^{(1)},c_{x_0}) \ar[dl]\\
+	& (X,x_0)
+	}
+\]
+\end{construction}
+
+Thus one can see this as giving a topology to a subset of the morphisms of $\Pi_1(X)$.
+
+\begin{prop}
+For $X$ semilocally simply-connected, $(X^{(1)},c_{x_0}) \to (X,x_0)$ is a simply-connected covering space, and $\pi_1(X,x_0)$ acts by concatenation as in $\Pi_1(X)$
+\end{prop}
+
+\begin{proof}
+Notice first that the fibre $X^{(1)}_x$ of $X^{(1)} \to X$ over $x\in X$ is $\Pi_1(X)(x_0,x) \simeq P_{x_0}^xX/\sim$, and moreover, since $X$ is slsc, $P_{x_0}^xX$ is slpc, and hence $X^{(1)}_x=[\pt,P_{x_0}^xX]=\pi_0(P_{x_0}^xX)$ is discrete. Thus $X^{(1)} \to X$ has discrete fibres.
+
+Now fix $x\in X$. Since $X$ is slsc, there is a nhd $U\ni x$ such that for every $x'\in U$ there is a path $\eta_{x'}\colon x\rightsquigarrow x'$ (in $U$) such that for any other path $\eta\colon x \rightsquigarrow x'$ in $U$, $[\eta_{x'}]=[\eta]$ in $\Pi_1(X)$. Consider $X^{(1)}_U = \{[x_0\rightsquigarrow x']\mid x'\in U\}$.
+
+\textbf{Claim:} There is a homeomorphism 
+\begin{align*}
+U\times X^{(1)}_x & \xrightarrow{\simeq} X^{(1)}_U \\
+(x',[x_0 \stackrel{\gamma}{\rightsquigarrow} x]) \mapsto [x_0 \stackrel{\gamma}{\rightsquigarrow} x \stackrel{\eta_{x'}}{\rightsquigarrow} x']
+\end{align*}
+over $U$. We can prove this is a bijection without too much difficulty, as follows. 
+\begin{itemize}
+\item Injective: If $[x_0 \stackrel{\gamma}{\rightsquigarrow} x \stackrel{\eta_{x'}}{\rightsquigarrow} x'] = [x_0 \stackrel{\gamma'}{\rightsquigarrow} x \stackrel{\eta_{x'}}{\rightsquigarrow} x']$, then we can concatenate with $-\eta_{x'}$ and the result is that $[\gamma] = [\gamma']$.
+\item Surjective: Suppose I have $[x_0 \stackrel{\gamma}{\rightsquigarrow} x'] in X^{(1)}_U$. Then $[\gamma] = [\gamma][\eta_{x'}]^{-1}[\eta_{x'}]$.
+\end{itemize}
+
+For now, for the proof that this is a homeomorphism, see pages 64--65 of Hatcher, in the section ``The Classification of Covering Spaces''.\marginnote{I will fill in the details here later}
+
+Thus we have a local trivialisation, and hence a covering space.
+
+We can see that $X^{(1)}$ is path connected by observing that it is the quotient of the path connected space $P_{x_0} X$\marginnote{there is a path from $c_{x_0}$ to any $\gamma\colon x_0\rightsquigarrow x$, defined by $s\mapsto (t\mapsto \gamma(st))$}, hence there is a surjective map $P_{x_0}X \to X^{(1)}$. 
+
+There is a fibrewise action of $\pi_1(X,x_0)$ on $X^{(1)}$ by $([x_0 \stackrel{\omega}{\rightsquigarrow} x_0],[x_0 \stackrel{\gamma}{\rightsquigarrow} x]) \mapsto [x_0 \stackrel{\omega}{\rightsquigarrow} x_0 \stackrel{\gamma}{\rightsquigarrow} x]$. This is continuous because it is induced from the continuous concatenation $\Omega_{x_0}\times P_{x_0}X \to P_{x_0}X$, and the axioms for an action hold from the associativity of composition in $\Pi_1(X)$. Note especially that the $\pi_1(X,x_0)$-action is \emph{free}, so that the stabiliser subgroups are all trivial.
+
+Finally, since the fibre of $X^{(1)}$ at $x_0$ is the quotient of $\pi_1(X,x_0)$ by the stabiliser subgroup by the $\pi_1(X,x_0)$-action, and this stabiliser subgroup is $\pi_1(X^{(1)},c_{x_0})$, we have that $\pi_1(X^{(1)},c_{x_0})$ is trivial. Hence $X^{(1)}$ is simply-connected.
+\end{proof}
+
+As a result, given any subgroup $H < \pi_1(X,x_0)$, we can define the connected covering space $X^{(1)}/H \to X$, which is a pointed covering space with $\pi_1(X^{(1)},\ast) = H$. Working backwards through the reasoning above, we can get \emph{any} set with $\pi_1(X,x_0)$-action, up to isomorphism, as the fibre of some covering space of $(X,x)$. And then, if $X$ has multiple connected components, we can the take the disjoint union of covering spaces of each component to get a representation of the whole fundamental groupoid. Thus we have proved
+
+\begin{prop}
+For an slsc space $X$ the functor
+\[
+	\Cov_X \to [\Pi_1(X),\Set]
+\]
+is essentially surjective: every representation $\Pi_1(X) \to \Set$ is isomorphic to one coming from a covering space.
+\end{prop}
+
+We\lecturenum{17} can say still more:
+
+\begin{lemma}
+Let $Z\xrightarrow{\pi} X$ be a covering space, $Y$ path connected and $p\colon Y\to X$ be some map. Suppose we have maps $f,g\colon Y\to X$ such that $f\circ \pi = p = g\circ \pi$. Then if $f(y_0) = g(y_0)$ for some $y_0\in Y$, we have $f=g$. 
+\end{lemma}
+
+\begin{proof}
+Take $y\in Y$ arbitrary, and let $\gamma\colon y_0 \rightsquigarrow y$ be a path. Then $f\circ \gamma$ and $g\circ \gamma$ are both lifts of the path $p\circ \gamma\colon I \to X$. And since $f(\gamma(0)) = f(y_0) = g(y_0) = g(\gamma(y_0))$, we must have $f(y) = f(\gamma(1)) = g(\gamma(1)) = g(y)$. 
+\end{proof}
+
+This applies in particular, if $Y$ is another covering space of $X$.
+
+\begin{corollary}
+The functor $\Cov_{X} \to [\Pi_1(X),\Set]$ is faithful.
+\end{corollary}
+
+\begin{proof}
+We can reduce to the case of $X$ connected, and can choose a basepoint $x_0\in X$ to get a functor $\Cov_X \to [\Pi_1(X),\Set] \to \pi_1(X,x_0)\Set$. This functor will be faithful if and only if the original functor is (after the reduction to $X$ connected.) Now suppose we have two covering spaces $Z_i \xrightarrow{\pi_i} X$ ($i=1,2$) and a pair of maps $f,g\colon Z_1 \to Z_2$ between them (over $X$). Then if $f\big|_x =g\big|_x\colon (Z_1)_{x_0} \to (Z_2)_{x_0}$, in particular for each path component of $Z_1$, there is a point $z$ such that $f(z) = f\big|_x(z) =g\big|_x(z) = g(z)$, so that $f$ and $g$ coincide on each path component, and hence agree everywhere.
+\end{proof}
+
+In fact, we have the following landmark result:
+
+\begin{theorem}
+For slsc $X$, $\Cov_X\to [\Pi_1(X),\Set]$ is an equivalence of categories.
+\end{theorem}
+
+The proof reduces to connected and pointed $X$, then shows that given $(Z_1)_x \to (Z_2)_x$ a map of $\pi_1(X,x)$-sets, there is a map $Z_1 \to Z_2$ between covering spaces that induces it. This shows that the functor is full, hence together with the previous results, that it is an equivalence.
+
+\section{Higher homotopy groups}
+
+So far, we have invariants $\pi_0$, $[\pt,-]$\marginnote{treat it as a fluke of low dimensions that there are two invariants that aim to capture what is meant by ``components'' of a space} and $\pi_1$ of a space. Notice that $\pi_1 = [(S^1,1),-]_*$, and in fact for pointed spaces, $[\pt,-] = [(S^0,1),-]_*$, since $S^0 = \{1,-1\}$, and a pointed map $(S^0,1) \to (X,x)$ is specified completely by where it sends $-1$. This leads naturally to the question of what should $\pi_n$ be?
+
+\begin{definition}
+Given a pointed space $(X,x)$, define the \emph{$n^{th}$ homotopy group of $X$ based at $x$} to be $[(S^n,1),(X,x)]_*$.
+\end{definition}
+
+This is automatically a functor $\Top_* \to \Set$, though we shall soon see we can refine this. It follows quickly from the definition that we have $\pi_n(X\times Y, (x,y)) \simeq \pi_n(X,x)\times \pi_n(Y,y)$.
+
+
+An important observation is that $S^n$ here can be treated in a number of different ways that all lead to the same definition. Notice\marginnote{For a pair $(Y,A)$, we define the quotient $Y/A$ of $Y$ by the subspace $A$ to be the quotient space $Y/(a_1 \sim a_2, \forall a_1,a_2\in A)$} particularly that $S^n \simeq I^n / \partial I^n \simeq D^n / \partial D^n$. We can take the basepint in $S^n$ to be the image of the collapsed subspace, so that continuous maps of pairs $(I^n,\partial I^n) \to (X,x)$ are in bijection with maps $(S^n,1) \to (X,x)$, and similarly for maps $(D^n,\partial D^n) \to (X,x)$. The relation of homotopy of maps $(Y,A) \to (X,x)$ out of a pair generalises that of a pointed homotopy, and demands that the homotopy $H\colon I \times Y\to X$ maps $I\times A$ to $x$. With this definition of relative homotopy, we have that $[(S^n,1),(X,x)]_* = [(I^n,\partial I^n),(X,x)] = [(D^n,\partial D^n),(X,x)]$.
+
+Further, given a map $f\colon (I^n,\partial I^n) \to (X,x)$, we get a continuous map $I^{n-1} \to \Omega_x X$, and the boundary condition on $f$ implies that $\partial I^{n-1}$ is mapped to the constant loop $c_x$. Thus $\pi_n(X,x) = [(I^n,\partial I^n),(X,x)] \simeq [(I^{n-1},\partial I^{n-1}),(\Omega_x X,c_x)] = \pi_{n-1}(\Omega_x X,c_x)$. Since we know path concatenation is continuous, we have the map $\Omega_x X \times \Omega_x X \to \Omega_x X$. This allows us to define a binary operation
+\[
+	\pi_n(X,x)\times \pi_n(X,x) \simeq \pi_{n-1}(\Omega_x X,c_x) \times \pi_{n-1}(\Omega_x X,c_x) \simeq \pi_{n-1}(\Omega_x X \times \Omega_x X,(c_x,c_x)) \to \pi_{n-1}(\Omega_x X,c_x)  \simeq \pi_n(X,x)
+\]
+The up-to-homotopy associativity of the concatenation of loops, together with inverses and identity element up to homotopy, means that $\pi_n(X,x)$ is in fact a group, and so we have a functor $\pi_n\colon \Top_* \to \Grp$. The following  is a famous later abstraction of a result that originally arose when the higher homotopy groups were first defined in 1932 (or so).
+
+\begin{lemma}[Eckmann--Hilton argument]
+Let $M$ be a set with two unital binary operations $\circ,\# \colon M \times M \to M$, with units $1_\circ$ and $1_\#$, such that for all $a,b,c,d\in M$, 
+\[
+	(a \circ b) \# (c\circ d) = (a \# c) \circ (b \# d).
+\]
+Then $1_\circ = 1_\#$, $a\circ b = a \# b$, $a\# b = b \# a$ and moreover the binary operation is associative, making $M$ an abelian group
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item First, $1_\circ = 1_\circ \circ 1_\circ = (1_\circ \# 1_\#) \circ (1_\# \# 1_\circ) = 
+(1_\circ \circ 1_\#) \# (1_\# \circ 1_\circ) = 1_\# \# 1_\# = 1_\#$, so that the unit elements agree, and we can just denote $1_\circ = 1_\# =: 1$.
+
+\item Then $a\circ b = (a \# 1) \circ (1 \# b) = (a\circ 1) \# (1\circ b) = a \# b$, so we can write $ab := a\circ b = a \# b$ for the single binary operation.
+
+\item Now $ab = (1a)(b1)=(1b)(a1)=ba$, so that the binary operation is commutative.
+
+\item Finally, $(ab)c = (ab)(1c) = (a1)(bc)=a(bc)$, so that the binary operation is associative, and thus we have an abelian group structure. 
+\end{enumerate}
+\end{proof}
+
+\begin{example}
+If $G$ is a Lie group\marginnote{or even just a topological group} then $\pi_1(G,e)$ is abelian, because we have the concatenation operation, and the operation of pointwise multiplication of loops (which passes down to homotopy classes of loops). The constant loop is the identity element for both of these operations, so we get the first part of the previous lemma for free. The only thing that needs checking is that pointwise multiplication and concatenation distribute as needed for the Eckmann--Hilton argument, but this is not difficult to check.
+\end{example}
+
+Now let us go back to our observation that $\Top_*((S^n,1),(X,x)) \simeq \Top_*((S^{n-1},1),(\Omega_x X,c_x))$. We can iterate this, to get  $\Top_*((S^{n-1},1),(\Omega_x X,c_x)) \simeq \Top_*((S^{n-2},1),(\Omega_{c_x}\Omega_x X,c_{c_x}))$. This makes sense because in the definition of the based loop space $\Omega_y Y$, the space $Y$ is arbitrary. Let us write $\Omega^2_x X$ for $\Omega_{c_x}\Omega_x X$, and always assume it has the basepoint $c_{c_x}$. Then there are two continuous concatenation operations
+\[
+	\Omega^2 X \times \Omega^2 X \to \Omega^2 X,
+\]
+arising from concatenating in either the first or the second parameter. Given $f_1,f_2\in \Omega^2 X$, that is, functions $I^2\to X$ such that $\partial I^2$ is mapped to $x$, we have
+\begin{align*}
+(f_1 \#_1 f_2)(s,t) & = \begin{cases}
+f_1(2s,t) & \forall t\in I,\ s\in [0,\frac12]\\
+f_2(2s-1,t) & \forall t\in I,\ s\in [\frac12,1]
+\end{cases}\\
+(f_1 \#_2 f_2)(s,t) & = \begin{cases}
+f_1(s,2t) & \forall t \in [0,\frac12],\ s\in I\\
+f_1(s,2t-1) & \forall t\in [\frac12,1],\ s\in I
+\end{cases}
+\end{align*}
+And, moreover, $(f_1 \#_1 f_2) \#_2 (f_3 \#_1 f_4) = (f_1 \#_2 f_3) \#_1 (f_2 \#_2 f_4)$, where each of these is defined on one quadrant of the $^2$ subdivided into four squares. Thus, from the Eckmann--Hilton argument,
+
+\begin{prop}
+The group $\pi_n(X,x)$ is abelian for all $n\geq 2$.
+\end{prop}
+
+
+The\lecturenum{18} assignment 
+\begin{align*}
+(X,x) & \mapsto \pi_n(X,x)\\
+\left(f\colon (X,x) \to (Y,y) \right)& \mapsto \left(f_* \colon \pi_1(X,x) \to \pi_n(Y,y) \right)
+\end{align*}
+is then a functor $\Top_* \to \Ab$.
+
+\begin{example}
+For $S$ a discrete space, $\pi_n(S,*) = 1$, since all $S^n \to S$ are constant maps ($S^n$ is connected!)
+\end{example}
+
+\begin{example}
+If $X$ is contractible (eg a star-shaped domain in a topological vector space) then $\pi_n(X,x) = 1$
+\end{example}
+
+Recall: Given a covering space $Z\to X$ there is an associated representation $\Pi_1(X) \to \Set$. But there is nothing special here about the category $\Set$, we can have other categories, for instance: the category $\Fin$ of finite sets, the category $\Vect$ of vector spaces, the category $\Ab$ of abelian groups, or more generally the category $R\Mod$ of $R$-modules ($R$ here is a given ring).
+
+% \begin{example}
+% Given a representation $\Pi_1(X) \to \Set$, we get a representation $\Pi_1 \to \Vect$ by taking composing with the functor $\Set \to \Vect$ that associates to a set the vector space with that basis, and to a function the associated linear map.
+% \end{example}
+
+\begin{prop}
+Fix the space $X$. The assignment $x\mapsto \pi_n(X,x)$ is the object component of a representation $\Pi_1(X) \to \Ab$.
+\end{prop}
+
+\begin{proof}
+(Sketch) Given $\gamma\colon [0,1] \to X$, $x\rightsquigarrow y$, and $\alpha\colon (I^n,\partial I^n) \to (X,x)$ representing a class in $\pi_n(X,x)$, we need to construct a class in $\pi_n(X,y)$, in such a way that this gives a group isomorphism $\pi_n(X,x) \xrightarrow{\simeq} \pi_n(X,y)$. For this construction, consider the interval $I = [-\frac12,\frac12]$.
+Fix an orientation-preserving homeomorphism $I = [-\frac12,\frac12]\xrightarrow{\simeq} [-\frac14,\frac14]$, and thus a map $i\colon [-\frac14,\frac14]^n  \simeq I^n $. Also fix orientation-preserving $j\colon [\frac14,\frac12]\xrightarrow{\simeq} [0,1]$.  Define $\alpha^\gamma\colon I^n \to X$ to be the piecewise defined function
+\[
+\alpha^\gamma(\mathbf{x}) = \begin{cases} 
+\alpha(i(\mathbf{x})) & \mathbf{x} \in [-\frac14,\frac14]^n\\
+\gamma(j(|\mathbf{x}|)) & \mathbf{x} \in [-\frac12,\frac12]^n \setminus [-\frac14,\frac14]^n
+\end{cases}
+\]
+By the pasting lemma this is continuous, as $\alpha(\mathbf{x}) = x$ for all $\mathbf{x} \in \partial I^n$, and $\gamma(0) = x$. Moreover, $\alpha^\gamma(\mathbf{x}) = y$ for all $\mathbf{x} \in \partial I^n$, and so $\alpha^\gamma\colon (I^n,\partial I^n) \to (X,y)$. The homotopy class of $\alpha^\gamma$ is independent of the choice of $\gamma$ and $\alpha$ as representatives for their respective classes in $\Pi_1(X)(x,y)$ and $\pi_n(X,x)$, as we can use homotopies between these and other representatives to create a homotopy between maps $(I^n,\partial I^n) \to (X,y)$. We thus get a function $\pi_n(X,x) \to \pi_n(X,y)$ for each $[\gamma]\in \Pi_1(X)(x,y)$.
+
+As functions between sets, this is functorial by a reparametrisation argument, so that $[\alpha^{\gamma\#\eta}] = [(\alpha^\gamma)^\eta]$, and $[\alpha^{c_x}] = [\alpha]$. The last thing that needs to be checked is that $[\alpha]\mapsto [\alpha^\gamma]$ is a group homomorphism. This is a mildly fiddly, but overall unenlightening argument.\marginnote{there is a proof in Hatcher, \S4.1 on page 341}
+\end{proof}
+
+Note that if we consider the case $n=1$, then we have already seen a version of this: given a path $\gamma\colon x\rightsquigarrow y$, there is an isomorphism $\pi_1(X,x) \xrightarrow{\simeq} \pi_1(X,y)$. If we specialise to the case of $x=y$, then $\gamma$ is a loop, and the resulting automorphism $\pi_1(X,x)$ is conjugation by $\gamma$.
+
+\begin{rem}
+If $X$ is simply-connected, then we get \emph{canonical} isomorphisms $\pi_n(X,x) \simeq \pi_n(X,y)$ for all pairs of points $x,y\in X$.\marginnote{there is an analogue when we talk about just a simply-connected path component of $X$ and points in it} For this reason, many authors omit basepoints when talking about homotopy groups when it is not important.
+\end{rem}
+
+\begin{rem}
+Since, for each $n$ we get a representation $\Pi_1(X) \to \Ab$ from the collection of higher homotopy groups $\pi_n(X,x)$, there is a representation $\Pi_1(X) \to \Ab \to \Set$ gotten by composing with the underlying set functor $\Ab \to \Set$. From this we get a covering space of $X$, whose fibre at $x\in X$ is $\pi_n(X,x)$. In fact this covering space `remembers' the fact that each higher homotopy group is actually a group, in that it is a continuously-varying family of groups, not just of sets.
+\end{rem}
+
+\begin{lemma}
+Given a pair of pointed spaces $(X,x)$ and $(Y,y)$, there is an\marginnote{natural, even} isomorphism $\pi_n(X\times Y,(x,y)) \xrightarrow{\simeq} \pi_n(X,x) \times \pi_n(Y,y)$.
+\end{lemma}
+
+Just as we saw that homotopic maps should be considered the same from the point of view of fundamental groups and covering spaces, the same is true for higher homotopy groups
+
+\begin{lemma}
+Let $f,g\colon X\to Y$ be homotopic, say via $H\colon I\times X \to Y$. Then there is a commutative triangle
+\[
+  \xymatrix{
+    & \pi_n(Y,f(x)) \ar[dd]^{\simeq}\\
+    \pi_n(X,x) \ar[ur]^{f_*} \ar[dr]_{g_*} \\
+    & \pi_n(Y,g(x))
+  }
+\]
+\end{lemma}
+\begin{proof}
+The result follows for the special case of $Y = I\times X$ with $H=\id_{I\times X}$ the homotopy between the inclusion maps $f\colon X\simeq \{0\}\times X \into I \times X$ and $g\colon X\simeq \{1\}\times X \into I \times X$.
+
+\end{proof}
+
+\begin{prop}
+If $f\colon X\to Y$ is a homotopy equivalence, then $f_*\colon \pi_n(X,x) \xrightarrow{\simeq} \pi_n(Y,f(x))$ is an isomorphism.
+\end{prop}
+
+\begin{proof}
+(Idea) Since $f$ is a homotopy equivalence, there is a map $g\colon Y\to X$ such that $g\circ f$ is homotopic to $\id_X$ and $f\circ g$ is homotopic to $\id_Y$. We apply the lemma to these homotopies.
+\end{proof}
+
+It is very hard to calculate homotopy groups, and one needs to use all kinds of tricks and sometimes even results from differential topology\marginnote{like Sard's theorem, for example} to even calculate them for relatively simple spaces, like spheres. In fact we don't know all the homotopy groups for \emph{any} sphere $S^n$ with $n>1$. However, once there are a few homotopy groups that we know for `standard' spaces, then we can use the following objects in order to generate relations between homotopy groups of different spaces, and thus calculate more of them. 
+
+\begin{definition}
+A \emph{fibre bundle} on a space $X$ is a space $P$ together\marginnote{recall that this means that this diagram commutes: $\xymatrix{\pi^{-1}(U) \ar[rr]^\simeq \ar[dr]_\pi && U\times F \ar[dl]^{\pr_1} \\ & U}$} with a map $\pi\colon P \to X$ such that for every $x\in X$ there is a nhd $U\ni x$ and an isomorphism $\pi^{-1}(U) \xrightarrow{\simeq} U\times F$ over $U$ for some space $F$. In this setting we call $X$ the \emph{base space}, $P$ the \emph{total space} and $F$ the \emph{fibre}.
+\end{definition}
+
+It is not obvious, but it follows that for $X$ path connected, we do not need to assume that for every point the space $F$ is some fixed space, as all the fibres $\pi^{-1}(x)$ are automatically (non-canonically) homeomorphic. 
+
+This is a big generalisation of the notion of covering space, in that the space $F$ no longer needs to be discrete.
+
+\begin{example}
+Every covering space is a fibre bundle.
+\end{example}
+
+\begin{example}
+Let $S^3 \subset \CC^2$ be the unit sphere, consisting of pairs of points $(z,w)$ such that $|z|^2 + |w|^2 = 1$. There is a projection map $S^3 \to \mathbb{CP}^1$ sending the point $(z,w)$ to the point of the complex projective line $\mathbf{CP}^1$ with homogeneous coordinates $[z:w]$. By the defining equation, this is well-defined, since we don't have $z$ and $w$ simultaneously vanishing. The preimage of a point $[z:w]$ is homeomorphic to a copy of the unit complex numbers $U(1) \subset \CC$. This is a famous fibre bundle, called the \emph{Hopf bundle}. There are very few fibre bundles whose base space, total space and fibre are all spheres, so this is a somewhat atypical object, but very concrete and a good test case for trying out new ideas.
+\end{example}
+
+We need to relate homotopy groups of different spaces not just via the functoriality we already know about, but even homotopy groups in different dimensions.
+
+\begin{definition}
+A sequence
+\[
+  \cdots \to A_{n-1} \xrightarrow{f_{n-1}} A_n \xrightarrow{f_n} A_{n+1} \to \cdots 
+\]
+of (abelian) groups and homomorphisms is called \emph{exact at $A_n$} if $\ker(f_n) = \im(f_{n-1})$. It is called \emph{exact} if it is exact at $A_n$ for all $n$.
+\end{definition}
+
+\begin{example}
+A special case is where we have three successive nonzero terms:
+\[
+  0\to A \xrightarrow{\alpha} B \xrightarrow{\beta} C \to 0
+\]
+Such an exact sequence is called a \emph{short exact sequence}. It has the properties that: $\alpha$ is injective, $\beta$ is surjective, and $\ker(\beta) = \im(\alpha)$.
+\end{example}
+
+An even more trivial-seeming example, that still turns up in practice
+
+\begin{example}
+A sequence $0\to A \xrightarrow{\phi} B \to 0$ is exact if and only if $\phi$ is an isomorphism.
+\end{example}
+
+\begin{rem}
+The definition of exact sequence still makes sense (just!) for pointed sets and functions: given $(A,a) \xrightarrow{f} (B,b) \xrightarrow{g}  (C,c)$ pointed functions, this is exact at $(B,b)$ if $\im(f) = g^{-1}(c)$. The reason we care about this is that if $(X,x)$ is a pointed space $[\pt,X] \simeq [S^0,(X,x)]_*$ is a pointed set.
+\end{rem}
+
+Given a fibre bundle $\pi\colon P\to X$, we say it is pointed if we are given $x\in X$ and some $p\in F = \pi^{-1}(F)$.
+
+\begin{theorem}
+For a pointed fibre bundle $(P,p) \to (X,x)$, there is an exact sequence
+\[
+\hspace{-1.5cm}\cdots \to \pi_n(F,p) \to \pi_n(P,p) \to \pi_n(X,x) \to \pi_{n-1}(F,p) \to \cdots \to \pi_1(F,p) \to \pi_1(P,p) \to \pi_1(X,x) \to [\pt,F] \to [\pt,P] \to [\pt,X]
+\]
+\end{theorem}
+
+For the proof of this theorem, see Hatcher, Theorem 4.41. The exact sequence in the theorem is sometimes called the `long exact sequence' to distinguish it from various short exact sequences that arise.
+
+\begin{example}
+For a pointed covering space $(Z,z)\to (X,x)$, the long exact sequence breaks up, because of the fibre being discrete. There are sections of the form
+\[
+  \cdots \to 0 = \pi_n(Z_x,z) \to \pi_n(Z,z) \to \pi_n(X,x) \to \pi_{n-1}(Z_x,z) = 0 \to \cdots \qquad n >1
+\]
+implying that $\pi_n(Z,z) \simeq \pi_n(X,x)$ for $n>1$. The exact sequence ends on
+\[
+  \cdots \to 0=\pi_1(Z_x,z) \to \pi_1(Z,z) \to \pi_1(X,x) \to [\pt,Z_x] = Z_x \to [\pt,Z]\to [\pt,X]
+\]
+So we see again that $\pi_1(Z,z) \to \pi_1(X,x)$ is injective, as we had before. Similarly, if $[\pt,Z]=\ast$, that is, $Z$ is path connected, then $\pi_1(X,x) \to Z_x$ is surjective. 
+\end{example}
+
+This example should serve to highlight the fact that the long exact sequence of homotopy groups is a big generalisation of the relation between the fundamental group of $X$ and those of its covering spaces. However, we can still get some new things using covering spaces here. 
+
+\begin{example}
+If $X$ is an slsc space with \emph{contractible} universal covering space, then $\pi_n(X) = 0$ for $n>1$. This is true for any torus $\mathbb{T}^n$, for instance, and the circle $S^1$ in particular.
+\end{example}
+
+Let's now apply the long exact sequence to our other example
+
+\begin{example}
+Consider the Hopf bundle $S^3\to S^2$. We have that spheres are connected, and even $\pi_1(S^n) = 0$ for $n>1$, as well . So we get
+\[
+ \cdots \to 0 = \pi_n(S^1) \to \pi_n(S^3) \to \pi_n(S^2) \to \pi_{n-1}(S^1) = 0 \to \cdots \qquad n>2
+\]
+and
+\[
+\cdots \to 0=\pi_2(S^1) \to \pi_2(S^3) \to \pi_2(S^2) \to \pi_1(S^1) = \ZZ \to 0 \to \cdots
+\]
+Thus we see that for $n>2$, $\pi_n(S^3) \simeq \pi_n(S^2)$, and that there is a short exact sequence 
+\[
+0\to \pi_2(S^3) \to \pi_2(S^2) \to \ZZ \to 0
+\]
+This implies that $\pi_2(S^2)$ is an infinite abelian group, and $\pi_2(S^2)/ \pi_2(S^3) \simeq \ZZ$.
+\end{example}
+Allowing ourselves some black box results, then it is true that $\pi_2(S^3) = 0$, and $\pi_3(S^3) \simeq \ZZ$. This then implies that $\pi_2(S^2) = \ZZ$, and $\pi_3(S^2) = \ZZ$.
+
+\begin{rem}
+In fact, $\pi_k(S^n) = 0$ for \emph{all} $0<k<n$. These is a standard result, but the proof is beyond the techniques of the course so far.
+\end{rem} 
+
+Here is a bonus example, presented with no construction.
+\begin{example}
+There is also a fibre bundle $S^7\to S^4$ with fibre $S^3$. Applying the long exact sequence we get a section of it that looks like
+\[
+\cdots \to 0=\pi_4(S^7) \to \pi_4(S^4) \to \pi_3(S^3) \to \pi_3(S^7) = 0 \to \cdots 
+\]
+Since we know $\pi_3(S^3) = \ZZ$, then $\pi_4(S^4) = \ZZ$ also.
+\end{example}
+
+\begin{rem}
+And in fact it's a classical result that $\pi_n(S^n) = \ZZ$ for \emph{all} $n$. Again, the proof is beyond the scope of the course so far.
+\end{rem}
+
+Even knowing the homotopy groups of sphere is hard, which is why Serre was awarded a Fields medal for developing tools that could calulate that, for example, all homotopy groups of spheres are finite except for $\pi_n(S^n)=\ZZ$, and $\pi_{4n-1}(S^{2n}) = \ZZ \oplus A$ where $A$ is finite abelian. Odd and unexpected stuff happens, for instance (to pick an example at random) $\pi_{25}(S^6) = \ZZ/{1056 \ZZ} \oplus \ZZ/8\ZZ$.
+
 
 \end{document}
 
