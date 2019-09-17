@@ -11,6 +11,6 @@ Course notes for Pure Mathematics Topic D 2019. Work in progress. There will be 
 - Lecture 5 path lifting for covering spaces
 - Lecture 6 ... (eventually to be filled in)
 
-**Completed up to lecture 13 so far.**
+**Completed up to lecture 19 so far.**
 
 
