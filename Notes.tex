@@ -2654,7 +2654,7 @@ Now we can use the fact that $\mathbb{B}\colon \Grp \to \Gpd$ expresses $\Grp$ a
 subcategory.
 
 \begin{corollary}
-Let $X$ be a path connected space, $\{U,V\}$ a cover by path connected subspaces with 
+Let $X$ be a path connected space, $\{U,V\}$ a cover by path connected nhds with 
 $U\cap V$ path connected. For $x\in U\cap V$, the square
 \[
 \xymatrix{
@@ -3571,13 +3571,18 @@ The definition of exact sequence still makes sense (just!) for pointed sets and 
 Given a fibre bundle $\pi\colon P\to X$, we say it is pointed if we are given $x\in X$ and some $p\in F = \pi^{-1}(F)$.
 
 \begin{theorem}
-For a pointed fibre bundle $(P,p) \to (X,x)$, there is an exact sequence
+For a pointed fibre bundle $q\colon (P,p) \to (X,x)$, there is an exact sequence
 \[
-\hspace{-1.5cm}\cdots \to \pi_n(F,p) \to \pi_n(P,p) \to \pi_n(X,x) \to \pi_{n-1}(F,p) \to \cdots \to \pi_1(F,p) \to \pi_1(P,p) \to \pi_1(X,x) \to [\pt,F] \to [\pt,P] \to [\pt,X]
+\hspace{-1.5cm}\cdots \to \pi_n(F,p) \xrightarrow{i_*} \pi_n(P,p) \xrightarrow{q_*}\pi_n(X,x) \xrightarrow{\delta} \pi_{n-1}(F,p) \xrightarrow{i_*} \cdots \to \pi_1(F,p) \xrightarrow{i_*} \pi_1(P,p) \xrightarrow{q_*} \pi_1(X,x) \xrightarrow{\delta}  [\pt,F] \xrightarrow{i_*} [\pt,P] \xrightarrow{q_*} [\pt,X]
 \]
+where $i\colon F\into P$ is the inclusion.
 \end{theorem}
 
 For the proof of this theorem, see Hatcher, Theorem 4.41. The exact sequence in the theorem is sometimes called the `long exact sequence' to distinguish it from various short exact sequences that arise.
+
+\begin{rem}
+A few words are in order about the exactness at $\pi_1(X,x)$ and further terms that are only pointed sets. If $P$ is path connected, then we have $\cdots \to \pi_1(P,p)\to \pi_1(X,x) \to [\pt,F] \to *$. If $\pi_1(X,x) \to [\pt,F]$ \emph{were} a group homomorphism, this would be enough to tell us that $[\pt,F] \simeq \pi_1(X,x)/q_*(\pi_1(P,p))$, but we aren't even guaranteed that $\pi_1(P,p)$ is normal in $\pi_1(X,x)$. So we should interpret exactness to be defined as $[\pt,F] \simeq \pi_1(X,x)/q_*(\pi_1(P,p))$ \emph{as pointed sets}. In general, if $P$ is not path connected, we should take exactness here to mean that $\pi_1(X,x)/q_*(\pi_1(P,p))\simeq i_*^{-1}(p)\subset [\pt,F]$. Finally, even though $\delta \pi_1(X,x) \to [\pt,F]$ is not a homomorphism, we have that $q_*(\pi_1(P,p))$ is the preimage of the basepoint under $\delta$.
+\end{rem}
 
 \begin{example}
 For a pointed covering space $(Z,z)\to (X,x)$, the long exact sequence breaks up, because of the fibre being discrete. There are sections of the form
@@ -3633,7 +3638,216 @@ Since we know $\pi_3(S^3) = \ZZ$, then $\pi_4(S^4) = \ZZ$ also.
 And in fact it's a classical result that $\pi_n(S^n) = \ZZ$ for \emph{all} $n$. Again, the proof is beyond the scope of the course so far.
 \end{rem}
 
-Even knowing the homotopy groups of sphere is hard, which is why Serre was awarded a Fields medal for developing tools that could calulate that, for example, all homotopy groups of spheres are finite except for $\pi_n(S^n)=\ZZ$, and $\pi_{4n-1}(S^{2n}) = \ZZ \oplus A$ where $A$ is finite abelian. Odd and unexpected stuff happens, for instance (to pick an example at random) $\pi_{25}(S^6) = \ZZ/{1056 \ZZ} \oplus \ZZ/8\ZZ$.
+Even knowing the homotopy groups of sphere is hard, which is why Serre was awarded a Fields medal (in part) for developing tools that could calulate that, for example, all homotopy groups of spheres are finite except for $\pi_n(S^n)=\ZZ$, and $\pi_{4n-1}(S^{2n}) = \ZZ \oplus A$ where $A$ is finite abelian. Odd and unexpected stuff happens, for instance (to pick an example at random) $\pi_{25}(S^6) = \ZZ/{1056 \ZZ} \oplus \ZZ/8\ZZ$.
+
+A\lecturenum{19} large source of fibre bundles to which the long exact sequence can be applied arise from Lie groups.
+
+Let $G$ be a Lie group,\marginnote{For instance: the groups $GL(n), O(n), SO(n), U(n), SU(n)$ of $n\times n$ invertible, orthogonal, special orthogonal, unitary and special unitary matrices respectively, where `special' means the determinant is $1$. The smaller groups are closed subgroups of the bigger ones as the subgroups of block submatrices extended by the identity matrix} and let $H$ be a closed subgroup. Then the quotient map $G\to G/H$ for the multiplication action of $H$ on $G$ is a fibre bundle with fibres isomorphic to $H$.
+
+\begin{example}
+There are fibre bundles on spheres arising in this way: namely $SO(n+1) \to SO(n+1)/SO(n) \simeq S^n$ with fibre $SO(n)$, and $SU(n+1) \to SU(n+1)/SU(n) \simeq S^{2n+1}$ with fibre $SU(n)$.
+\end{example}
+
+\begin{example}
+The Hopf bundle turns out to be an example of this form, namely $SU(2) \to SU(2)/U(1) \simeq S^2$, where $U(1) \into SU(2)$ as the diagonal matrices with entries $z$ and $\overline{z}$.
+\end{example}
+
+Trivial-seeming, but useful, is the result that $SU(2) = SU(2)/SU(1) \simeq S^3$, as $SU(1)$, the group of $1\times 1$ unitary matrices with determinant $1$, is trivial. Another very useful fact is that there is a surjective homomorphism $SU(2) \to SO(3)$\marginnote{this arises because there is an isomorphism \emph{of Lie groups} of $SU(2)$ with the group of quaternions of unit length, and unit quaternions act by conjugation on the subspace of pure imaginary quaternions as rotations} whose kernel is the centre $\{\pm I\} < SU(2)$. This means that $SO(3) = SU(2)/\{\pm I\}$, and hence there is a fibre bundle $SU(2) \to SO(3)$ (in fact a covering space).
+
+Since $SU(2)$ is topologically $S^3$, it is simply-connected, and since $\{\pm I\}$ acts freely with quotient $SO(3)$, $\pi_1(SO(3),I) = \{\pm I\} \simeq \ZZ/2\ZZ$. Now let's consider what the long exact sequence of homotopy groups associated to the fibre bundle $SO(n+1) \to S^n$ tells us. We will only look at the tail end of it at present, assuming $\geq 3$:
+\[
+	\cdots \to \pi_2(S^n,*) = 0 \to \pi_1(SO(n),I) \to \pi_1(SO(n+1),I) \to \pi_1(S^n,*) = 0 \to \cdots
+\]
+where we have used $\pi_2(S^n) = 0$ as remarked before. Exactness tells us that $\pi_1(SO(n),I) \to \pi_1(SO(n+1),I)$ is an isomorphism for $n\geq 3$, and so by induction $\pi_1(SO(n),I) \simeq \ZZ/2\ZZ$ for all $n\geq 3$. If we look at the case $n=2$, we see an interesting phenomenon, namely that we have the exact sequence
+\[
+	\cdots \to \pi_2(SO(3),I) \to \pi_2(S^2,*) = \ZZ \to \pi_1(SO(2),I) \to \pi_1(SO(3),I) \to \pi_1(S^2,*) = 0 \to \cdots
+\]
+Now $SO(2)$ is the group of $2\times 2$ rotation matrices, which is homeomorphic to $S^1$, and we know well that $\pi_1(S^1,1)=\ZZ$. Making the substitutions for the known groups we get the exact sequence
+\[
+	\cdots \to \pi_2(SO(3),I) \xrightarrow{\pi_*} \ZZ \xrightarrow{\delta} \ZZ \xrightarrow{i_*} \ZZ/2\ZZ \to 0 
+\]
+Exactness tells us that $i_*$ is surjective, so that its kernel is $2\ZZ$, and this is then the image of $\delta$ is also $2\ZZ$. Thus $\delta\colon \ZZ \to \ZZ$ is multiplication by $2$! Moreover, this also tells us that the homomorphism $\pi_*\colon \pi_2(SO(3),I) \to \pi_2(S^2,*)=\ZZ$ is the zero map. In this way, we don't just get information about the homotopy groups, but about the induced maps between them, which is just as important. If we go one more step up the sequence, and consider
+\[
+	\cdots \to \pi_2(SO(2),I) \xrightarrow{i_*} \pi_2(SO(3),I) \xrightarrow{0} \ZZ \xrightarrow{\times 2} \ZZ \xrightarrow{\mod 2} \ZZ/2\ZZ \to 0
+\]
+then we know that $\pi_2(SO(2),I) \simeq \pi_2(S^1,*) = 0$, so we know that $i_*$ must have trivial image. But this is the kernel of $\pi_*\colon \pi_2(SO(3),I) \to \pi_2(S^2,*)$, namely all of $\pi_2(SO(3),I)$, and so $\pi_2(SO(3)) = 0$. We could have gotten this result a different way, using $0=\pi_2(S^3)\simeq\pi_2(SU(2)) \simeq \pi_2(SO(3))$, as $SU(2) \to SO(3)$ is a covering space, but here we didn't need to already know that $\pi_2(S^3)=0$.
+
+\begin{rem}
+It is a hard fact that for \emph{all} finite-dimensional Lie groups $G$, $\pi_2(G,e) = 0$.
+\end{rem}
+
+Earlier in the course, we said that algebraic topology was about finding invariants of spaces up to continuous deformation, and that continuous deformation meant homotopy equivalence. However, that was not quite the whose story. If we take the collection of all homotopy groups to be our collection of invariants, then if given a pair of spaces $X$, $Y$ and a map $f\colon X\to Y$, if $f$ induces isomorphisms between all homotopy groups, then there is no way to tell $X$ and $Y$ apart. This leads to the following definition
+
+\begin{definition}
+A map $f\colon X\to Y$ of spaces is called a \emph{weak homotopy equivalence} if $\Pi_1(X) \to \Pi_1(Y)$\marginnote{this is equivalent to asking that $[\pt,X] \xrightarrow{\simeq} [\pt,Y]$ and $\pi_1(X,x) \xrightarrow{\simeq} \pi_1(Y,f(x))$ for all $x\in X$} is an equivalence of groupoids, and if for all $x\in X$ and $n>1$, the induced map $f_*\colon \pi_n(X,x) \to \pi_n(Y,f(x))$ is an isomorphism.
+\end{definition}
+
+\begin{example}
+All homotopy equivalences $f\colon X\to Y$ are weak homotopy equivalences.
+\end{example}
+
+But there are examples of weak homotopy equivalences that are not homotopy equivalences
+
+\begin{example}
+Consider the topologist's sine curve $C$. Equip the set $\{a,b\}$ with the discrete topology, and take a map $\{a,b\} \to C$ that picks out a basepoint in each path component. This is a weak homotopy equivalence as both spaces have trivial homotopy groups $\pi_n$ for $n\geq 1$ and both have two path components, but there is no surjective map $C \to \{a,b\}$, as $C$ is connected.
+\end{example}
+
+
+\begin{example}
+The \emph{Warsaw circle} $W$ is constructed from the topologist's sine curve by adding an arc\marginnote{more formally, it is the quotient space $C \sqcup [0,1] \to W$ where we identify $0$ and $1$ with the appropriate points on $C$} from the `free endpoint' of the oscillating path component to the other path component on the $y$-axis. Then $W$ is path connected, but still has all homotopy groups trivial. Thus the map $W\to \pt$ is a weak homotopy equivalence, but there is no contraction of $W$ as this would ultimately give rise to a path contained in the topologist's sine curve from one path component to the other.
+\end{example}
+
+Another class of examples illustrates why making a general assumption that our spaces are slpc is harmless from the point of view of homotopy theory.
+
+\begin{definition}
+For any space $X$, define the quotient topology on $[\pt,X]$ coming from the map $X\to [\pt,X]$. We can also consider the discrete space $\disc[\pt,X]$, which comes with a bijective map $\disc[\pt,X] \to [\pt,X]$. Define the space $\mathrm{slpc}(X)$ to be the pullback in the square
+\[
+	\xymatrix{
+		\disc[\pt,X] \times_{[\pt,X]} X \ar[rr] \ar[d] && X \ar[d]\\
+		\disc[\pt,X] \ar[rr] && [\pt,X]
+	}
+\]
+\end{definition}
+
+One way to think of this is that we put a new topology on the underlying set of $X$ so that it becomes the disjoint union of its path components.
+
+\begin{lemma}
+The assignment $X\mapsto \mathrm{slpc}(X)$ is the object component of a functor $\Top \to \Top$ landing inside the full subcategory of slpc spaces.
+\end{lemma}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+By construction, there is a continuous, bijective map $\mathrm{slpc}(X) \to X$ that is the identity map on the underlying sets.
+
+\begin{lemma}
+The map $\mathrm{slpc}(X) \to X$ is a weak homotopy equivalence, and a is not a homotopy equivalence if $X$ is not already slpc.
+\end{lemma}
+
+Thus if we cannot tell apart spaces that are weakly homotopy equivalent, it is relatively harmless to work only with slpc spaces.
+
+\section{Chain complexes}
+
+Recall the Euler characteristic of a polyhedron $P$:
+\[
+	\chi(P) = \underbrace{\text{\#(vertices)}}_{0\text{-dim}} - \underbrace{\text{\#(edges)}}_{1\text{-dim}} + \underbrace{\text{\#(faces)}}_{2\text{-dim}}
+\]
+This definition doesn't require the polyhedron to be convex, simply-connected or even connected. It's not even restricted to surfaces, if we define
+\[
+	\chi(P) = \sum_{d=0}^{\dim P} (-1)^d \text{\#($d$-dim faces)}
+\]
+However, $\chi$ is not functorial in any way and so we cannot relate in any obvious way the Euler characteristics of different polyhedra. Ideally, we would have a functor from which we can then reconstruct the Euler characteristic. The key idea is to replace the vertex, edge, etc count by the dimension of some vector space. The vertx, edge, etc counts can be reconstructed from the vector space, but now we could in principle have an infinite-dimensional vector space, which would arise in the case that we have an \emph{infinite} polyhedron\marginnote{for instance a triangulation of an infinite-genus surface}
+
+
+\begin{definition}
+A \emph{chain complex} $A_\bullet$ (of vector spaces, abelian groups, $R$-modules) is a sequence 
+\[
+	\cdots \to A_{n-1} \xrightarrow{d_{n-1}} A_n \xrightarrow{d_n} A_{n+1} \to \cdots
+\]
+(of vector spaces, abelian groups, $R$-modules) such that $d_n\circ d_{n-1} = 0$\marginnote{equivalently, $\im(d_{n-1}) \subseteq \ker(d_n)$} for all $n$
+\end{definition}
+
+\begin{example}
+Any exact sequence, of abelian groups say, gives a chain complex.
+\end{example}
+
+As for exact sequences, we can have a section of the chain complex that consists of nontrivial groups, vector spaces etc and the rest of the chain complex can be trivial. In this case we can restrict attention to the nontrivial section.
+
+\begin{example}
+The following is a chain complex:
+\[
+	0\to \ZZ \xrightarrow{\times 4} \ZZ \xrightarrow{\mod{2}} \ZZ/2\ZZ \to 0
+\]
+Now we have an injective map on the left, and a surjective map on the right, but we only have that $4\ZZ < 2\ZZ$, not an equality of the kernel and the image.
+\end{example}
+
+
+\begin{example}
+Let $A$ and $B$ be a pair of $n\times n$ real matrices such that $BA$ is the zero matrix, considered as linear maps. Then
+\[
+	0\to \RR^n \xrightarrow{A} \RR^n \xrightarrow{B} \RR^n \to 0
+\]
+is a chain complex. There is no way for this to be exact, because then $B$ would have to be surjective, hence invertible, and $A$ would have to be injective, hence invertible, but then we cannot have $BA=0$.
+\end{example}
+
+Here is an example which should be familiar from multivariable calculus. For $U\subset \RR^n$ an open subset, let $C^\infty(U)$ denote the vector space of smooth functions on $U$ and $C^\infty(U,\RR^3)$ be the vector space of vector fields on $U$.
+
+\begin{example}
+The various derivative operators $\nabla$ (gradient), $\nabla\times-$ (curl) and $\nabla\cdot -$ (divergence) give a chain complex denoted $\Omega^\bullet(U)$:
+\[
+	C^\infty(U) \xrightarrow{\nabla} C^\infty(U,\RR^3) \xrightarrow{\nabla\times -} C^\infty(U,\RR^3) \xrightarrow{\nabla\cdot -} C^\infty(U) \to 0
+\]
+because the curl of a gradient is zero, and the divergence of a curl is zero.
+\end{example}
+
+\begin{definition}
+A map of chain complexes\marginnote{sometimes called a \emph{chain map}} $A_\bullet \to B_\bullet$ consists of a sequence of maps $f_n\colon A_n \to B_n$ such that all the squares
+\[
+	\xymatrix{
+		A_{n-1} \ar[r]^{d_{n-1}^A} \ar[d]_{f_{n-1}} & A_n \ar[d]^{f_n}\\
+		B_{n-1} \ar[r]_{d_{n-1}^B} & B_n
+	}
+\]
+\end{definition}
+
+\begin{example}
+Given the matrices $A$ and $B$ from the previous example, there is map of chain complexes
+\[
+	\xymatrix{
+		0 \ar[r] \ar@{=}[d] & 0 \ar[r] \ar[d] & \RR^n \ar[r]^A \ar[d] & \RR^n \ar[r]^B \ar[d] & \RR^n \ar[r] \ar[d] & 0 \ar@{=}[d]\\
+		0 \ar[r] & \ker(A) \ar[r] & 0 \ar[r] & \RR^n/\im(A) \ar[r] & \RR^n \ar[r] & 0
+	}
+\]
+\end{example}
+
+\begin{example}
+There is a map of chain complexes $\Omega^\bullet(\RR^3) \to \Omega^\bullet(U)$
+\[
+	\xymatrix{
+	C^\infty(\RR^3) \ar[d] \ar[r]^{\nabla} & C^\infty(\RR^3,\RR^3) \ar[d] \ar[r]^{\nabla\times -} & C^\infty(\RR^3,\RR^3) \ar[d] \ar[r]^{\nabla\cdot -} & C^\infty(\RR^3) \ar[d] \ar[r] & 0 \ar[d] \\
+	C^\infty(U) \ar[r]_{\nabla} & C^\infty(U,\RR^3) \ar[r]_{\nabla\times -} & C^\infty(U,\RR^3) \ar[r]_{\nabla\cdot -} & C^\infty(U)\ar[r] & 0
+	}
+\]
+where the vertical maps restrict functions and vector fields.
+\end{example}
+
+Now the chain complex $\Omega^\bullet(\RR^3)$ is exact,\marginnote{by the Poincar\'e lemma, or more prosaically by standard multivariable calculus} because a vector field $\mathbf{v}$ on $\RR^3$ satisfies $\nabla\times \mathbf{v}=\mathbf{0}$ if and only if $\mathbf{v} = \nabla f$ for some function $f$, $\nabla\cdot \mathbf{v} = 0$ if and only if $\mathbf{v} = \nabla\times \mathbf{w}$ for some vector field $\mathbf{w}$, and any function $\RR^3\to \RR$ is the divergence of some vector field. Ultimately, this is because $\RR^3$ is contractible. But if we take $U = \RR^3\setminus\{0\}$, then there are vector fields $\mathbf{v}$ on $U$ with zero divergence that are not the curl of a vector field on $U$. This is because $\RR^3\setminus\{0\}$ is homotopy equivalent to $S^2$, and so the chain complex $\Omega^\bullet(\RR^3\setminus\{0\})$ can `see' the nontrivial topological structure also captured by $\pi_2(S^2) = \ZZ$. This is measured by the fact that the kernel of $\nabla\cdot -$ and the image of $\nabla\times -$ do not coincide.
+
+Similarly, one can take $U = \RR^3 \setminus \ell$ where $\ell\subset \RR^3$ is a 1-dimensional subspace.\marginnote{for instance $\ell=$ the $z$-axis} We have a homotopy equivalence between $\RR^3 \setminus \ell$ and $S^1$. And this is detected by the fact there are vector fields in $\RR^3 \setminus \ell$ whose curl vanishes but which are not the gradient of any function. Thus the kernel of $\nabla\times -$ and the image $\nabla$ are different. Ultimately, it is not the specific chain complex that captures the information of interest, because $\Omega^\bullet(\RR^n)$ is made up of enormous infinite-dimensional vector spaces, but $\RR^n$ itself is homotopically uninteresting.\marginnote{the keen-eyed will have noticed that the kernel of $\nabla$ consists of the constant functions, so is isomorphic to $\RR$. This one-dimensional vector space accounts for the fact $[\pt,\RR^3] = *$}
+
+We will look at much smaller examples to properly warm up, to illustrate the type of algebra that will turn up.
+
+\begin{definition}\label{eg:triangle_graph}
+A \emph{simple directed graph} consists of a set $V$ of \emph{vertices}, a set $E$ of edges and two functions $d_0,d_1\colon E\to V$ such that $(d_0,d_1)\colon E \to V\times V$ is injective, and $\im (d_0,d_1) \cap \Delta(V) = \emptyset$\marginnote{$\Delta(V) = \{(v,v)\in V^2\}$ is the diagonal} 
+\end{definition}
+
+Such a directed graph has no self-loops from a vertex to itself, and no more than one edge between any two vertices. The idea is that an edge $e$ points from $d_1(e)$ to $d_0(e)$.
+
+\begin{example}
+Let $V = \{A,B,C\}$ and $E = \{a,b,c\}$, with\marginnote{this graph looks like a directed triangle, will update with an image}
+\begin{align*}
+a & \mapsto (A,B)\\
+(d_1,d_0) \colon b & \mapsto (B,C)\\
+c & \mapsto (A,C)
+\end{align*}
+\end{example}
+
+To define a chain complex from a directed simple graph, for any given set $S$ and ring $R$, let $R^S$ denote the $R$-module\marginnote{if $R=\ZZ$, this is the product of $|S|$-many copies of $\ZZ$, and if $R$ is a field, it's the vector space of functions on $S$} of functions $f\colon S\to R$. The following definition is made using $R=\ZZ$, but it works for any ring $R$ more generally.
+
+\begin{definition}
+Let $d_0,d_1\colon E\rightrightarrows V$ be a simple directed graph. Define the chain complex
+\begin{align*}
+\ZZ^V & \quad\xrightarrow{\delta} \qquad\ZZ^E  \qquad \to \quad 0\\
+f & \mapsto f\circ d_0 - f\circ d_1
+\end{align*}
+\end{definition}
+
+\lecturenum{20}
+
+\begin{example}
+In Example~\ref{eg:triangle_graph}, the chain complex that arises is $\ZZ^3\xrightarrow{\delta} \ZZ^3 \to 0$, where \ldots (TBC)
+\end{example}
 
 
 \end{document}
