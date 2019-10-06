@@ -30,6 +30,8 @@
 \fi 
 \CompileMatrices
 
+\hyphenation{homeo-morphic homeo-morphism}
+
 \parskip = 10pt
 
 \def\into {\hookrightarrow} 
@@ -55,6 +57,7 @@
 \def\Ab {\mathbf{Ab}}
 \def\Fin {\mathbf{Fin}}
 \def\Vect {\mathbf{Vect}}
+\def\Ch{\mathbf{Ch}}
 
 
 \def\RR{\mathbb{R}} 
@@ -71,6 +74,7 @@
 \DeclareMathOperator*{\colim}{colim} 
 \DeclareMathOperator{\Sh}{Sh} 
 \DeclareMathOperator{\id}{id} 
+\DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\Sub}{Sub} 
 \DeclareMathOperator{\Aut}{Aut} 
 \DeclareMathOperator{\Cont}{Cont}
@@ -109,8 +113,13 @@
 
 \maketitle
 
-\lecturenum{1} \section{What is it?}
+%% Uncomment for tufte-book
+% \tableofcontents
+% \mainmatter
 
+\section{What is it?}
+
+\lecturenum{1}
 Algebraic topology is the study of maps 
 \[
 	\{\text{Spaces}\} \longrightarrow \{\text{Algebraic objects}\},
@@ -1887,7 +1896,7 @@ Recall that $\pi_1(X,x) \to Z_x$ is surjective for any $x\in X$, so $X$ simply-c
 $Z_x = \pt$ for all $x$. Thus $\pi$ is a bijection. The local triviality condition implies 
 that every $x\in X$ has an open set $U\ni x$ such that $\pi^{-1}(U) \to U$ is a homeomorphism. 
 Letting $U_\alpha$ range over such an cover of $X$, we can glue the inverses of these local 
-homeomorphisms into a into an inverse for $\pi$.
+homeomorphisms into an inverse for $\pi$.
 \end{proof}
 
 
@@ -1952,7 +1961,7 @@ The function $Z\to I\times Z_0$ is given by $(\pr_1\circ \pi,\tau)$, for some
 $\tau\colon Z\to Z_0$, which we need to construct.
 The idea is similar to the situation where we constructed the trivialisation of a 
 covering space of $I$, which is the special case of $X=\pt$. 
-Given $x\in X$, we get a trivisalisable covering space $Z_{I\times \{x\}}\to X$, and so 
+Given $x\in X$, we get a trivisalisable covering space $Z_{I\times \{x\}}\to I\times \{x\}\simeq I$, and so 
 a function $\tau_x\colon Z_{I\times \{x\}} \to I\times Z_{(0,x)} \xrightarrow{\pr_2}Z_{(0,x)}$. 
 Hence we have a (potentially discontinuous) function $Z \to Z_0$ using the various $\tau_x$. 
 We will write down a global version of this function using ingredients we already know to be 
@@ -2537,7 +2546,7 @@ t_0$ for $s\in S\setminus T$. A more serious example is:
 		
 \begin{example}\label{eg:retracts_of_Pi1}
 Given a space\marginnote{This generalises the case from Assignment 2, where $A'=\{x\}$} 
-$X$, with subspaces $A' \subseteq A$ such that every point in $Aß$ is 
+$X$, with subspaces $A' \subseteq A$ such that every point in $A$ is 
 connected by a path in $X$ to a point in $A'$. Then $\Pi_1(X,A')$ is a retract of 
 $\Pi_1(X,A)$. The case we will most care about is $A=X$, and various $A'\subseteq X$.
 \end{example}
@@ -3694,7 +3703,25 @@ Consider the topologist's sine curve $C$. Equip the set $\{a,b\}$ with the discr
 
 
 \begin{example}
-The \emph{Warsaw circle} $W$ is constructed from the topologist's sine curve by adding an arc\marginnote{more formally, it is the quotient space $C \sqcup [0,1] \to W$ where we identify $0$ and $1$ with the appropriate points on $C$} from the `free endpoint' of the oscillating path component to the other path component on the $y$-axis. Then $W$ is path connected, but still has all homotopy groups trivial. Thus the map $W\to \pt$ is a weak homotopy equivalence, but there is no contraction of $W$ as this would ultimately give rise to a path contained in the topologist's sine curve from one path component to the other.
+
+The \emph{Warsaw circle} $W$ is constructed from the topologist's sine curve by adding 
+an arc\marginnote[-1cm]{
+\begin{tikzpicture}[x=5cm]
+\draw[gray,domain=0.01:1/pi,samples=2500,ultra thin]plot(\x,{sin(deg(1/\x))});
+\draw[gray,thin](0,-1)--(0,1);
+\draw[gray,ultra thin,densely dotted](0.003,-1)--(0.003,1)(0.006,-1)--(0.006,1)(0.009,-1)--(0.009,1);
+\draw[gray,thin](0,0)--(-0.1,0)--(-0.1,1.5)--(1/pi,1.5)--(1/pi,-0.01);
+\end{tikzpicture}
+
+\noindent more formally, it is the quotient space $C \sqcup [0,1] \to W$ where 
+we identify $0$ and $1$ with the appropriate points on $C$
+} from the `free endpoint' of 
+the oscillating path component to the other path component on the $y$-axis. Then $W$ is 
+path connected, but still has all homotopy groups trivial. Thus the map $W\to \pt$ is a 
+weak homotopy equivalence, but there is no contraction of $W$ as this would ultimately 
+give rise to a path contained in the topologist's sine curve from one path component to 
+the other.
+
 \end{example}
 
 Another class of examples illustrates why making a general assumption that our spaces are slpc is harmless from the point of view of homotopy theory.
@@ -3745,7 +3772,8 @@ A \emph{chain complex} $A_\bullet$ (of vector spaces, abelian groups, $R$-module
 \[
 	\cdots \to A_{n-1} \xrightarrow{d_{n-1}} A_n \xrightarrow{d_n} A_{n+1} \to \cdots
 \]
-(of vector spaces, abelian groups, $R$-modules) such that $d_n\circ d_{n-1} = 0$\marginnote{equivalently, $\im(d_{n-1}) \subseteq \ker(d_n)$} for all $n$
+(of vector spaces, abelian groups, $R$-modules) such that $d_n\circ d_{n-1} = 
+0$\marginnote{equivalently, $\im(d_{n-1}) \subseteq \ker(d_n)$} for all $n$
 \end{definition}
 
 \begin{example}
@@ -3782,13 +3810,16 @@ because the curl of a gradient is zero, and the divergence of a curl is zero.
 \end{example}
 
 \begin{definition}
-A map of chain complexes\marginnote{sometimes called a \emph{chain map}} $A_\bullet \to B_\bullet$ consists of a sequence of maps $f_n\colon A_n \to B_n$ such that all the squares
+A map of complexes\marginnote{sometimes called a \emph{chain map}} $A_\bullet \to 
+B_\bullet$ consists of a sequence of maps $f_n\colon A_n \to B_n$ such that all the 
+squares
 \[
 	\xymatrix{
 		A_{n-1} \ar[r]^{d_{n-1}^A} \ar[d]_{f_{n-1}} & A_n \ar[d]^{f_n}\\
 		B_{n-1} \ar[r]_{d_{n-1}^B} & B_n
 	}
 \]
+The category of complexes of $R$-modules and chain maps is denoted $\Ch_R$.
 \end{definition}
 
 \begin{example}
@@ -3812,25 +3843,68 @@ There is a map of chain complexes $\Omega^\bullet(\RR^3) \to \Omega^\bullet(U)$
 where the vertical maps restrict functions and vector fields.
 \end{example}
 
-Now the chain complex $\Omega^\bullet(\RR^3)$ is exact,\marginnote{by the Poincar\'e lemma, or more prosaically by standard multivariable calculus} because a vector field $\mathbf{v}$ on $\RR^3$ satisfies $\nabla\times \mathbf{v}=\mathbf{0}$ if and only if $\mathbf{v} = \nabla f$ for some function $f$, $\nabla\cdot \mathbf{v} = 0$ if and only if $\mathbf{v} = \nabla\times \mathbf{w}$ for some vector field $\mathbf{w}$, and any function $\RR^3\to \RR$ is the divergence of some vector field. Ultimately, this is because $\RR^3$ is contractible. But if we take $U = \RR^3\setminus\{0\}$, then there are vector fields $\mathbf{v}$ on $U$ with zero divergence that are not the curl of a vector field on $U$. This is because $\RR^3\setminus\{0\}$ is homotopy equivalent to $S^2$, and so the chain complex $\Omega^\bullet(\RR^3\setminus\{0\})$ can `see' the nontrivial topological structure also captured by $\pi_2(S^2) = \ZZ$. This is measured by the fact that the kernel of $\nabla\cdot -$ and the image of $\nabla\times -$ do not coincide.
+Now the chain complex $\Omega^\bullet(\RR^3)$ is exact,\marginnote{by the Poincar\'e 
+lemma, or more prosaically by standard multivariable calculus} because a vector field 
+$\mathbf{v}$ on $\RR^3$ satisfies $\nabla\times \mathbf{v}=\mathbf{0}$ if and only if 
+$\mathbf{v} = \nabla f$ for some function $f$, $\nabla\cdot \mathbf{v} = 0$ if and only 
+if $\mathbf{v} = \nabla\times \mathbf{w}$ for some vector field $\mathbf{w}$, and any 
+function $\RR^3\to \RR$ is the divergence of some vector field. Ultimately, this is 
+because $\RR^3$ is contractible. But if we take $U = \RR^3\setminus\{0\}$, then there 
+are vector fields $\mathbf{v}$ on $U$ with zero divergence that are not the curl of a 
+vector field on $U$. This is because $\RR^3\setminus\{0\}$ is homotopy equivalent to 
+$S^2$, and so the chain complex $\Omega^\bullet(\RR^3\setminus\{0\})$ can `see' the 
+nontrivial topological structure also captured by $\pi_2(S^2) = \ZZ$. This is measured 
+by the fact that the kernel of $\nabla\cdot -$ and the image of $\nabla\times -$ do not 
+coincide.
 
-Similarly, one can take $U = \RR^3 \setminus \ell$ where $\ell\subset \RR^3$ is a 1-dimensional subspace.\marginnote{for instance $\ell=$ the $z$-axis} We have a homotopy equivalence between $\RR^3 \setminus \ell$ and $S^1$. And this is detected by the fact there are vector fields in $\RR^3 \setminus \ell$ whose curl vanishes but which are not the gradient of any function. Thus the kernel of $\nabla\times -$ and the image $\nabla$ are different. Ultimately, it is not the specific chain complex that captures the information of interest, because $\Omega^\bullet(\RR^n)$ is made up of enormous infinite-dimensional vector spaces, but $\RR^n$ itself is homotopically uninteresting.\marginnote{the keen-eyed will have noticed that the kernel of $\nabla$ consists of the constant functions, so is isomorphic to $\RR$. This one-dimensional vector space accounts for the fact $[\pt,\RR^3] = *$}
+Similarly, one can take $U = \RR^3 \setminus \ell$ where $\ell\subset \RR^3$ is a 
+1-dimensional subspace.\marginnote{for instance $\ell=$ the $z$-axis} We have a homotopy 
+equivalence between $\RR^3 \setminus \ell$ and $S^1$. And this is detected by the fact 
+there are vector fields in $\RR^3 \setminus \ell$ whose curl vanishes but which are not 
+the gradient of any function. Thus the kernel of $\nabla\times -$ and the image $\nabla$ 
+are different. Ultimately, it is not the specific chain complex that captures the 
+information of interest, because $\Omega^\bullet(\RR^n)$ is made up of enormous 
+infinite-dimensional vector spaces, but $\RR^n$ itself is homotopically 
+uninteresting.\marginnote{the keen-eyed will have noticed that the kernel of $\nabla$ 
+consists of the constant functions, so is isomorphic to $\RR$. This one-dimensional 
+vector space accounts for the fact $[\pt,\RR^3] = *$}
 
-We will look at much smaller examples to properly warm up, to illustrate the type of algebra that will turn up.
+We will look at much smaller examples to properly warm up, to illustrate the type of 
+algebra that will turn up.
 
 \begin{definition}\label{eg:triangle_graph}
-A \emph{simple directed graph} consists of a set $V$ of \emph{vertices}, a set $E$ of edges and two functions $d_0,d_1\colon E\to V$ such that $(d_0,d_1)\colon E \to V\times V$ is injective, and $\im (d_0,d_1) \cap \Delta(V) = \emptyset$\marginnote{$\Delta(V) = \{(v,v)\in V^2\}$ is the diagonal} 
+A \emph{simple directed graph} consists of a set $V$ of \emph{vertices}, a set $E$ of 
+edges and two functions $d_0,d_1\colon E\to V$ such that $(d_0,d_1)\colon E \to V\times 
+V$ is injective, and $\im (d_0,d_1) \cap \Delta(V) = \emptyset$\marginnote{$\Delta(V) = 
+\{(v,v)\in V^2\}$ is the diagonal}
 \end{definition}
 
-Such a directed graph has no self-loops from a vertex to itself, and no more than one edge between any two vertices. The idea is that an edge $e$ points from $d_1(e)$ to $d_0(e)$.
+Such a directed graph has no self-loops from a vertex to itself, and no more than one 
+edge between any two vertices. The idea is that an edge $e$ points from $d_1(e)$ to 
+$d_0(e)$.
 
-\begin{example}
-Let $V = \{A,B,C\}$ and $E = \{a,b,c\}$, with\marginnote{this graph looks like a directed triangle, will update with an image}
-\begin{align*}
+\begin{example}\label{eg:triangle_graph}
+Let $V = \{A,B,C\}$ and $E = \{a,b,c\}$, with\marginnote{\begin{tikzpicture}
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$a$} (60:3);
+\node[below] at (0,0) {$A$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(60:3) node {$\bullet$} -- node [auto] {$b$} (3,0); 
+\node[above] at (60:3) {$B$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0)  -- node [auto,swap] {$c$} (3,0) node {$\bullet$};
+\node[below] at (3,0) {$C$};
+\end{tikzpicture}}
+\[
+(d_1,d_0) \colon \begin{cases}
 a & \mapsto (A,B)\\
-(d_1,d_0) \colon b & \mapsto (B,C)\\
+b & \mapsto (B,C)\\
 c & \mapsto (A,C)
-\end{align*}
+\end{cases}
+\]
+
 \end{example}
 
 To define a chain complex from a directed simple graph, for any given set $S$ and ring $R$, let $R^S$ denote the $R$-module\marginnote{if $R=\ZZ$, this is the product of $|S|$-many copies of $\ZZ$, and if $R$ is a field, it's the vector space of functions on $S$} of functions $f\colon S\to R$. The following definition is made using $R=\ZZ$, but it works for any ring $R$ more generally.
@@ -3838,16 +3912,339 @@ To define a chain complex from a directed simple graph, for any given set $S$ an
 \begin{definition}
 Let $d_0,d_1\colon E\rightrightarrows V$ be a simple directed graph. Define the chain complex
 \begin{align*}
-\ZZ^V & \quad\xrightarrow{\delta} \qquad\ZZ^E  \qquad \to \quad 0\\
-f & \mapsto f\circ d_0 - f\circ d_1
+0 \quad \to \quad \ZZ^V & \quad\xrightarrow{\delta} \qquad\ZZ^E  \qquad \to \quad 0\\
+f \quad & \mapsto\  f\circ d_0 - f\circ d_1
 \end{align*}
 \end{definition}
 
-\lecturenum{20}
+Here\lecturenum{20} are a bunch of concrete examples
 
 \begin{example}
-In Example~\ref{eg:triangle_graph}, the chain complex that arises is $\ZZ^3\xrightarrow{\delta} \ZZ^3 \to 0$, where \ldots (TBC)
+Consider the trivial graph with one vertex and no edges. The chain complex is $0\to \ZZ \xrightarrow{\delta} 0 \to 0$, and clearly $\ker(\delta)=\ZZ$ and $\coker(\delta) = 0$.
 \end{example}
+
+\begin{example}
+In Example~\ref{eg:triangle_graph}, the chain complex that arises is $0\to\ZZ^3\xrightarrow{\delta} \ZZ^3 \to 0$. We can identify a generating set of $\ZZ^3 = \ZZ^V$, namely $\underline{X}\colon\{A,B,C\}\to \ZZ$ for $X\in \{A,B,C\}$ with\[
+	\underline{A}(v) = \begin{cases}
+				1 & v=A\\
+				0 & \text{else}
+	\end{cases}
+\]
+and similarly for $\underline{B}$ and $\underline{C}$. We can calculate
+\begin{align*}
+	\delta(\underline{A})(e) & = \underline{A}(d_0(e)) - \underline{A}(d_1(e))\\
+							& =\begin{cases}
+							-1 & e=a\\
+							0 & e=b\\
+							-1& e=c
+							\end{cases}
+\end{align*}
+We can see this from the graph itself, in that the vertex $A$ is the source of the edges $a$ and $c$, and isn't incident with the edge $b$. To contrast, $\delta(\underline{B})(a) = 1$, as $B$ is the target of the edge $a$. We can then write down the matrix $D$ representing $\delta$, namely
+\[
+	D = \begin{pmatrix}
+		-1 & 0 & -1\\
+		1 & -1 & 0\\
+		0 & 1 & 1
+	\end{pmatrix}
+\]
+We can calculate that $\ker(D)$ is torsion-free and generated by $\underline{A} + \underline{B} - \underline{C}$, hence is isomorphic to $\mathbb{Z}$. Similarly, the image of $D$ is generated by $\underline{A} - \underline{B}$ and $\underline{B} - \underline{C}$, and, incidentally, $\ZZ^E$ is generated by these two functions together with $\underline{B}$, so that the $\coker(D) \simeq \ZZ$. As a final remark, note that the Euler characteristic $\chi=0$.
+\end{example}
+
+\begin{rem}\label{remark:finite_complexes_basis}
+For any \emph{finite} graph (and later, more general finite combinatorial objects), we can take the vertices and the edges to represent generating sets for $\ZZ^V$ and $\ZZ^E$. But for infinite graphs, this is not the case, and we'd have to be more careful.
+\end{rem}
+
+\begin{example}\label{eg:triangle_graph}
+Consider\marginnote{%
+\begin{tikzpicture}
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$d$} (-30:1.5) node{$\bullet$};
+\node[below] at (0,0) {$A$};
+\node[right] at (-30:1.5) {$D$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto,swap] {$c$} (-150:1.5) node {$\bullet$};
+\node[left] at (-150:1.5) {$C$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$b$} (0,1.5) node{$\bullet$};
+\node[left] at (0,1.5) {$B$};
+\end{tikzpicture}} 
+the graph with four vertices $\{A,B,C,D\}$ and three edges $\{b,c,d\}$ as at right. The chain complex that arises is $0\ZZ^4\xrightarrow{\delta} \ZZ^3 \to 0$, where $\delta$ is represented by
+\[
+	D = \begin{pmatrix}
+		-1 & 1 & 0 & 0\\
+		-1 & 0 & 1 & 0\\
+		-1 & 0 & 0 & 1
+	\end{pmatrix}
+\]
+with respect to the generating set as in Remark~\ref{remark:finite_complexes_basis}. The 
+image is all of $\ZZ^3$, hence the cokernel is trivial, and the kernel is $\ZZ$. For 
+this example we have $\chi = 1$.
+\end{example}
+
+We don't have to use connected graphs!
+
+\begin{example}
+Consider\marginnote{%
+\begin{tikzpicture}
+\node at (-1,1) {$\bullet$};
+\node[left] at (-1,1) {$A$};
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$b$} (0,2) node{$\bullet$};
+\node[left] at (0,2) {$B$};
+\node[left] at (0,0) {$C$};
+\end{tikzpicture}}
+the graph with vertex set $\{A,B,C\}$, edge set $\{b\}$ such that $d_0(b)=B$, 
+ $d_1(b)=C$. The chain complex is $0\to \ZZ^3 \xrightarrow{\delta} \ZZ \to 0$, with 
+ $\delta$ onto, hence $\coker(\delta)=0$. The kernel of $\delta$ is $\ZZ^2$, and the 
+ Euler characteristic is $2$.
+
+\end{example}
+
+\begin{ex}
+\begin{enumerate}
+\item Given any two simple directed graphs $G_1$, $G_2$, we can define the disjoint 
+union $G_1 \sqcup G_2$ by taking the disjoint union of their edges and vertices and 
+taking the induced functions $d_0, d_1$. Show $\ker \delta_{G_1\sqcup G_2} \simeq \ker 
+\delta_{G_1} \oplus \ker \delta_{G_2}$.
+
+\item For any directed graph $G$ with underlying shape a polyhedron, show that the 
+kernel and cokernel of the associated map $\delta_G$ both isomorphic to $\ZZ$.
+\end{enumerate}
+\end{ex}
+
+The first of these two exercises prove that $\dim\ker\delta$ counts the number of 
+connected components, and the second strongly suggest that $\dim\coker\delta$ counts the 
+number of loops.
+
+\begin{ex}
+Calculate the kernel and cokernel of a connected simple directed graph with two cycles.
+\end{ex}
+
+\begin{rem}
+It is entirely possible to work not just with simple directed graphs, but general directed 
+graphs, since the definition of the complex associated to a graph as above does not use the 
+injectivity of $(d_0,d_1)$ or disjointness from the diagonal. Thus\marginnote{
+\begin{tikzpicture}
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] (0,0) circle [radius = 1];
+\node at (1,0) {$\bullet$};
+\node[right] at (1,0) {$v$};
+\node[left] at (-1,0) {$e$};
+\end{tikzpicture}} 
+we can consider a directed
+graph with one vertex and one edge---a combinatorial model of the circle---and get the complex
+$0\to \ZZ \xrightarrow{\delta=0} \ZZ\to 0$, where now $\ker\delta=\ZZ$ and $\coker\delta=\ZZ$,
+as in Example~\ref{eg:triangle_graph}.
+\end{rem}
+
+
+However, as much fun as this is, we really need to think about more than just 
+1-dimensional objects. This leads to the question of what the two-dimensional version of 
+a directed graph is. One option is the following: take sets of vertices, edges and 
+triangular faces, and specify how they fit together, by means of functions analogous to 
+$d_0$ and $d_1$ from before.\marginnote[-1cm]{I would call this (2-skeletal) semisimplicial 
+set, but Mike Hopkins called such a thing a \emph{combinatorial $\Delta$-complex}}
+
+
+\begin{example}\label{eg:triangle_Delta_complex}
+Consider\marginnote{
+\begin{tikzpicture}
+\path [fill=gray!20!white] (0,0) -- (60:3) -- (3,0) -- cycle;
+\node at (1.5,1) {$f$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$e_2$} (60:3);
+\node[below] at (0,0) {$v_0$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(60:3) node {$\bullet$} -- node [auto] {$e_0$} (3,0); 
+\node[above] at (60:3) {$v_1$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0)  -- node [auto,swap] {$e_1$} (3,0) node {$\bullet$};
+\node[below] at (3,0) {$v_2$};
+\end{tikzpicture}
+}
+ just a single, filled triangle. Let the vertices be called $v_0$, $v_1$ and 
+$v_2$. There are edges $e_0$, $e_1$ and $e_2$, and one face, $f$.
+\end{example}
+
+Note that in this triangle, $d_0(e_2)=d_1(e_0)$ and so on, where $e_i$ is the edge opposite 
+the vertex $v_i$. The combinatorics of how the edges and vertices fit together are captured
+in the following definition. 
+
+
+\begin{definition}
+
+A \emph{combinatorial surface} $X_\bullet$ consists of sets of vertices, 
+edges and faces, denoted\marginnote{so that $X_i$ is 
+the set of $i$-dimensional `faces'} $X_0$, $X_1$ and $X_2$ respectively together with 
+functions $d_i^n\colon X_n \to X_{n-1}$ for all $0\leq i \leq n$, $0<n\leq 2$ such 
+that\marginnote[4ex]{the easiest way to remember 
+these identities is to draw the triangle in Example~\ref{eg:triangle_Delta_complex}}
+\begin{align}\label{eq:simpl_ids_surf}
+d_0^2\circ d_2^1 & = d_1^2\circ d_0^1, \nonumber\\
+d_0^2\circ d_1^1 & = d_0^2\circ d_0^1,\\
+d_1^2\circ d_2^1 & = d_1^2\circ d_1^1. \nonumber
+\end{align}
+When the context is clear, we can usually the superscripts, as the dimension can be inferred
+from the data. The \emph{1-skeleton} of $X_\bullet$ is the underlying directed graph 
+gotten by forgetting $X_2$.
+\end{definition}
+
+\begin{example}
+The triangle from Example~\ref{eg:triangle_Delta_complex} has $X_0 = \{v_0,v_1,v_2\}$, 
+$X_1 = \{e_0,e_1,e_2\}$ and $X_2 = \{f\}$, $d_i(f) = e_i$ and $d_0,d_1$ as in 
+Example~\ref{eg:triangle_graph}, up to relabelling.
+\end{example}
+
+As noted above, we do not need to restrict to the case where the 1-skeleton is a simple directed
+graph, and so it can be any directed graph.
+
+\begin{example}\label{eg:combinatorial_torus}
+We can provide a combinatorial model of a torus, by taking $T_0 = \{v\}$, $T_1 = \{e_1,e_2,e_3\}$
+ and $T_2 = \{f_1,f_2\}$ fitting together as
+
+\begin{center}
+\begin{tikzpicture}
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$e_1$} (0,3);
+\node[left] at (0,0) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,3) node {$\bullet$} --  node [auto] {$e_2$} (4,3);
+\node[left] at (0,3) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(4,0) node {$\bullet$} --  node [auto,swap] {$e_1$} (4,3) node {$\bullet$};
+\node[right] at (4,3) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) --  node [auto,swap] {$e_2$} (4,0);
+\node[right] at (4,0) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(4,0) --  node [auto,swap] {$e_3$} (0,3);
+
+\node at (1,1) {$f_1$};
+\node at (3,2) {$f_2$};
+\end{tikzpicture}
+\end{center}
+Thus, $d_0(f_1)=e_3$, $d_1(f_1)=e_1$ and $d_2(f_1) = e_2$; $d_0(f_2) = e_2$, $d_1(f_2) = e_1$,
+$d_2(f_2) = e_3$, and $d_0(e_i) = v = d_1(e_i)$ for $e=1,2,3$.
+\end{example}
+
+Given a combinatorial surface $X_\bullet$, we can define a sequence $C^\bullet(X_\bullet)$ 
+in a similar way as 
+for a directed graph:\marginnote{here taking the ring $R=\ZZ$ for simplicty, the general 
+definition works the same}
+\[
+0\to \ZZ^{X_0} \xrightarrow{\delta_0} \ZZ^{X_1} \xrightarrow{\delta_1} \ZZ^{X_2} \to 0
+\]
+where $\delta_0$ is defined the same way as for a directed graph: $\delta_0(g) = gd_0 - 
+gd_1\colon X_1 \to \ZZ$ and $\delta_1(g) = gd_0 - gd_1 + gd_2 = \sum_{i=0}^2gd_i \colon 
+X_2 \to \ZZ$. We will see below that this is indeed a complex.
+
+\begin{rem}\label{rem:basis_finite_complex}
+If the combinatorial surface has $X_i$ finite for $i=0,1,2$, then we can 
+take as basis for $\ZZ^{X_i}$ the set $X_i$, where we identify an element $x\in X_i$ with 
+the function $X_i\to \ZZ$ that is equal to $1$ when evaluated on $x$, and otherwise is $0$.
+\end{rem}
+
+\begin{example}
+Given the combinatorial surface $T_\bullet$ from Example~\ref{eg:combinatorial_torus}, the 
+resulting sequence is 
+\[
+	0 \to \ZZ \xrightarrow{\delta_0} \ZZ^3 \xrightarrow{\delta_1} \ZZ^2 \to 0
+\]
+where $\delta_0(g)(e) = g(d_0(e)) - g(d_1(e)) = g(v) - g(v) = 0$ for any edge $e\in X_1$, and so
+is the zero map. If we take the basis as in the previous
+Remark, the map $\delta_1$ is represented by the matrix
+\[
+	\begin{pmatrix}
+	-1&1&1 \\
+	-1&1&1
+	\end{pmatrix}
+\] 
+and the composite $\delta_1\delta_0$ is clearly the zero map, so this is a complex.
+\end{example}
+
+\begin{lemma}
+For any combinatorial surface $X_\bullet$, the sequence $C^\bullet(X_\bullet)$ is a complex
+\end{lemma}
+
+\begin{proof}
+We need to prove that for any $g\colon X_0\to \ZZ$, and any $x\in X_2$, we have
+$\delta_1(\delta_0(g))(x) = 0$.
+\begin{align*}
+\delta_1(\delta_0(g))(x) & = \delta_1(g d_0 - gd_1)(x)\\
+			 & = \delta_1(gd_0)(x) - \delta(gd_1)(x)\\
+			 & = gd_0d_0(x) - gd_0d_1(x) + gd_0d_2(x) \\
+			 & - (gd_1d_2(x) - gd_1d_1(x) + gd_1d_2(x))\\
+			 & = 0 
+\end{align*}
+where in the last step we use the equations (\ref{eq:simpl_ids_surf}).
+\end{proof}
+
+The combinatorial torus above has Euler characteristic $\chi=1 - 3 + 2 = 0$, but if we look
+at the failure of it to be exact, we get $\ker\delta_0 \simeq \ZZ$, $\coker\delta_1 \simeq \ZZ$, and 
+$\ker\delta_1/\im\delta_0 \simeq \ZZ^2$.
+
+\begin{rem}
+We could have taken an arbitrary (commutative, unital) ring $R$ instead of $\ZZ$ in the 
+above example, and the resulting $\ker\delta_0$ etc would be $R$-modules. For $R=\ZZ$ these are
+$\ZZ$-modules, hence abelian groups, but for example taking $R=\ZZ/2$ we get abelian groups, 
+but they have more structure as $\ZZ/2$-modules.
+\end{rem}
+
+
+\begin{ex}
+Calculate the complex of abelian groups arising from a tetrahedron considered as a combinatorial
+surface, and the groups $\ker\delta_0$, $\ker\delta_1/\ker\delta_0$.
+\end{ex}
+
+\begin{ex}
+Consider a combinatorial model of the Klein bottle $K_\bullet$, with two triangles, three edges and one vertex, as in
+
+\end{ex}
+
+
+\begin{definition}
+Given a complex $A_\bullet$ of $R$-modules, and an integer $n$, the $n^{th}$ cohomology 
+$H^n(A_\bullet)$ is the $R$-module
+\[
+\frac{\ker A_n \xrightarrow{d_n} A_{n+1}}{\im A_{n-1} \xrightarrow{d_{n-1}} A_n}
+\]
+\end{definition}
+
+\begin{lemma}
+For all integers $n$, $H^n \colon \Ch_R \to R\Mod$ is a functor.
+\end{lemma}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+Here is the big idea: spaces and their homotopy groups are hard, so to study one, turn it into a chain complex, then 
+look at the cohomology groups instead. And, we want this to be a functor. We have seen so far
+that
+\[
+\pi_i(S^2,*) = \begin{cases}
+* & i=0\text{ connected}\\
+0 & i=1\text{ by Seifert--van~Kampen}\\
+\ZZ & i=2\text{ without proof!}\\
+\ZZ & i=3\text{ also without proof!}\\
+\vdots &
+\end{cases}
+\]
+However, we can calculate the cohomology groups of the combinatorial surface $T_\bullet$ using
+just linear algebra, and these seem to capture at least some of this information, with much less
+work. There are some caveats, in that we haven't actually constructed a functor assigning to
+a combinatorial surface its cohomology groups, and, worse, there's no guarantee that a 
+combinatorial tetrahedron (as opposed to an actual space!) really captures the topology of $S^2$.
+But it should be suggestive as to a different approach.
+
 
 
 \end{document}
