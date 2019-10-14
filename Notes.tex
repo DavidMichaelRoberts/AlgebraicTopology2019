@@ -58,7 +58,7 @@
 \def\Fin {\mathbf{Fin}}
 \def\Vect {\mathbf{Vect}}
 \def\Ch{\mathbf{Ch}}
-
+\def\Cplx{\mathbf{Cplx}}
 
 \def\RR{\mathbb{R}} 
 \def\NN{\mathbb{N}}
@@ -83,6 +83,8 @@
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\Lift}{Lift}
 \DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\sk}{sk}
+
 
 \theoremstyle{definition} 
 \newtheorem{prop}{Proposition} 
@@ -91,6 +93,7 @@
 \newtheorem{example}{Example} 
 \newtheorem{ex}{Exercise}
 \newtheorem{construction}{Construction}
+\newtheorem*{constr}{Construction}
 % \newtheorem{exercise}{Exercise} 
 \newtheorem{theorem}{Theorem} 
 \newtheorem{corollary}{Corollary} 
@@ -2859,7 +2862,7 @@ elements, as in the pushout of groups, we take a \emph{path} in this directed gr
 alternating between edges that come from $\Gamma$ and edges that come from $H$. For 
 instance, we could take
 \[
-	{\color{blue}\gamma_3}{\color{red}\eta_1}{\color{blue}\gamma_2}{\color{red}(\eta_3)^5}{\color{blue}\gamma_4^{-1}}\qquad\text{or}\qquad 
+	{\color{blue}\gamma_3^{-1}}{\color{red}\eta_1}{\color{blue}\gamma_2}{\color{red}(\eta_3)^5}{\color{blue}\gamma_4}\qquad\text{or}\qquad 
 	{\color{red}\eta_4}{\color{blue}(\gamma_6)^{-3}}{\color{red}\eta_4^{-1}}
 \]
 from the above graph. The `empty' path consisting just of an identity arrow is also an 
@@ -3362,7 +3365,11 @@ is essentially surjective: every representation $\Pi_1(X) \to \Set$ is isomorphi
 We\lecturenum{17} can say still more:
 
 \begin{lemma}
-Let $Z\xrightarrow{\pi} X$ be a covering space, $Y$ path connected and $p\colon Y\to X$ be some map. Suppose we have maps $f,g\colon Y\to X$ such that $f\circ \pi = p = g\circ \pi$. Then if $f(y_0) = g(y_0)$ for some $y_0\in Y$, we have $f=g$. 
+
+Let $Z\xrightarrow{\pi} X$ be a covering space, $Y$ path connected and $p\colon Y\to X$ 
+be some map. Suppose we have maps $f,g\colon Y\to Z$ such that $f\circ \pi = p = g\circ 
+\pi$. Then if $f(y_0) = g(y_0)$ for some $y_0\in Y$, we have $f=g$.
+
 \end{lemma}
 
 \begin{proof}
@@ -3754,7 +3761,7 @@ The map $\mathrm{slpc}(X) \to X$ is a weak homotopy equivalence, and a is not a 
 
 Thus if we cannot tell apart spaces that are weakly homotopy equivalent, it is relatively harmless to work only with slpc spaces.
 
-\section{Chain complexes}
+\section{Complexes}
 
 Recall the Euler characteristic of a polyhedron $P$:
 \[
@@ -3768,7 +3775,7 @@ However, $\chi$ is not functorial in any way and so we cannot relate in any obvi
 
 
 \begin{definition}
-A \emph{chain complex} $A_\bullet$ (of vector spaces, abelian groups, $R$-modules) is a sequence 
+A \emph{complex} $A_\bullet$ (of vector spaces, abelian groups, $R$-modules) is a sequence 
 \[
 	\cdots \to A_{n-1} \xrightarrow{d_{n-1}} A_n \xrightarrow{d_n} A_{n+1} \to \cdots
 \]
@@ -3777,13 +3784,15 @@ A \emph{chain complex} $A_\bullet$ (of vector spaces, abelian groups, $R$-module
 \end{definition}
 
 \begin{example}
-Any exact sequence, of abelian groups say, gives a chain complex.
+Any exact sequence, of abelian groups say, gives a complex.
 \end{example}
 
-As for exact sequences, we can have a section of the chain complex that consists of nontrivial groups, vector spaces etc and the rest of the chain complex can be trivial. In this case we can restrict attention to the nontrivial section.
+As for exact sequences, we can have a section of the complex that consists of nontrivial 
+groups, vector spaces etc and the rest of the complex can be trivial. In this case 
+we can restrict attention to the nontrivial section.
 
 \begin{example}
-The following is a chain complex:
+The following is a complex:
 \[
 	0\to \ZZ \xrightarrow{\times 4} \ZZ \xrightarrow{\mod{2}} \ZZ/2\ZZ \to 0
 \]
@@ -3796,13 +3805,13 @@ Let $A$ and $B$ be a pair of $n\times n$ real matrices such that $BA$ is the zer
 \[
 	0\to \RR^n \xrightarrow{A} \RR^n \xrightarrow{B} \RR^n \to 0
 \]
-is a chain complex. There is no way for this to be exact, because then $B$ would have to be surjective, hence invertible, and $A$ would have to be injective, hence invertible, but then we cannot have $BA=0$.
+is a complex. There is no way for this to be exact, because then $B$ would have to be surjective, hence invertible, and $A$ would have to be injective, hence invertible, but then we cannot have $BA=0$.
 \end{example}
 
 Here is an example which should be familiar from multivariable calculus. For $U\subset \RR^n$ an open subset, let $C^\infty(U)$ denote the vector space of smooth functions on $U$ and $C^\infty(U,\RR^3)$ be the vector space of vector fields on $U$.
 
 \begin{example}
-The various derivative operators $\nabla$ (gradient), $\nabla\times-$ (curl) and $\nabla\cdot -$ (divergence) give a chain complex denoted $\Omega^\bullet(U)$:
+The various derivative operators $\nabla$ (gradient), $\nabla\times-$ (curl) and $\nabla\cdot -$ (divergence) give acomplex denoted $\Omega^\bullet(U)$:
 \[
 	C^\infty(U) \xrightarrow{\nabla} C^\infty(U,\RR^3) \xrightarrow{\nabla\times -} C^\infty(U,\RR^3) \xrightarrow{\nabla\cdot -} C^\infty(U) \to 0
 \]
@@ -3819,11 +3828,11 @@ squares
 		B_{n-1} \ar[r]_{d_{n-1}^B} & B_n
 	}
 \]
-The category of complexes of $R$-modules and chain maps is denoted $\Ch_R$.
+The category of complexes of $R$-modules and chain maps is denoted $\Cplx_R$.
 \end{definition}
 
 \begin{example}
-Given the matrices $A$ and $B$ from the previous example, there is map of chain complexes
+Given the matrices $A$ and $B$ from the previous example, there is map of complexes
 \[
 	\xymatrix{
 		0 \ar[r] \ar@{=}[d] & 0 \ar[r] \ar[d] & \RR^n \ar[r]^A \ar[d] & \RR^n \ar[r]^B \ar[d] & \RR^n \ar[r] \ar[d] & 0 \ar@{=}[d]\\
@@ -3833,7 +3842,7 @@ Given the matrices $A$ and $B$ from the previous example, there is map of chain 
 \end{example}
 
 \begin{example}
-There is a map of chain complexes $\Omega^\bullet(\RR^3) \to \Omega^\bullet(U)$
+There is a map of complexes $\Omega^\bullet(\RR^3) \to \Omega^\bullet(U)$
 \[
 	\xymatrix{
 	C^\infty(\RR^3) \ar[d] \ar[r]^{\nabla} & C^\infty(\RR^3,\RR^3) \ar[d] \ar[r]^{\nabla\times -} & C^\infty(\RR^3,\RR^3) \ar[d] \ar[r]^{\nabla\cdot -} & C^\infty(\RR^3) \ar[d] \ar[r] & 0 \ar[d] \\
@@ -3843,7 +3852,7 @@ There is a map of chain complexes $\Omega^\bullet(\RR^3) \to \Omega^\bullet(U)$
 where the vertical maps restrict functions and vector fields.
 \end{example}
 
-Now the chain complex $\Omega^\bullet(\RR^3)$ is exact,\marginnote{by the Poincar\'e 
+Now the complex $\Omega^\bullet(\RR^3)$ is exact,\marginnote{by the Poincar\'e 
 lemma, or more prosaically by standard multivariable calculus} because a vector field 
 $\mathbf{v}$ on $\RR^3$ satisfies $\nabla\times \mathbf{v}=\mathbf{0}$ if and only if 
 $\mathbf{v} = \nabla f$ for some function $f$, $\nabla\cdot \mathbf{v} = 0$ if and only 
@@ -3852,7 +3861,7 @@ function $\RR^3\to \RR$ is the divergence of some vector field. Ultimately, this
 because $\RR^3$ is contractible. But if we take $U = \RR^3\setminus\{0\}$, then there 
 are vector fields $\mathbf{v}$ on $U$ with zero divergence that are not the curl of a 
 vector field on $U$. This is because $\RR^3\setminus\{0\}$ is homotopy equivalent to 
-$S^2$, and so the chain complex $\Omega^\bullet(\RR^3\setminus\{0\})$ can `see' the 
+$S^2$, and so the complex $\Omega^\bullet(\RR^3\setminus\{0\})$ can `see' the 
 nontrivial topological structure also captured by $\pi_2(S^2) = \ZZ$. This is measured 
 by the fact that the kernel of $\nabla\cdot -$ and the image of $\nabla\times -$ do not 
 coincide.
@@ -3862,7 +3871,7 @@ Similarly, one can take $U = \RR^3 \setminus \ell$ where $\ell\subset \RR^3$ is 
 equivalence between $\RR^3 \setminus \ell$ and $S^1$. And this is detected by the fact 
 there are vector fields in $\RR^3 \setminus \ell$ whose curl vanishes but which are not 
 the gradient of any function. Thus the kernel of $\nabla\times -$ and the image $\nabla$ 
-are different. Ultimately, it is not the specific chain complex that captures the 
+are different. Ultimately, it is not the specific complex that captures the 
 information of interest, because $\Omega^\bullet(\RR^n)$ is made up of enormous 
 infinite-dimensional vector spaces, but $\RR^n$ itself is homotopically 
 uninteresting.\marginnote{the keen-eyed will have noticed that the kernel of $\nabla$ 
@@ -3904,13 +3913,13 @@ b & \mapsto (B,C)\\
 c & \mapsto (A,C)
 \end{cases}
 \]
-
+This graph is denoted $\partial \Delta[2]$, for reasons that will become clearer below.
 \end{example}
 
-To define a chain complex from a directed simple graph, for any given set $S$ and ring $R$, let $R^S$ denote the $R$-module\marginnote{if $R=\ZZ$, this is the product of $|S|$-many copies of $\ZZ$, and if $R$ is a field, it's the vector space of functions on $S$} of functions $f\colon S\to R$. The following definition is made using $R=\ZZ$, but it works for any ring $R$ more generally.
+To define a complex from a directed simple graph, for any given set $S$ and ring $R$, let $R^S$ denote the $R$-module\marginnote{if $R=\ZZ$, this is the product of $|S|$-many copies of $\ZZ$, and if $R$ is a field, it's the vector space of functions on $S$} of functions $f\colon S\to R$. The following definition is made using $R=\ZZ$, but it works for any ring $R$ more generally.
 
 \begin{definition}
-Let $d_0,d_1\colon E\rightrightarrows V$ be a simple directed graph. Define the chain complex
+Let $d_0,d_1\colon E\rightrightarrows V$ be a simple directed graph. Define the complex
 \begin{align*}
 0 \quad \to \quad \ZZ^V & \quad\xrightarrow{\delta} \qquad\ZZ^E  \qquad \to \quad 0\\
 f \quad & \mapsto\  f\circ d_0 - f\circ d_1
@@ -3920,11 +3929,14 @@ f \quad & \mapsto\  f\circ d_0 - f\circ d_1
 Here\lecturenum{20} are a bunch of concrete examples
 
 \begin{example}
-Consider the trivial graph with one vertex and no edges. The chain complex is $0\to \ZZ \xrightarrow{\delta} 0 \to 0$, and clearly $\ker(\delta)=\ZZ$ and $\coker(\delta) = 0$.
+Consider the trivial graph with one vertex and no edges. The complex is $0\to \ZZ \xrightarrow{\delta} 0 \to 0$, and clearly $\ker(\delta)=\ZZ$ and $\coker(\delta) = 0$.
 \end{example}
 
 \begin{example}
-In Example~\ref{eg:triangle_graph}, the chain complex that arises is $0\to\ZZ^3\xrightarrow{\delta} \ZZ^3 \to 0$. We can identify a generating set of $\ZZ^3 = \ZZ^V$, namely $\underline{X}\colon\{A,B,C\}\to \ZZ$ for $X\in \{A,B,C\}$ with\[
+The complex that arises from $\partial\Delta[2]$ in Example~\ref{eg:triangle_graph} is 
+$0\to\ZZ^3\xrightarrow{\delta} \ZZ^3 \to 0$. We can identify a generating set of 
+$\ZZ^3 = \ZZ^V$, namely $\underline{X}\colon\{A,B,C\}\to \ZZ$ for $X\in \{A,B,C\}$ with
+\[
 	\underline{A}(v) = \begin{cases}
 				1 & v=A\\
 				0 & \text{else}
@@ -3970,7 +3982,7 @@ Consider\marginnote{%
 (0,0) node {$\bullet$} --  node [auto] {$b$} (0,1.5) node{$\bullet$};
 \node[left] at (0,1.5) {$B$};
 \end{tikzpicture}} 
-the graph with four vertices $\{A,B,C,D\}$ and three edges $\{b,c,d\}$ as at right. The chain complex that arises is $0\ZZ^4\xrightarrow{\delta} \ZZ^3 \to 0$, where $\delta$ is represented by
+the graph with four vertices $\{A,B,C,D\}$ and three edges $\{b,c,d\}$ as at right. The complex that arises is $0\ZZ^4\xrightarrow{\delta} \ZZ^3 \to 0$, where $\delta$ is represented by
 \[
 	D = \begin{pmatrix}
 		-1 & 1 & 0 & 0\\
@@ -3996,7 +4008,7 @@ Consider\marginnote{%
 \node[left] at (0,0) {$C$};
 \end{tikzpicture}}
 the graph with vertex set $\{A,B,C\}$, edge set $\{b\}$ such that $d_0(b)=B$, 
- $d_1(b)=C$. The chain complex is $0\to \ZZ^3 \xrightarrow{\delta} \ZZ \to 0$, with 
+ $d_1(b)=C$. The complex is $0\to \ZZ^3 \xrightarrow{\delta} \ZZ \to 0$, with 
  $\delta$ onto, hence $\coker(\delta)=0$. The kernel of $\delta$ is $\ZZ^2$, and the 
  Euler characteristic is $2$.
 
@@ -4079,32 +4091,62 @@ in the following definition.
 
 A \emph{combinatorial surface} $X_\bullet$ consists of sets of vertices, 
 edges and faces, denoted\marginnote{so that $X_i$ is 
-the set of $i$-dimensional `faces'} $X_0$, $X_1$ and $X_2$ respectively together with 
+the set of $i$-dimensional `faces'; the functions $d_i^n$ are called \emph{face maps}} $X_0$, $X_1$ and $X_2$ respectively together with 
 functions $d_i^n\colon X_n \to X_{n-1}$ for all $0\leq i \leq n$, $0<n\leq 2$ such 
 that\marginnote[4ex]{the easiest way to remember 
 these identities is to draw the triangle in Example~\ref{eg:triangle_Delta_complex}}
 \begin{align}\label{eq:simpl_ids_surf}
-d_0^2\circ d_2^1 & = d_1^2\circ d_0^1, \nonumber\\
-d_0^2\circ d_1^1 & = d_0^2\circ d_0^1,\\
-d_1^2\circ d_2^1 & = d_1^2\circ d_1^1. \nonumber
+d_0^1\circ d_2^2 & = d_1^1\circ d_0^2, \nonumber\\
+d_0^1\circ d_1^2 & = d_0^1\circ d_0^2,\\
+d_1^1\circ d_2^2 & = d_1^1\circ d_1^2. \nonumber
 \end{align}
 When the context is clear, we can usually the superscripts, as the dimension can be inferred
 from the data. The \emph{1-skeleton} of $X_\bullet$ is the underlying directed graph 
 gotten by forgetting $X_2$.
 \end{definition}
 
+Now note that `surface' here is really a stand-in for `at most 2-dimensional'. There is nothing
+in the definition that requires that $X_2\neq \emptyset$. And,\marginnote{%
+\begin{tikzpicture}[scale=0.8]
+\path [fill=gray!20!white] (0,0) -- (60:3) -- (3,0) -- cycle;
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --   (60:3);
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(60:3) node {$\bullet$} -- (3,0); 
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0)  -- (3,0) node {$\bullet$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(3,0) -- (5,1)  node {$\bullet$};
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(4,2) -- (3,3)  node {$\bullet$};
+\node at (4,2) {$\bullet$};
+\node at (5,3) {$\bullet$};
+\end{tikzpicture}
+}
+moreover, it is possible 
+to have 0- or 1-dimensional `components' in a surface, much as a graph is generically 1-dimensional,
+but can have isolated vertices, or even consist purely of vertices and no edges. In this way, 
+a combinatorial surface could be so degenerate it has no triangles and no edges, but if 
+there is at least one triangle, then there must be at least one edge (and at least one vertex).
+
+
 \begin{example}
-The triangle from Example~\ref{eg:triangle_Delta_complex} has $X_0 = \{v_0,v_1,v_2\}$, 
-$X_1 = \{e_0,e_1,e_2\}$ and $X_2 = \{f\}$, $d_i(f) = e_i$ and $d_0,d_1$ as in 
-Example~\ref{eg:triangle_graph}, up to relabelling.
+The triangle from Example~\ref{eg:triangle_Delta_complex} is denoted $\Delta[2]$, and has 
+$\Delta[2]_0 = \{v_0,v_1,v_2\}$, $\Delta[2]_1 = \{e_0,e_1,e_2\}$ and $\Delta[2]_2 = \{f\}$, 
+$d^2_i(f) = e_i$ and $d^1_0,d^1_1\colon \Delta[2]_1\to \Delta[2]_0$ 
+as in Example~\ref{eg:triangle_graph}, up to relabelling. The 1-skeleton of $\Delta[2]$ 
+is the directed graph $\partial\Delta[2]$.
 \end{example}
 
 As noted above, we do not need to restrict to the case where the 1-skeleton is a simple directed
 graph, and so it can be any directed graph.
 
 \begin{example}\label{eg:combinatorial_torus}
-We can provide a combinatorial model of a torus, by taking $T_0 = \{v\}$, $T_1 = \{e_1,e_2,e_3\}$
- and $T_2 = \{f_1,f_2\}$ fitting together as
+We can provide a combinatorial model of a torus, $T_\bullet$, by taking $T_0 = \{v\}$, 
+$T_1 = \{e_1,e_2,e_3\}$ and $T_2 = \{f_1,f_2\}$ fitting together as
 
 \begin{center}
 \begin{tikzpicture}
@@ -4131,25 +4173,31 @@ We can provide a combinatorial model of a torus, by taking $T_0 = \{v\}$, $T_1 =
 \node at (3,2) {$f_2$};
 \end{tikzpicture}
 \end{center}
-Thus, $d_0(f_1)=e_3$, $d_1(f_1)=e_1$ and $d_2(f_1) = e_2$; $d_0(f_2) = e_2$, $d_1(f_2) = e_1$,
-$d_2(f_2) = e_3$, and $d_0(e_i) = v = d_1(e_i)$ for $e=1,2,3$.
+Thus, $d^2_0(f_1)=e_3$, $d^2_1(f_1)=e_1$ and $d^2_2(f_1) = e_2$; $d^2_0(f_2) = e_2$, 
+$d^2_1(f_2) = e_1$, $d^2_2(f_2) = e_3$, and $d^1_0(e_i) = v = d^1_1(e_i)$ for $e=1,2,3$.
 \end{example}
 
 Given a combinatorial surface $X_\bullet$, we can define a sequence $C^\bullet(X_\bullet)$ 
-in a similar way as 
+of abelian groups in a similar way as 
 for a directed graph:\marginnote{here taking the ring $R=\ZZ$ for simplicty, the general 
 definition works the same}
 \[
 0\to \ZZ^{X_0} \xrightarrow{\delta_0} \ZZ^{X_1} \xrightarrow{\delta_1} \ZZ^{X_2} \to 0
 \]
-where $\delta_0$ is defined the same way as for a directed graph: $\delta_0(g) = gd_0 - 
-gd_1\colon X_1 \to \ZZ$ and $\delta_1(g) = gd_0 - gd_1 + gd_2 = \sum_{i=0}^2gd_i \colon 
-X_2 \to \ZZ$. We will see below that this is indeed a complex.
+where $\delta_0$ is defined the same way as for a directed graph: $\delta_0(g) = gd^1_0 - 
+gd^1_1\colon X_1 \to \ZZ$ for $g\in \ZZ^{X_0}$ and $\delta_1(g') = g'd^2_0 - g'd^2_1 + g'd^2_2 = 
+\sum_{i=0}^2g'd_i \colon X_2 \to \ZZ$ for $g'\in \ZZ^{X_1}$. We will see below that this is 
+indeed a complex.
 
 \begin{rem}\label{rem:basis_finite_complex}
 If the combinatorial surface has $X_i$ finite for $i=0,1,2$, then we can 
 take as basis for $\ZZ^{X_i}$ the set $X_i$, where we identify an element $x\in X_i$ with 
 the function $X_i\to \ZZ$ that is equal to $1$ when evaluated on $x$, and otherwise is $0$.
+It was remarked in class that some sources consider functions that are only nonzero on 
+finitely many elements of $X_n$, but this is not what we are doing here, and even the maps
+$\delta_i$ cease to become well-defined, as infinitely many edges might share a vertex, for 
+example. For infinite complexes we need to rely on more abstract means to describe the maps $\delta_i$,
+ if we want them explicity in terms of a basis. 
 \end{rem}
 
 \begin{example}
@@ -4158,8 +4206,8 @@ resulting sequence is
 \[
 	0 \to \ZZ \xrightarrow{\delta_0} \ZZ^3 \xrightarrow{\delta_1} \ZZ^2 \to 0
 \]
-where $\delta_0(g)(e) = g(d_0(e)) - g(d_1(e)) = g(v) - g(v) = 0$ for any edge $e\in X_1$, and so
-is the zero map. If we take the basis as in the previous
+where $\delta_0(g)(e) = g(d_0(e)) - g(d^2_1(e)) = g(v) - g(v) = 0$ for any edge $e\in X_1$, 
+and so is the zero map. If we take the basis as in the previous
 Remark, the map $\delta_1$ is represented by the matrix
 \[
 	\begin{pmatrix}
@@ -4171,17 +4219,17 @@ and the composite $\delta_1\delta_0$ is clearly the zero map, so this is a compl
 \end{example}
 
 \begin{lemma}
-For any combinatorial surface $X_\bullet$, the sequence $C^\bullet(X_\bullet)$ is a complex
+For any combinatorial surface $X_\bullet$, the sequence $C^\bullet(X_\bullet)$ is a complex.
 \end{lemma}
 
 \begin{proof}
 We need to prove that for any $g\colon X_0\to \ZZ$, and any $x\in X_2$, we have
 $\delta_1(\delta_0(g))(x) = 0$.
 \begin{align*}
-\delta_1(\delta_0(g))(x) & = \delta_1(g d_0 - gd_1)(x)\\
-			 & = \delta_1(gd_0)(x) - \delta(gd_1)(x)\\
-			 & = gd_0d_0(x) - gd_0d_1(x) + gd_0d_2(x) \\
-			 & - (gd_1d_2(x) - gd_1d_1(x) + gd_1d_2(x))\\
+\delta_1(\delta_0(g))(x) & = \delta_1(g d^2_0 - gd^2_1)(x)\\
+			 & = \delta_1(gd^2_0)(x) - \delta_1(gd^2_1)(x)\\
+			 & = gd^1_0d^2_0(x) - gd^1_0d^2_1(x) + gd^1_0d^2_2(x) \\
+			 & - (gd^1_1d^2_2(x) - gd^1_1d^2_1(x) + gd^1_1d^2_2(x))\\
 			 & = 0 
 \end{align*}
 where in the last step we use the equations (\ref{eq:simpl_ids_surf}).
@@ -4200,13 +4248,44 @@ but they have more structure as $\ZZ/2$-modules.
 
 
 \begin{ex}
-Calculate the complex of abelian groups arising from a tetrahedron considered as a combinatorial
+Calculate\marginnote{Hint: label the vertices $0,1,2,3$, order the edges from from lower to 
+higher labels, and then define the maps $d_0,d_1,d_2$ for faces using $\Delta[2]$ as a model} 
+the complex of abelian groups arising from a tetrahedron considered as a combinatorial
 surface, and the groups $\ker\delta_0$, $\ker\delta_1/\ker\delta_0$.
 \end{ex}
 
 \begin{ex}
-Consider a combinatorial model of the Klein bottle $K_\bullet$, with two triangles, three edges and one vertex, as in
+Consider\marginnote{%
+\begin{tikzpicture}[scale=0.8]
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) node {$\bullet$} --  node [auto] {$e_1$} (0,3);
+\node[left] at (0,0) {$v$};
 
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,3) node {$\bullet$} --  node [auto] {$e_2$} (4,3);
+\node[left] at (0,3) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{<}}},postaction={decorate}] 
+(4,0) node {$\bullet$} --  node [auto,swap] {$e_1$} (4,3) node {$\bullet$};
+\node[right] at (4,3) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{>}}},postaction={decorate}] 
+(0,0) --  node [auto,swap] {$e_2$} (4,0);
+\node[right] at (4,0) {$v$};
+
+\draw[decoration={markings, mark=at position 0.5 with {\arrow{<}}},postaction={decorate}] 
+(4,0) --  node [auto,swap] {$e_3$} (0,3);
+
+\node at (1,1) {$f_1$};
+\node at (3,2) {$f_2$};
+
+\end{tikzpicture}
+}
+a combinatorial model of the Klein bottle $K_\bullet$, with two triangles, 
+three edges and one vertex, as in the sketch at right, where $d_0(f_1) = e_3$, 
+$d_1(f_1) = e_2$ and $d_2(f_1) = e_1$, and $d_0(f_2) = e_1$, $d_1(f_2) = e_2$ and $d_2(f_2) = e_2$.
+And, as for the combinatorial torus, $d_0(e_i) = x = d_1(e_i)$ for $i=1,2,3$.
+(The triangles are considered to be filled, despite the lack of shading.)
 \end{ex}
 
 
@@ -4219,16 +4298,16 @@ $H^n(A_\bullet)$ is the $R$-module
 \end{definition}
 
 \begin{lemma}
-For all integers $n$, $H^n \colon \Ch_R \to R\Mod$ is a functor.
+For all integers $n$, $H^n \colon \Cplx_R \to R\Mod$ is a functor.
 \end{lemma}
 
 \begin{proof}
 Exercise.
 \end{proof}
 
-Here is the big idea: spaces and their homotopy groups are hard, so to study one, turn it into a chain complex, then 
-look at the cohomology groups instead. And, we want this to be a functor. We have seen so far
-that
+Here is the big idea: spaces and their homotopy groups are hard, so to study one, turn 
+it into a complex, then look at the cohomology groups instead. And, we want this 
+to be a functor. We have seen so far that
 \[
 \pi_i(S^2,*) = \begin{cases}
 * & i=0\text{ connected}\\
@@ -4245,7 +4324,659 @@ a combinatorial surface its cohomology groups, and, worse, there's no guarantee 
 combinatorial tetrahedron (as opposed to an actual space!) really captures the topology of $S^2$.
 But it should be suggestive as to a different approach.
 
+\begin{rem}
+This\lecturenum{21} lecture started with a long recap of the previous lecture, and I have
+gone back and incorporated some of this material just above, in the section labelled 
+lecture 20.
+\end{rem}
 
+Note that given a combinatorial surface $X_\bullet$ and a ring $R$ we have cohomology groups
+\begin{align*}
+H^0(X_\bullet,R) & := \ker\delta_0\\
+H^1(X_\bullet,R) & := \frac{\ker\delta_1}{\im\delta_0}\\
+H^2(X_\bullet,R) & := \frac{R^{X_2}}{\im\delta_1} = \coker\delta_1
+\end{align*}
+arising from the complex $0\to R^{X_0} \to R^{X_1} \to R^{X_2} \to 0$. We technically have 
+$H^n(X_\bullet,R)$ for all integers $n$, but these are all the zero module. 
+If $X_2=\emptyset$, then $R^{X_2} = R^\emptyset = \{0\}$, and so $H^2(X_\bullet,R) = \{0\}$.
+
+We calculated the cohomology with $R=\ZZ$ for the combinatorial torus $T_\bullet$ above to be
+\[
+	H^n(T_\bullet,\ZZ) = \begin{cases}
+				\ZZ & n=0\\
+				\ZZ^2 & n=1\\
+				\ZZ & n=2
+			     \end{cases}
+\]
+But, the combinatorial surface $T_\bullet$ is very definitely not the topological space 
+$S^1\times S^1$! So we need a way to relate actual topological spaces to this combinatorial
+data. If we go back to the directed graph $\partial\Delta[2]$, it looks like it should be a
+circle (topologically, at least). We could make an actual circle by taking the disjoint union
+of three intervals $[0,1]$ and forming a quotient space so the endpoints are appropriately
+identified. This idea is called geometric realisation. The following does not work, but gives
+an idea of how the real version might go.
+
+\begin{constr}
+(Attempt 1) Given a directed graph $X_1 \rightrightarrows X_0$ We could try to take the 
+quotient of $\bigsqcup_{X_1} I$, where we identify the endpoints of the different copies of 
+$I$ according to the incidence of edges in the graph. But, this information is recorded 
+in which edges map to the same vertex under the maps $d_0,d_1$, so we should involve these
+functions somehow. A bigger problem is what to do with isolated vertices! They certainly are
+not given by gluing intervals in any sense. So we need to use $X_0$ as well.
+\end{constr}
+
+\begin{construction}
+
+(Attempt 2) We could instead take the discrete space on the set of vertices of a 
+directed graph, and then attach the intervals to them. In this sense, any isolated 
+vertices turn up in the construction, and any edge only needs to know what vertices it 
+is incident with, which is indeed the case by the definition of directed graph. To get 
+this working we need some topological ingredients. Consider\marginnote{these are in one 
+sense `dual' to the combinatorial endpoint functions $d_0,d_1$} the functions 
+$\partial_0,\partial_1\colon \pt\to I$ with $\partial_0(\pt) = 1$ and 
+$\partial_1(\pt)=0$. Then the geometric realisation of a directed graph $X_1 
+\rightrightarrows X_0$ should be $(\bigsqcup_{X_0}\pt \sqcup \bigsqcup_{X_1} I)/\!\sim$ 
+where the equivalence relation identifies $(e,\partial_i(v))\sim(d_i(e),v)$. That is, 
+the $i$-endpoint of the interval indexed by the element $e\in X_1$ should be identified 
+with the point indexed by the vertex $v$. 
+\end{construction}
+
+This rough construction will soon be superceded by a more formal and systematic definition, 
+but it should capture the idea.
+
+\begin{example}\label{eg:join_interval_geom_real}
+Consider the directed graph given by three vertices $\{v_1,v_2,v_3\}$ and two edges 
+$\{e_1,e_2\}$ with $d_1(e_1) = v_1$, $d_0(e_1) = v_2 = d_1(e_2)$ and $d_0(e_2) = v_3$. Its 
+geometric realisation is homeomorphic to $(\{v_1,v_2,v_3\} \sqcup [0,1] \sqcup [2,3])/\!\sim$
+where $0\simeq v_1$, $1\sim v_2 \sim 2$ and $3\sim v_3$. Thus it is homeomorphic to 
+$([0,1]\sqcup [2,3])/(1\sim 2) \simeq [0,2] \simeq [0,1]$.
+\end{example}
+
+Now, how do so something similar for combinatorial surfaces? Now we must make some definitions
+that will generalise more easily down the track, that are less ad hoc.
+
+\begin{definition}
+The \emph{standard $n$-simplex} is the subspace of $\RR^{n+1}$ given by
+\[
+	\Delta^n := \{(v_0,v_1,\ldots,v_n) \in \RR^{n+1} \mid \forall i=0,\ldots,n, v_i\geq 0
+			\text{ and } v_0+\cdots+v_n = 1\}
+\]
+\end{definition}
+
+\begin{example}
+So\marginnote{images to go here}  the standard $0$-simplex is a single point, namely $v_0=1\in \RR$, the standard $1$-simplex
+is the interval $\Delta^1 = \{(v_0,v_1\in \RR^2\mid v_0,v_1 \geq,\ v_0+v_1 = 1\}$, and the 
+standard $2$-simplex is the portion of the hyperplane $v_0+v_1+v_2 = 1$ with the positive
+octant in $\RR^3$. 
+\end{example}
+
+There are maps between the standard $n$-simplices, namely $\partial_i\colon \Delta^n \to \Delta^{n+1}$
+defined to be $\partial_i(v_0,\ldots,v_n) = (v_0,\ldots,\underbrace{0}_{i},\ldots,v_n)$, where
+$0\leq i \leq n$.
+
+\begin{example}
+We have the two maps $\partial_0,\partial_1\colon \Delta^0 \to \Delta^1$ from before, $\partial_0(v_0) = (0,v_0) = (0,1)$ 
+and $\partial_1(v_0) = (v_0,0) = (1,0)$. And now, imporantly, maps $\partial_i\colon \Delta^1\to \Delta^2$, $i=0,1,2$ with
+\[
+\partial_i(v_0,v_1) =\begin{cases}
+(0,v_0,v_1) & i=0\\
+(v_0,0,v_1) & i=1\\
+(v_0,v_1,0) & i=2
+\end{cases}
+\]
+\end{example}
+
+\begin{definition}
+The \emph{geometric realisation} of a combinatorial surface $X_\bullet$ is the quotient space
+\[
+|X_\bullet| := \left(\bigsqcup_{n=0}^2 \disc(X_n) \times \Delta^n\right)_{\big/\!\sim}
+\]
+where the equivalence relation is generated by 
+$(d_i(x),\mathbf{v}) \sim (x,\partial_i(\mathbf{v}))$.
+\end{definition}
+
+For\marginnote{And, more degenerately, $|\Delta[1]| = \Delta^1$ and $|\Delta[0]|=\Delta^0$} 
+instance, the geometric realisation of $\Delta[2]$ is 
+\[
+\Big((\Delta^0 \sqcup \Delta^0 \sqcup \Delta^0) \sqcup (\Delta^1 \sqcup 
+\Delta^1 \sqcup\Delta^1) \sqcup\Delta^2\Big)/\!\sim\ \simeq\ \Big((\Delta^1 \sqcup 
+\Delta^1 \sqcup\Delta^1) \sqcup\Delta^2\Big)/\!\sim\ \simeq\ \Delta^2
+\]
+
+Let us, for the sake of the following definition, be generous with the definition of `surface';
+it should include at least all topological manifolds of dimension 2 or lower, and even of mixed
+dimension (eg the disjoint union of a circle and a torus). The important thing is that a
+surface here is a topological space, not a combinatorial object.
+
+\begin{definition}
+A \emph{triangulation} of a surface $\Sigma$ is a combinatorial surface $X_\bullet$ equipped
+with\marginnote{we will usually leave the homeomorphism implicit in what follows} 
+a homeomorphism $\Sigma \simeq |X_\bullet|$.
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item $\Delta^2$ is triangulated by $\Delta[2]$.
+\item More generally, $|X_\bullet|$ is triangulated by $X_\bullet$.
+\item $S^2$ is triangulated by $\partial\Delta[3]$.
+\item $S^1$ is triangulated by $\partial\Delta[2]$, but also by any directed graph in the shape
+of a polygon, or even the directed graph with one vertex and one edge..
+\item $S^1\times S^1$ is triangulated by the combinatorial torus $T_\bullet$.
+\end{enumerate}
+\end{example}
+
+
+
+Ultimately,\lecturenum{22} of course, we want some kind of functorial behaviour, so we need
+maps between combinatorial surfaces. The idea is that vertices get mapped to vertices, edges
+to edges, and triangles to triangles, in a compatible way.
+
+\begin{definition}
+Given combinatorial surfaces $X_\bullet$ and $Y_\bullet$, a map $f\colon X_\bullet\to Y_\bullet$ 
+is a triple of functions $f_n\colon X_n\to Y_n$, $n=0,1,2$ such that $d_if_n = f_{n-1}d_i$ for $0<n\leq 2$, $0\leq i \leq n$.
+\end{definition}
+
+Such maps are very rigid, in the sense that there are `obvious' functions between the intended
+geometric objects that don't come from a map between given combinatorial surfaces. This
+definition also includes map between directed graphs, if we take the set of triangles
+to be empty, and maps from a directed graph to a non-degenerate combinatorial surface.
+
+\begin{example}
+Given a combinatorial surface $X_\bullet$, and its 1-skeleton $\sk_1 X_\bullet$, there is a morphism
+$\sk_1X_\bullet\to X_\bullet$ that is the identity on $X_0$ and $X_1$, and the only possible 
+function $(\sk_1X_\bullet)_2 = \emptyset \to X_2$. 
+\end{example}
+
+\begin{example}
+We can include a single triangle into a combinatorial surface $X_\bullet$, via 
+$\Delta[2] \to X_\bullet$. For instance, $\Delta[2] \to \partial\Delta[3]$.
+\end{example}
+
+\begin{example}
+If $L_\bullet$ is the directed graph with one vertex and one edge, and $P_\bullet$ is any
+polygonal\marginnote{a polygonal directed graph is a finite directed graph with the same number
+of vertices and edges, the vertices are cyclicly ordered, and there is an edge between adjacent vertices, in either direction} 
+directed graph (for instance $\partial\Delta[2]$), then there is a map
+$P_\bullet \to L_\bullet$, sending all vertices to the single vertex of $L_\bullet$, and
+all edges to the singe edge. We can even triangulate $\RR$ by taking an infinite directed 
+graph $R_\bullet$  with vertices indexed by $\ZZ$ and an edge from $k$ to $k+1$, and then
+define a map $R_\bullet \to L_\bullet$ in a similar way.
+\end{example}
+
+\begin{example}\label{eg:infinite_cylinder}
+For a similar but nondegenerate example, we can define an infinite combinatorial surface that
+models an infinite cylinder, with set of faces $\{f_{1i},f_{2i}\mid i \in \ZZ\}$, set of 
+edges $\{e_{1i},e_{2i},e_{3i}\mid i\in \ZZ\}$ and set of vertices $\{v_i\mid i\in \ZZ\}$ as
+in the following picture,
+
+\begin{center}
+\begin{tikzpicture}
+\node at (0,0) {$\bullet$};
+\end{tikzpicture}
+\end{center}
+
+\noindent mapping to the combinatorial torus $T_\bullet$ via $v_i\mapsto v$, 
+$e_{ai}\mapsto e_a$ and $f_{ai} \mapsto f_a$ (in fact the face maps $d_i$ can be reconstructed
+from the defintion of this map).
+\end{example}
+
+\begin{lemma}
+A map $f\colon X_\bullet \to Y_\bullet$ between combinatorial surfaces gives rise to a continuous map 
+$|f|\colon |X_\bullet| \to |Y_\bullet|$ between their geometric realisations, and this 
+construction is functorial.
+\end{lemma}
+
+\begin{proof}
+First, the map $f$ gives rise to a continuous map 
+\[
+	\widetilde{|f|}: = \sqcup_nf_n\times\id_{\Delta^n}\colon \bigsqcup_{n=0}^2 \disc(X_n)\times \Delta^n \to \bigsqcup_{n=0}^2 \disc(Y_n)\times \Delta^n.
+\]
+We can check that this respects the relation that defines the quotients $|X_\bullet|$ and 
+$|Y_\bullet|$: take $(x,\partial_i(\mathbf{v})) \in \disc(X_n)\times \Delta^n$, so that
+$(x,\partial_i(\mathbf{v})) \sim (d_i(x),\mathbf{v})$, and then 
+\begin{align*}
+\widetilde{|f|}(x,\partial_i(\mathbf{v})) & = (f_n(x),\partial_i(\mathbf{v})) \\
+& \sim (d_i(f_n(x)),\mathbf{v})\\
+& = (f_{n-1}(d_i(x)),\mathbf{v})\\
+& = \widetilde{|f|}(d_i(x),\mathbf{v})
+\end{align*}
+Hence there is a unique map $|f|\colon |X_\bullet| \to |Y_\bullet|$ making the following diagram
+commute:
+\[
+	\xymatrixnocompile{
+		\bigsqcup_{n=0}^2 \disc(X_n)\times \Delta^n \ar[d]
+			\ar[r]^{\widetilde{|f|}} &
+			\bigsqcup_{n=0}^2 \disc(Y_n)\times \Delta^n \ar[d]\\
+		|X_\bullet| \ar[r]_{|f|} & |Y_\bullet|
+	}
+\]
+The uniqueness of this map means that $|g\circ f| = |g|\circ |f|$, for any composable pair of
+maps $f,g$ of combinatorial surfaces.
+\end{proof}
+
+For example, the infinite combinatorial cylinder in Example~\ref{eg:infinite_cylinder} has as geometric 
+realisation the cylinder $\RR \times S^1$, and the map in that example gives rise to the map
+$\exp\times \id\colon \RR\times S^1 \to S^1\times S^1$.
+
+Given a topological surface $\Sigma$ that admits a triangulation $\Sigma\simeq |X_\bullet|$,
+we could in principle define its cohomology modules by $H^n(\Sigma,R) := H^n(X_\bullet,R)$---but
+this is a terrible definition. It is only functorial in an extremely limited way, because 
+there's nothing that guarantees that different choices of triangulation give rise to the 
+same cohomology modules, which means this is really a definition for \emph{triangulated} surfaces, 
+those equipped with a triangulation; also, only those continuous functions that arise from 
+the geometric realisation of a map of combinatorial surfaces give rise\marginnote{the functoriality of cohomology modules with respect to maps of combinatorial surfaces will be 
+subsumed by a definition to be given below}
+to a linear map of cohomology modules.
+
+Moreover, what about other spaces? We clearly don't want to restrict ourselves to surfaces 
+when studying topology! Here is a general combinatorial definition with which we can examine
+the notion of cohomology and calculate interesting examples.
+
+\begin{definition}
+A \emph{$\Delta$-set} is a sequence of sets $X_n$, $n=0,1,2,\ldots$ of \emph{$n$-simplices} together
+with \emph{face maps} $d_i^n\colon X_n\to X_{n-1}$ for $n>0$ and $0\leq i \leq n$, such that
+\[
+	d_i^{n-1}\circ d_j^n = d_{j-1}^{n-1} \circ d_i^n \qquad \text{for } 0 \leq i < j \leq n
+\]
+(Eventually we will drop the superscripts, as it becomes clear from context what the superscripts should be)
+\end{definition}
+
+\begin{example}
+The combinatorial $n$-simplex $\Delta[n]$ has
+\begin{align*}
+\Delta[n]_0 & = \{0,1,2,\ldots,n\} =: \mathbf{n+1},\\
+\Delta[n]_1 & = \text{set of 2-element subsets of }\mathbf{n+1} =:\binom{\mathbf{n+1}}{2},\\
+&\vdots\\
+\Delta[n]_k & = \text{set of $(k+1)$-element subsets of }\mathbf{n+1} =: \binom{\mathbf{n+1}}{k+1},\qquad k<n\\
+&\vdots\\
+\Delta[n]_n & = \{\mathbf{n+1}\} = \{\text{top face}\},\\
+\Delta[n]_k & = \emptyset, \qquad k>n.
+\end{align*}
+Each of the subsets in these sets is ordered, and the function 
+$d_i^k\colon\binom{\mathbf{n+1}}{k+1} \to \binom{\mathbf{n+1}}{k}$ discards the $i^{th}$ 
+element from each subset, where the indexing starts from $0$.
+\end{example}
+
+\begin{example}
+The boundary $\partial\Delta[n]$ is defined so that $\partial\Delta[n]_k = \Delta[n]_k$ for $k<n$ 
+empty otherwise. So for instance, the combinatorial surface $\partial\Delta[3]$ has vertices,
+edges and triangles (that is: 0-, 1-, and 2-simplices) but no 3-dimensional simplex filling it.
+\end{example}
+
+More generally, given any $\Delta$-set $X_\bullet$, we can truncate it to its \emph{$k$-skeleton}
+$\sk_k X_\bullet$ which has 
+\[
+	\sk_mX_k = \begin{cases}
+			X_k & k \leq m\\
+			\emptyset & k > m 
+		\end{cases}
+\]
+If a $\Delta$-set $X_\bullet$ has $x\in X_n$ for some $n$, then $X_m \neq \emptyset$ for all
+$0\leq m< n$. We call a $\Delta$-set $n$-dimensional if $n$ is the largest integer such that it
+has an $n$-simplex, and if no such integer exists, we call it infinite-dimensional. If $X_\bullet$ 
+is $n$-dimensional and $0\leq m < n$ (or $X_\bullet$ is infinite-dimensional), then 
+$\sk_mX_\bullet$ is $m$-dimensional. Hence $\Delta[n]$ is $n$-dimensional and 
+$\partial\Delta[n] = \sk_{n-1}\Delta[n]$ is $n-1$-dimensional. A combinatorial surface, as defined
+above, has dimension $\leq 2$.
+
+The defintitions of geometric realisation, maps and triangulations generalise from the 2-dimensional
+case to general $\Delta$-sets.
+
+\begin{definition}
+The geometric realisation of a $\Delta$-set $X_\bullet$ is the quotient space 
+\[
+|X_\bullet|:=\left(\bigsqcup_{n=0}^\infty \disc(X_n)\times \Delta^n\right)_{\big/\!\sim}
+\]
+by the equivalence relation generated by $(d_i(x),\mathbf{v}) \sim (x,\partial_i(\mathbf{v}))$.
+\end{definition}
+
+
+\begin{definition}
+A map of $\Delta$-sets $f\colon X_\bullet\to Y_\bullet$ is a sequence of functions
+$f_n\colon X_n\to Y_n$, $n=0,1,2,\ldots$ such that $d_i^{n-1}\circ f_n = f_{n-1}\circ d_i^n$ 
+for $0<n$ and $0\leq i \leq n$. We thus get a category $\Delta\Set$.
+\end{definition}
+
+
+\begin{example}
+There\marginnote{and this triangle commutes:
+\xymatrix{\sk_mX_\bullet \ar[r] \ar[dr] &\sk_lX_\bullet \ar[d] \\ &X_\bullet}} 
+is always an inclusion map $\sk_mX_\bullet \to X_\bullet$, and even 
+$\sk_mX_\bullet \to \sk_lX_\bullet$ for all $0\leq m \leq l$. Moreover, these maps are natural
+in the sense that given $f\colon X_\bullet \to Y_\bullet$, there is a commutative square
+\[
+	\xymatrix{
+	\sk_mX_\bullet \ar[r]^{\sk_mf} \ar[d] & \sk_mY_\bullet \ar[d] \\
+	X_\bullet \ar[r]_f & Y_\bullet
+	}
+\]
+\end{example}
+
+\begin{example}\label{eg:name_of_simplex}
+Given any $n$-simplex $x\in X_n$ in a $\Delta$-set $X_\bullet$, there is a map 
+$\ulcorner x\urcorner\colon \Delta[n] \to X_\bullet$ taking the unique top face of $\Delta[n]$ to $x$.
+\end{example}
+
+More generally, given subsets $Y_n \subseteq X_n$ for all $n=0,1,2,\ldots$ such that the 
+face maps of $X_\bullet$ restrict to functions $d_i^n\colon Y_n\to Y_{n-1}$, we get a 
+$\Delta$-set $Y_\bullet$ and an inclusion $Y_\bullet \hookrightarrow X_\bullet$. If 
+$X_\bullet$ is $k$-dimensional, then any subset $Y_k \subseteq X_k$ gives rise to a $\Delta$-set
+by taking the union of the images $d_i^k(Y_k) \subseteq X_{k-1}$, the union of the images 
+$d_j^{k-1}d_i^k(Y_k)\subseteq X_{k-2}$ and so on down to $X_0$.
+
+
+\begin{lemma}
+Geometric relisation defines a functor $|-|\colon \Delta\Set \to \Top$.
+\end{lemma}
+
+
+\begin{definition}
+A triangulation of a topological space $X$ is a $\Delta$-set $X_\bullet$ equipped with a 
+homeomorphism $X\simeq |X_\bullet|$.
+\end{definition}
+
+As in the 2-dimensional case, the geometric realisation $|X_\bullet|$ is triangulated by
+$X_\bullet$ together with the identity map.
+
+Given a triangulation of a subspace $Y\subset X$ of a topological space $X$ (say by the $\Delta$-set $Y_\bullet$), we
+can sometimes need to extend this to a triangulation of $X$. In good situations we can do this
+by finding a $\Delta$-set $X_\bullet$ such that $Y_\bullet \subset X_\bullet$.
+
+
+\begin{example}
+The standard topological $n$-simplex $\Delta^n$ is triangulated by the combinatrial $n$-simplex
+$\Delta[n]$, and the canonical isomorphism induced by $\bigsqcup_k \disc(\Delta[k])\times \Delta^k\to \Delta^n$.
+\end{example}
+
+For a mildly nontrivial example, consider the product $I\times \Delta^2$. We know that 
+$\{i\}\times \Delta^2$ is triangulated by $\Delta[2]$ for $i=0,1$; let us call the vertices
+of the copy of $\Delta[2]$ corresponding to $\{0\}\times \Delta^2$, $0$, $1$ and $2$, and the
+vertices of the copy of $\Delta[2]$ corresponding to $\{1\}\times \Delta^2$, $\overline{0}$, 
+$\overline{1}$ and $\overline{2}$. Then there is a $\Delta$-set $P_\bullet$ with three $3$-simplices 
+labelled by the sets 
+\begin{align*}
+& 0,1,2,\overline{2}\\
+& 0,1,\overline{1},\overline{2}\\
+& 0,\overline{0},\overline{1},\overline{2}
+\end{align*}
+with $2$-simplices given by three-element subsets of these, $1$-simplices given by two-element
+subsets of these, and $0$-simplices given by the set 
+$\{0,1,2,\overline{0},\overline{1},\overline{2}\}$. This can visualised as at right.
+
+More generally, given any $n$, we can define a triangulation of $I\times \Delta^n$ using an 
+analogous recipe: the desired $\Delta$-set has $n+1$ $(n+1)$-simplices labelled by
+\begin{align*}
+& 0,1,\ldots, n,\overline{n}\\
+& 0,1,\ldots,n-1,\overline{n-1},\overline{n}\\
+&\vdots\\
+& 0,\overline{0},\overline{1},\ldots,\overline{n}\\
+\end{align*}
+
+
+
+Given a $\Delta$-set $X_\bullet$ we can define a sequence of $R$-modules 
+\[
+	\cdots \to R^{X_n} \xrightarrow{\delta_n} R^{X_{n+1}} \to \cdots
+\]
+where for $g\colon X_n\to R$, 
+\[
+	\delta_n(g) = \sum_{i=0}^n (-1)^ig\circ d_i^{n+1}\colon X_{n+1}\to R
+\]
+
+\begin{lemma}
+This sequence is a complex, so that $\delta_{n+1}\circ \delta_n = 0$.
+\end{lemma}
+
+\begin{proof}
+Exercise!
+\end{proof}
+
+We denote this complex by $C^\bullet(X_\bullet,R)$, and call it the \emph{simplicial cochain
+complex} of the $\Delta$-set $X_\bullet$.
+
+Now notice that given a function $\alpha\colon A\to B$ of sets, there is an $R$-linear map 
+$\alpha^*\colon R^B\to R^A$ defined on $(g\colon B\to R)\mapsto (g\circ \alpha\colon A\to R)$. 
+And, given another function $\beta\colon B\to C$, we have 
+$\alpha^*\circ \beta^* = (\beta\circ \alpha)^*\colon R^C\to R^A$. Thus we have a kind of 
+functoriality, but where the source and target get flipped, and the order of composition likewise. 
+This is summed up by saying we have a functor $R^{(-)}\colon \Set^{op}\to \Mod_R$, where the 
+${}^{op}$ is a reminder that everything gets flipped on applying the functor.
+
+\begin{lemma}
+There is a functor $C^\bullet(-,R)\colon \Delta\Set^{op}\to \Cplx_R$.
+\end{lemma}
+
+\begin{proof}
+One just needs to check that given $f\colon X_\bullet \to Y_\bullet$, we have 
+$\delta_nf_n^* = f_{n+1}^*\delta_n$, which is a direct computation.
+\end{proof}
+
+As a result, we can define the cohomology modules of a $\Delta$-set.
+
+\begin{definition}
+The $n^{th}$ cohomology module $H^n(X_\bullet,R)$ with coefficients in $R$ is the $n^{th}$ cohomology
+of the complex $C^\bullet(X_\bullet,R)$, and so is a functor $H^n(-,R)\colon \Delta\Set^{op}\to \Mod_R$.
+\end{definition}
+
+Note that since $R^\emptyset = 0$, the trivial module, it is immediate that for an 
+$n$-dimensional $\Delta$-set $X_\bullet$ we have $H^k(X_\bullet,R) = 0$ for all $k>n$. 
+Infinite-dimensional $\Delta$-sets may or may not have nontrivial cohomology modules in 
+infinitely-many dimensions. 
+
+Another immediate corollary of this definition is that a finite $\Delta$-set has finitely-generated
+cohomology modules.\marginnote{or more generally, a $\Delta$-set with finitely many simplices in dimension $n$ has $H^n$ finitely-generated}
+
+\begin{rem}
+In practice, the only rings $R$ we will consider are $\ZZ$, $\RR$ and $\ZZ/2$.
+\end{rem}
+
+\begin{rem}
+Given a finite $\Delta$-set, with all of the face maps explicitly described, to calulate
+its cohomology modules is purely a calculational effort in combinatorics and linear algebra.
+However, the effort required may be significant, so there are tools we shall develop that will
+assist. Further, for an $\Delta$-set that is not finite, for instance, being 
+infinite-dimensional or having infinitely-many $n$-simplices for a given $n$, we cannot rely 
+on simple linear algebra to help us much. This will become important later, when we define
+the cohomology modules of a general topological space, without using $\Delta$-sets.
+\end{rem}
+
+Given a map of rings $\alpha\colon R\to S$ and a set $A$, recall that there is an $R$-linear map 
+$R^A\to S^A$ given by $g\mapsto \alpha\circ g$. This is $R$-linear as we can consider
+the $S$-module $S^A$ to be an $R$-module via $\alpha$.
+As a result, for a $\Delta$-set $X_\bullet$, we can apply this to the singular cochain complex 
+of $X_\bullet$ at each slot.
+
+\begin{lemma}
+For a map of rings $\alpha\colon R\to S$ there is a map of complexes 
+$C^\bullet(X_\bullet,R)\to C^\bullet(X_\bullet,S)$, and for fixed $X_\bullet$ this is functorial
+in $\alpha$.
+\end{lemma}
+
+Since a map of complexes gives a map between cohomology modules, we get from $\alpha$ as above
+an $R$-linear map $H^n(X_\bullet,R) \to H^n(X_\bullet,S)$, the \emph{change of coefficients} map.
+
+\begin{example}
+Consider the inclusion $\ZZ\to\RR$, which gives rise to maps 
+$H^n(X_\bullet) \to H^n(X_\bullet,\RR)$. Notice that the domain is an abelian group, and in particular
+can contain torsion subgroups, whereas the codomain is a real vector space. The kernel of this
+map is precisely the torsion subgroup $H^n(X_\bullet,\ZZ)_\mathrm{tors} < H^n(X_\bullet,\ZZ)$, and the image is a lattice in
+$H^n(X_\bullet,\RR)$.
+\end{example}
+
+\begin{example}
+We have the quotient maps $\ZZ\to \ZZ/p$ for $p$ a prime, and so get maps
+$H^n(X_\bullet,\ZZ) \to H^n(X_\bullet,\ZZ/p)$, where the codomain is now a $\mathbb{F}_p$-vector
+space. Now this map destroys any torsion coprime to $p$, so can be useful in trying to focus
+on specific phenomena relating to a specific prime number.
+\end{example}
+
+\begin{rem}
+At the dawn of algebraic topology, the focus was largely on objects similar to finite $\Delta$-complexes
+and in that case, one could define the dimension of the vector spaces $H^n(X_\bullet,\RR)$, 
+called the \emph{Betti numbers} of $X_\bullet$,
+and consider the orders of the cyclic subgroups that defined the finite group 
+$H^n(X_\bullet,\ZZ)_\mathrm{tors}$ (under the classification of finitely-generated abelian
+groups), called the \emph{torsion coefficients}. These were the way mathematicians at the time
+unpacked the information that went into the Euler characteristic, but still these numbers 
+were not functorial. It took Emmy Noether and others in the 1920s to emphasise that having 
+invariants that are themselves algebraic objects was more important than considering just 
+their dimensions or other numeric invariants.
+\end{rem}
+
+Going\lecturenum{23} back to thinking about functoriality with respect to maps of 
+$\Delta$-sets, consider for $x\in X_n$ ($X_\bullet$ a given $\Delta$-set) the map in 
+Example~\ref{eg:name_of_simplex}, $\Delta[n] \to X_\bullet$ We can consider the induced map
+on complexes near dimension $n$:
+\[
+	\xymatrix{
+	\ar[r] & R^{X_n} \ar[d] \ar[r]^\delta & R^{X_{n+1}} \ar[r] \ar[d] & \\
+	\ar[r] & R^{\Delta[n]_n} \ar[r] & R^{\Delta[n]_{n+1}} \ar[r] &
+	}
+\]
+but $R^{\Delta[n]_n} = R^1 = R$ (as a module) and $R^{\Delta[n]_{n+1}} = R^\emptyset=0$, so we
+get an $R$-linear map $C^n(X_\bullet,R) = R^{X_{n+1}} \to R$. This map is precisely 
+evaluation at $x\in X_n$.
+An important case for us is when we have a chosen\marginnote{this 
+really is, under the indended geometric interpretation, a point} basepoint $x\in X_0$. Then
+we get a map $C^\bullet(X_\bullet,R)=R^{X_0} \to C^\bullet(\Delta[0],R)$, and the codomain
+here is a complex of the form $0\to R \to 0\to \cdots$. This map on passing to 
+cohomology gives a map $H^0(X_\bullet,R) \to R$ of $R$-modules. Such a map on an $R$-module $M$
+is called an \emph{augmentation} of $M$, and $M\to R$ is called an \emph{augmented module}.
+The assignment $(X_\bullet) \mapsto (H^0(X_\bullet,R) \to R)$ is functorial for maps of $\Delta$-set
+respecting the chosen basepoints, and where augmentations are preserved on the $R$-module side.
+The extra geometric structure contained in the choice of basepoint is reflected by the augmentation.
+
+\begin{rem}
+While $\Delta$-sets and their cohomology are not at present helping to define or calculate
+cohomology of topological spaces, the tools we are developing will come in handy when we get
+to that point. So for the present we will continue to focus on $\Delta$-sets and their associated
+complexes. 
+\end{rem}
+
+What sort of general results help us to calculate cohomology of $\Delta$-sets? Just as for space,
+let us consider the simplest method for constructing a new object from old: disjoint union.
+
+Some observations:
+\begin{enumerate}
+\item For sets $P$ and $Q$ and a ring $R$, there is a natural isomorphism 
+$R^{P\sqcup Q} \xrightarrow{\simeq} R^Q \oplus R^Q$ of $R$-modules.
+
+\item From $\Delta$-sets $X_\bullet$ and $Y_\bullet$ we can make a new $\Delta$-set
+$X_\bullet\sqcup Y_\bullet$ with set of $n$-simplices $X_n\sqcup Y_n$.
+
+\item From complexes $A_\bullet$ and $B_\bullet$ of $R$-modules, we can make a new complex
+$A_\bullet \oplus B_\bullet$, namely
+\[
+	\cdots \to A_n\oplus B_n \xrightarrow{\delta^A_n\oplus \delta^B_n} A_{n+1}\oplus B_{n+1} \to \cdots
+\]
+the \emph{direct sum} of $A_\bullet$ and $B_\bullet$.
+
+\item Given a direct sum of complexes $A_\bullet\oplus B_\bullet$, we have an natural isomorphism
+$H^n(A_\bullet\oplus B_\bullet) \xrightarrow{\simeq} H^n(A_\bullet)\oplus H^n(B_\bullet)$.
+\end{enumerate}
+
+If we put these ingredients together, we get:
+\begin{lemma}
+There is a natural isomorphism 
+\[
+	C^\bullet(X_\bullet\sqcup Y_\bullet,R) \xrightarrow{\simeq}
+C^\bullet(X_\bullet,R)\oplus C^\bullet(Y_\bullet,R)
+\]
+of complexes of $R$-modules.
+\end{lemma}
+
+\begin{corollary}
+There is a natural isomorphism 
+\[
+H^(X_\bullet\sqcup Y_\bullet,R) \xrightarrow{\simeq} H^n(X_\bullet,R) \oplus H^n(Y_\bullet,R)
+\]
+of $R$-modules, for $n=0,1,2,\ldots$.
+\end{corollary}
+
+Recalling the situation for the fundamental groupoid $\Pi_1$, we had the result that
+$\Pi_1(X\sqcup Y) \simeq \Pi_1(X)\sqcup \Pi_1(Y)$. So, in this case we can reduce computations
+to $\Delta$-sets that are not disjoint unions of smaller $\Delta$-sets. One thing to notice 
+is that the lemma is legitimately stronger than its corollary, since there might be an induced
+isomorphism between the cohomology modules while the complexes are not isomorphism.
+
+The next step up from calculating the fundamental groupoid of a disjoint union is to calculate
+the fundamental groupoid of a pushout of spaces: $X = U\cup V$ for neighbourhoods $U,V\subset X$.
+More precisely there was a way to get information about $\Pi_1(X)$ from $\Pi_1(U)$, $\Pi_1(V)$ 
+and $\Pi_1(U\cap V)$. Things are not so simple now, even ignoring the fact we are working 
+with $\Delta$-sets. The following two examples should be in some sense motivational for the 
+big tool we are about to develop. 
+
+\begin{example}
+Consider the combinatorial surface $\partial\Delta[3]$, with vertices $0,1,2,3$, and 
+$n$-simplices given by $(n+1)$-element subsets of this.
+Define two sub-$\Delta$-sets $U_\bullet$ and $V_\bullet$ as follows:
+\begin{enumerate}
+\item $U_\bullet$ has the same vertices as $\partial\Delta[3]$ but only two $2$-simplices: 
+$\{0,1,2\}$ and $\{0,1,3\}$, and all the $1$-simplices of $\partial \Delta[3]$ \emph{except}
+$\{2,3\}$.
+\item $V_\bullet$ also has the same vertices as $\partial\Delta[3]$ but now the pair of $2$-simplices
+$\{1,2,3\}$ and $\{0,2,3\}$, and all the $1$-simplices \emph{except} $\{0,1\}$.
+\end{enumerate}
+The\marginnote{defined to have as set of $n$-simplices $U_n\cap V_n\subset X_n$} 
+intersection $U_\bullet\cap V_\bullet$ is then $1$-dimensional---that is a directed graph---with 
+vertices $\{0,1,2,3\}$ and edges $\{0,2\}$, $\{0,3\}$, $\{1,2\}$ and $\{1,3\}$ (ordered from
+lower to higher label).\marginnote{this geometrically realises to a circle} Now, in principle,
+we already know, or suspect we know, the cohomology modules of $U_\bullet$, $V_\bullet$ and 
+$U_\bullet\cap V_\bullet$ as the first two triangulate $I^2$, and the latter triangulates a 
+circle. Then it would be nice if we could calculate the cohomology of $\partial\Delta[3]$ just
+from this information.
+
+From the functoriality of $C^\bullet(-,R)$ we get restriction maps, which in each dimension 
+look like
+\[
+	\xymatrix{
+		R^{\partial\Delta[3]_n} \ar[r] \ar[d] & R^{U_n} \ar[d]\\
+		R^{V_n} \ar[r] & R^{U_n\cap V_n}
+	}
+\]
+and this square commutes. However, we are in a more of a linear, sequency mood, so will turn
+this into the sequence
+\begin{align*}
+	0\to R^{\partial\Delta[3]_n} \to & R^{U_n}\oplus R^{V_n} \to R^{U_n\cap V_n}\to 0\\
+	g\mapsto & (g\big|_{U_n},g\big|_{V_n})\\
+		& (f,h) \mapsto f\big|_{U_n\cap V_n} - h\big|_{U_n\cap V_n}
+\end{align*}
+It is a short and simple exercise to check that in fact this sequence is in fact exact. This then
+gives a short exact sequence of complexes
+\[
+0\to C^\bullet(\partial\Delta[3],R) \to C^\bullet(U_\bullet,R) \oplus C^\bullet(V_\bullet,R) \to C^\bullet(U_\bullet\cap V_\bullet,R) \to 0
+\]
+We want to know the cohomology of the leftmost non-zero complex, but we (in principle) have
+only calculated the cohomology of the other two complexes.
+\end{example}
+
+The above argument works perfectly well for an arbitrary $\Delta$-set $X_\bullet$ and 
+sub-$\Delta$-sets $U_\bullet$ and $V_\bullet$ such that $X_n = U_n \cup V_n$, to give a short
+exact sequence of complexes of $R$-modules
+\[
+0\to C^\bullet(X_\bullet,R) \to C^\bullet(U_\bullet,R) \oplus C^\bullet(V_\bullet,R) \to C^\bullet(U_\bullet\cap V_\bullet,R) \to 0
+\]
+
+For the second example, we want to consider how we might calculate the cohomology of a quotient
+from the cohomology of the original $\Delta$-set and that of the sub-$\Delta$-set that gets squashed.
+
+\begin{example}
+Consider now a $\Delta$-set $X_\bullet$ together with a sub-$\Delta$-set $A_\bullet \subset X_\bullet$.
+Morally speaking, we might have $X_\bullet$ triangulating some space, and $A_\bullet$ triangulating
+a subspace. We can form the quotient space $|X_\bullet|/|A_\bullet|$, but it is not immediately clear that
+we can form a sensible $\Delta$-set $X_\bullet/A_\bullet$ that is a quotient of $X_\bullet$ so 
+that this triangulates the topological quotient. Assume for now that there \emph{is} a $\Delta$-set
+$X_\bullet/Y_\bullet$ with set of $n$-simplices $X_n/Y_n$, and a quotient map $X_\bullet\to X_\bullet/Y_\bullet$ of $\Delta$-sets.
+Can we calculate $H^n(X_\bullet/Y_\bullet,R)$ from $H^(X_\bullet,R)$ and $H^n(Y_\bullet,R)$?
+
+Notice that given \emph{sets} $X$, $i\colon Y\hookrightarrow X$, we get a set $X/Y := X/(y_1\sim y_2)$ for all $y_i\in Y$,
+and there is a function $q\colon X\to X/Y$. The set $X/Y$ has a canonical basepoint $\pt = [y]\in X/Y$ for any $y\in Y$.
+We get $R$-linear maps given 
+\[
+	R^{X/Y} \xrightarrow{q^*} R^X \xrightarrow{i^*} R^Y 
+\]
+where the left map is injective, and the right map is surjective. However, this is not even a complex,
+as the image of $q^*$ is not contained in the kernel of $i^*$!
+\end{example}
 
 \end{document}
-
