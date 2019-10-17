@@ -4,6 +4,13 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{intersections}
+\usepackage{tikz-cd}
+\usetikzlibrary{%
+  matrix,%
+  calc,%
+  arrows%
+}
+
 \usepackage{stackrel}
 
 % \usepackage{enumitem} \setlist[itemize]{noitemsep, topsep=0pt}
@@ -4792,9 +4799,9 @@ with
 \node[left] at (0,5) {$\overline{1}$};
 \node[right] at (5,5) {$\overline{2}$};
 \end{tikzpicture}} 
-$2$-simplices given by three-element subsets of these, $1$-simplices given by two-element
-subsets of these, and $0$-simplices given by the set 
-$\{0,1,2,\overline{0},\overline{1},\overline{2}\}$. This can visualised as at right.
+the $2$-simplices given by three-element subsets of these, the $1$-simplices given by two-element
+subsets of these, and six $0$-simplices,
+$0, 1, 2, \overline{0},\overline{1}$ and $\overline{2}$. This can visualised as at right.
 
 More generally, given any $n$, we can define a triangulation of the space $I\times \Delta^n$ using an 
 analogous recipe: the desired $\Delta$-set has $n+1$ $(n+1)$-simplices labelled by the lists
@@ -5056,13 +5063,17 @@ For the second example, we want to consider how we might calculate the cohomolog
 from the cohomology of the original $\Delta$-set and that of the sub-$\Delta$-set that gets squashed.
 
 \begin{example}
-Consider now a $\Delta$-set $X_\bullet$ together with a sub-$\Delta$-set $A_\bullet \subset X_\bullet$.
-Morally speaking, we might have $X_\bullet$ triangulating some space, and $A_\bullet$ triangulating
-a subspace. We can form the quotient space $|X_\bullet|/|A_\bullet|$, but it is not immediately clear that
-we can form a sensible $\Delta$-set $X_\bullet/A_\bullet$ that is a quotient of $X_\bullet$ so 
-that this triangulates the topological quotient. Assume for now that there \emph{is} a $\Delta$-set
-$X_\bullet/Y_\bullet$ with set of $n$-simplices $X_n/Y_n$, and a quotient map $X_\bullet\to X_\bullet/Y_\bullet$ of $\Delta$-sets.
-Can we calculate $H^n(X_\bullet/Y_\bullet,R)$ from $H^n(X_\bullet,R)$ and $H^n(Y_\bullet,R)$?
+
+Consider now a $\Delta$-set $X_\bullet$ together with a sub-$\Delta$-set $A_\bullet 
+\subset X_\bullet$.\marginnote{that is, a \emph{pair} $(X_\bullet,A_\bullet)$} Morally 
+speaking, we might have $X_\bullet$ triangulating some space, and $A_\bullet$ 
+triangulating a subspace. We can form the quotient space $|X_\bullet|/|A_\bullet|$, but 
+it is not immediately clear that we can form a sensible $\Delta$-set 
+$X_\bullet/A_\bullet$ that is a quotient of $X_\bullet$ so that this triangulates the 
+topological quotient. Assume for now that there \emph{is} a $\Delta$-set 
+$X_\bullet/Y_\bullet$ with set of $n$-simplices $X_n/Y_n$, and a quotient map 
+$X_\bullet\to X_\bullet/Y_\bullet$ of $\Delta$-sets. Can we calculate 
+$H^n(X_\bullet/Y_\bullet,R)$ from $H^n(X_\bullet,R)$ and $H^n(Y_\bullet,R)$?
 
 Notice that given a set $X$ and a subset $i\colon Y\hookrightarrow X$, we get a set $X/Y := X/(y_1\sim y_2)$ for all $y_i\in Y$,
 and there is a function $q\colon X\to X/Y$. The set $X/Y$ has a canonical basepoint $\pt = [y]\in X/Y$ for any $y\in Y$.
@@ -5086,8 +5097,262 @@ plays well with quotient we may need to play around with the kernel a bit: in on
 \] 
 Phrased this way, we don't even need to consider the quotient set $X/A$ in order to get a module
 from it. And this also helps with the issue above, in that it's not clear to what extent 
-$X_\bullet/Y_\bullet$ is a good construction.
+$X_\bullet/Y_\bullet$ is a good construction. 
+
+Hence,\lecturenum{24} given a pair $(X_\bullet,A_\bullet)$, with inclusion function $i\colon A_\bullet \hookrightarrow X_\bullet$, we can consider the 
+(surjective) restriction map
+\[
+	C^\bullet(X_\bullet,R) \xrightarrow{i^*} C^\bullet(A_\bullet,R) \to 0
+\]
+and its kernel $\ker(i^*)$ acts like virtual functions on $X_\bullet/A_\bullet$, without 
+having to define this $\Delta$-set. Moreover, we then have a short exact sequence of 
+complexes of $R$-modules, analogously to the previous example.
 \end{example}
 
+Before continuing, it is worth noting that in fact the last construction does make sense
+
+\begin{lemma}
+Given a map of complexes $\varphi\colon A_\bullet \to B_\bullet$, the degreewise kernels
+$\ker(\varphi_n) \subseteq A_n$ assemble into a complex $\ker(\varphi)$, using the restriction
+of $A_n \to A_{n+1}$ to $\ker(\varphi_n)$.
+\end{lemma}
+
+Using this lemma, we can define a complex associated to the pair $(X_\bullet,A_\bullet)$.
+
+\begin{definition}
+Given a pair $(X_\bullet,A_\bullet)$ denote by $C^\bullet(X_\bullet,A_\bullet;R)$ the 
+complex $\ker(i^*)$ as above, the simplicial relative cochain complex of the pair.
+\end{definition}
+
+Both of these examples are special cases of a general principle: given a short exact sequence 
+of complexes
+\[
+	0\to A_\bullet \to B_\bullet \to C_\bullet \to 0
+\]
+(of $R$-modules, say) then we might wish to calculate $H^n(A_\bullet)$, but only know 
+$H^n(B_\bullet)$ and $H^n(C_\bullet)$. Or we might know $H^n(A_\bullet)$ and 
+$H^n(C_\bullet)$, and want to calculate $H^n(B_\bullet)$. In the finite setting, this 
+might be merely an issue of computational efficiency, but in general we need to deal 
+with infinitely-generated $R$-modules, where simple linear algebra techniques start to 
+break down. So we will prove a general result using \emph{homological 
+algebra}\marginnote{Homological algebra is the area of algebra that deals with the 
+interaction of sequences, maps of sequences, commutative diagrams of algebraic objects 
+with certain `exactness' properties, and how one can calculate various objects including 
+(co)homology groups} that relates all these cohomology groups.
+
+\begin{rem}
+If you get anything out of this section of the course, the following result is probably 
+it, because you can apply it to your own setting to get a long exact sequence. Or it 
+might be the case there is a standard long exact sequence\marginnote{or, in the case of 
+$K$-theory, a long exact sequence that folds back on itself} in your area, and it 
+probably arose from this theorem, so it's a good idea to understand how the abstract 
+proof goes. Together with the long exact sequence of homotopy groups associated to a 
+fibre bundle, this is one of the major computational tools until you get to spectral 
+sequences, which are super powerful, but also much less intuitive.
+\end{rem}
+
+\begin{theorem}\label{thm:alg_Mayer-Vietoris}
+Given a short exact sequence 
+\[
+        0\to A_\bullet \xrightarrow{i} B_\bullet \xrightarrow{\pi} C_\bullet \to 0
+\]
+of $R$-modules, there is a long exact sequence
+\[
+\cdots \xrightarrow{\delta^{k-1}} H^k(A_\bullet) \xrightarrow{H^k(i)} H^k(B_\bullet) \xrightarrow{H^k(\pi)} H^k(C_\bullet)
+\xrightarrow{\delta^k} H^{k+1}(A_\bullet) \xrightarrow{H^{k+1}(i)} (B_\bullet) \to \cdots
+\]
+of $R$-modules.
+\end{theorem}
+
+The proof of this theorem we will give uses a famous lemma in homological algebra, the \emph{Snake 
+Lemma}.\marginnote{there is a small zoo of lemmas named after animals, other examples 
+being the Salamander Lemma and the Snail Lemma}
+
+\begin{lemma}[Snake Lemma]
+\label{snakeLemma}
+Given a commutative diagram 
+\[
+	\xymatrix{
+	& A \ar[r]^i \ar[d]^\alpha & B \ar[r]^\pi \ar[d]^\beta & C \ar[r] \ar[d]^\gamma & 0 \\
+	0\ar[r] & A' \ar[r]_{i'} & B' \ar[r]_{\pi'} & C
+	}
+\]
+of $R$-modules where the rows are exact, there is an exact sequence
+\[
+	\ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\delta} \coker\alpha 
+	\to \coker\beta \to \coker\gamma
+\]
+of $R$-modules (see Figure~\ref{fig:snake_lemma}).
+\end{lemma}
+
+This is a major tool, so the full proof is rather lengthy with lots of details, but at each stage there is generally
+only one or two things to try.
+
+\begin{figure}
+\begin{tikzpicture}%[>=triangle 60]
+\matrix[matrix of math nodes,column sep={60pt,between origins},row
+sep={60pt,between origins},nodes={asymmetrical rectangle}] (s)
+{
+&|[name=ka]| \ker \alpha &|[name=kb]| \ker \beta &|[name=kc]| \ker \gamma \\
+%
+&|[name=A]| A &|[name=B]| B &|[name=C]| C &|[name=01]| 0 \\
+%
+|[name=02]| 0 &|[name=A']| A' &|[name=B']| B' &|[name=C']| C' \\
+%
+&|[name=ca]| \coker \alpha &|[name=cb]| \coker \beta &|[name=cc]| \coker \gamma \\
+};
+\draw[->] (ka) edge (A)
+          (kb) edge (B)
+          (kc) edge (C)
+          (A) edge node[auto] {\(i\)} (B)
+          (B) edge node[auto] {\(\pi\)} (C)
+          (C) edge (01)
+          (A) edge node[auto] {\(\alpha\)} (A')
+          (B) edge node[auto] {\(\beta\)} (B')
+          (C) edge node[auto] {\(\gamma\)} (C')
+          (02) edge (A')
+          (A') edge node[auto] {\(i'\)} (B')
+          (B') edge node[auto] {\(\pi'\)} (C')
+          (A') edge (ca)
+          (B') edge (cb)
+          (C') edge (cc)
+;
+\draw[->,gray] (ka) edge (kb)
+               (kb) edge (kc)
+               (ca) edge (cb)
+               (cb) edge (cc)
+;
+\draw[->,red,rounded corners] (kc) -| node[auto,text=black,pos=.7]
+{\(\delta\)} ($(01.east)+(.5,0)$) |- ($(B)!.35!(B')$) -|
+($(02.west)+(-.5,0)$) |- (ca);
+\end{tikzpicture}
+\caption{The classic Snake Lemma diagram}
+  \label{fig:snake_lemma}
+  %\zsavepos{pos:textfig}
+  \setfloatalignment{c}
+\end{figure}
+
+
+\begin{proof}
+We need to do a number of things:
+\begin{enumerate}
+\item Construct the function $\delta \colon \ker\gamma \to \coker\alpha$
+\item Prove this is an $R$-module homomorphism
+\item Show $\im(\ker\alpha \to \ker\beta) = \ker(\ker\beta \to \ker\gamma)$
+\item Show $\im(\ker\beta \to \ker\gamma) = \ker(\delta)$
+\item Show $\im(\delta) = \ker(\coker\alpha \to \coker\beta)$
+\item Show $\im(\coker\alpha \to \coker\beta) = \ker(\coker\beta \to \coker\gamma)$
+\end{enumerate}
+
+For the present, I will do 1., 4.\ and 5. Items 3.\ and 6.\ are a bit more 
+straightforward, as they don't involve $\delta$. And, given the techniques here, item 
+2.\ should be a not-too-challenging exercise. The main technique here is called `diagram 
+chasing', as it involves starting with an element in one module, and applying 
+homomorphisms or exactness properties to cook up elements of other nearby modules, and 
+repeat, chasing the new elements until we find one in a module we are interested in. 
+
+Since we want a function $\delta\colon \ker\gamma \to \coker\alpha$, we will start with 
+a given element $c\in \ker\gamma \subseteq C$ and aim to end up with an element in 
+$\coker\alpha$ Since we know $\pi$ is surjective, there is a $b\in B$ such that $\pi(b) 
+= c$. Then consider $\beta(b) \in B'$: applying $\pi'$ we get $\pi'(\beta(b)) = 
+\gamma(\pi(b)) = \gamma(c)=0$, so that $\beta(b) = i'(a'_b)$ for a unique $a'_b \in A'$. 
+Then we have $[a'_b] \in \coker\alpha$. But is it unique? I hear you ask. Well, what 
+choices did we make along the way? Only the fact that there is not a unique $b$ such 
+that $\pi(b)=c$. So consider another $\tilde b \in B$ such that $\pi(\tilde b) = c$. We 
+get $\beta(\tilde b)$, as before, and there is a unique $a'_{\tilde b} \in A'$ such that 
+$i'(a'_{\tilde b}) = \beta(\tilde b)$. So we get another element $[a'_{\tilde b}]\in 
+\coker\alpha$. But, $\pi(b - \tilde b)= \pi(b) - \pi(\tilde b) = c -c = 0$, and 
+$\ker\pi=\im i$, so there is some $\underline{a}\in A$ such that $i(\underline{a}) = b - 
+\tilde b$, or rather, $b = \tilde b + i(\underline{a})$. So now apply $\beta$ to get 
+$i'(a_b) = \beta(b) = \beta(\tilde b + i(\underline{a})) = \beta(\tilde b) + 
+\beta(i(\underline{a})) = i'(a'_{\tilde b}) + i'(\alpha(\underline{a})) = i'(a'_{\tilde b} 
++ \alpha(\underline{a}))$. But $i'$ is injective, so that $a_b = a'_{\tilde b} + 
+\alpha(\underline{a})$. But this means that $[a'_b] = [a'_{\tilde b}]$, and so from $c\in 
+\ker\gamma$ we have found a unique element of $\coker\alpha$. Thus we have a function
+$\delta\colon \ker\gamma \to \coker\alpha$, as required.
+
+
+
+One needs to then check this is an $R$-module homomorphism, by comparing 
+$\delta(c_1+c_2)$ and $\delta(c_1) + \delta(c_2)$ etc, using exactness in various ways as in 
+the previous paragraph. This is an exercise for the keen reader.
+
+We can now check the exactness of the sequence. Assume $c\in \ker \gamma$ such that 
+$\delta(c)=0$, that is, $[a'_b] = 0 \in \coker\alpha$ for some $b\in B$ such that 
+$\pi(b)=c$. But this means $a'_b = \alpha(\underline{a})$. But since $\beta(b) = 
+i'(a'_b) = i'(\alpha(\underline{a})) = \beta(i(\underline{a}))$, we get $b - 
+i(\underline{a}) \in \ker\beta$. And $\pi(b - i(\underline{a})) = \pi(b) - 
+\pi(i(\underline{a})) = c$. Thus $c\in \im(\ker \beta \to \ker \gamma)$ and $\ker\delta 
+\subseteq \im(\ker \beta \to \ker \gamma)$
+
+Conversely, assume that $c = \pi(b)$ where $b\in \ker\beta$. Then $\delta(c) = [a'_b]$ 
+for $i'(a'_b) = \beta(b)$, but as $i'$ is injective, $a'_b = 0$, hence $\delta(c)=0$. 
+Thus $\im(\ker \beta \to \ker \gamma)\subseteq \ker\delta$, and so $\im(\ker \beta \to 
+\ker \gamma)= \ker\delta$.
+
+Now consider an arbitrary $c\in \ker\gamma$, and the image of $\delta(c)$ in 
+$\coker\beta$. This is precisely $[i'(a'_b)] = [\beta(b)] = 0$, so that $\im\delta 
+\subseteq \ker(\coker\alpha \to \coker\beta)$. Now consider a $[a']\in \coker\alpha$ 
+such that $[i'(a')]=0 \in \coker\beta$. But then this means that $i'(a') = \beta(b)$ for 
+some $b\in B$. If we take $c:= \pi(b)$, then $\delta(c) = [a']$, so that $\im\delta
+=\ker(\coker\alpha \to \coker\beta)$.
+
+The proof that we have exactness in the other positions is left for the keen reader.
+\end{proof}
+
+To apply the Snake Lemma to the proof of Theorem~\ref{thm:alg_Mayer-Vietoris}, we need 
+to cook up a diagram with the appropriate properties. Despite the temptation to apply 
+the Snake Lemma to (two rows of) the short exact sequence of complexes, this is not the 
+correct thing to do, since then the kernels and cokernels are not the cohomology groups 
+in the Theorem.
+
+\begin{lemma}\label{lemma:setup_for_algMV}
+The commutative diagram
+\[
+	\xymatrix{
+	&A_k/\delta_{k-1}^A(A_{k-1}) \ar[r] \ar[d]^{\delta_k^A} & B_k/\delta_{k-1}(B_{k-1}) 
+	\ar[r] \ar[d]^{\delta_k^B} & C_k/\delta_{k-1}^C(C_{k-1}) \ar[r] \ar[d]^{\delta_k^C} & 0\\
+	0\ar[r] & \ker(\delta_{k+1}^A) \ar[r]& \ker(\delta_{k+1}^B) \ar[r] & \ker(\delta_{k+1}^C)	
+	}
+\]
+satisfies the hypotheses of the Snake Lemma, that is, the rows are exact.
+\end{lemma}
+
+\begin{proof}
+Exercise, for now.
+\end{proof}
+
+\begin{proof}{(of Theorem~\ref{thm:alg_Mayer-Vietoris})}
+
+First notice that $\ker(A_k/\delta_{k-1}^A(A_{k-1}) \to \ker\delta_{k+1}^A) = 
+\ker(A_k/\delta_{k-1}^A(A_{k-1}) \to A_{k+1})$. But this is isomorphic to $\ker(A_k\to 
+A_{k+1})/\delta_{k-1}^A(A_{k-1}) = H^k(A_\bullet)$.\marginnote{exercise!}
+Similarly, we have $\im(A_k/\delta_{k-1}^A(A_{k-1}) \to \ker\delta_{k+1}^A) = \im(A_k \to \ker\delta_{k+1}^A$ and hence the cokernel is $H^{k+1}(A_\bullet)$.
+
+Using Lemma~\ref{lemma:setup_for_algMV}, we get an exact sequence
+\[
+	H^k(A_\bullet) \to H^k(B_\bullet) \to H^k(C_\bullet) \xrightarrow{\delta^k}
+	H^{k+1}(A_\bullet) \to H^{k+1}(B_\bullet) \to H^{k+1}(C_\bullet)
+\]
+for each $k$. We\marginnote{For a collection of exact sequences $L_{k-1} \to M_{k-1} \to 
+N_{k-1} \to L_k \to M_k \to N_k$, $k\in \ZZ$ (where the maps are re-used) 
+ there is a long exact sequence 
+$\cdots \to N_{k-2} \to L_{k-1} \to M_{k-1} \to
+N_{k-1} \to L_k \to M_k \to N_k \to L_{k+1} \to \cdots$ (Exercise)}
+can put these together as $k$ varies to get one long exact sequence as in 
+the statement of the theorem.
+\end{proof}
+
+One nice result is that given two diagrams of the sort that go into the Snake Lemma, and 
+maps between each of the corresponding modules making all the possible cubes commute, 
+there are maps between the kernels and cokernels that appear in the exact sequence, 
+giving a map between the complexes.\marginnote{the Snake Lemma is thus `natural'} This 
+means that given two short exact sequences of complexes, and maps between \emph{them}, 
+there is a map between the long exact sequences. This might happen, for instance, if one 
+is changing the coefficient ring in the cohomology of $\Delta$-sets, and one is in the 
+situation of one of the two motivational examples. Or, one might have a map of paits 
+$(X_\bullet,A_\bullet) \to (Y_\bullet,B_\bullet)$ of $\Delta$-sets, so that each of them 
+gives rise to a short exact sequence of complexes, and the map between the pairs induces a 
+map between the short exact sequences.
 
 \end{document}
