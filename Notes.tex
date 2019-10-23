@@ -3347,16 +3347,23 @@ U\times X^{(1)}_x & \xrightarrow{\simeq} X^{(1)}_U \\
 over $U$. We can prove this is a bijection without too much difficulty, as follows. 
 \begin{itemize}
 \item Injective: If $[x_0 \stackrel{\gamma}{\rightsquigarrow} x \stackrel{\eta_{x'}}{\rightsquigarrow} x'] = [x_0 \stackrel{\gamma'}{\rightsquigarrow} x \stackrel{\eta_{x'}}{\rightsquigarrow} x']$, then we can concatenate with $-\eta_{x'}$ and the result is that $[\gamma] = [\gamma']$.
-\item Surjective: Suppose I have $[x_0 \stackrel{\gamma}{\rightsquigarrow} x'] in X^{(1)}_U$. Then $[\gamma] = [\gamma][\eta_{x'}]^{-1}[\eta_{x'}]$.
+\item Surjective: Suppose I have $[x_0 \stackrel{\gamma}{\rightsquigarrow} x'] \in X^{(1)}_U$. Then $[\gamma] = [\gamma][\eta_{x'}]^{-1}[\eta_{x'}]$.
 \end{itemize}
 
-For now, for the proof that this is a homeomorphism, see pages 64--65 of Hatcher, in the section ``The Classification of Covering Spaces''.\marginnote{I will fill in the details here later}
+For now, for the proof that this is a homeomorphism, see pages 64--65 of Hatcher, in the section 
+``The Classification of Covering Spaces''.\marginnote{I will fill in the details here later (not examinable!)}
 
 Thus we have a local trivialisation, and hence a covering space.
 
 We can see that $X^{(1)}$ is path connected by observing that it is the quotient of the path connected space $P_{x_0} X$\marginnote{there is a path from $c_{x_0}$ to any $\gamma\colon x_0\rightsquigarrow x$, defined by $s\mapsto (t\mapsto \gamma(st))$}, hence there is a surjective map $P_{x_0}X \to X^{(1)}$. 
 
-There is a fibrewise action of $\pi_1(X,x_0)$ on $X^{(1)}$ by $([x_0 \stackrel{\omega}{\rightsquigarrow} x_0],[x_0 \stackrel{\gamma}{\rightsquigarrow} x]) \mapsto [x_0 \stackrel{\omega}{\rightsquigarrow} x_0 \stackrel{\gamma}{\rightsquigarrow} x]$. This is continuous because it is induced from the continuous concatenation $\Omega_{x_0}\times P_{x_0}X \to P_{x_0}X$, and the axioms for an action hold from the associativity of composition in $\Pi_1(X)$. Note especially that the $\pi_1(X,x_0)$-action is \emph{free}, so that the stabiliser subgroups are all trivial.
+There is a fibrewise action of $\pi_1(X,x_0)$ on $X^{(1)}$ by $([x_0 
+\stackrel{\omega}{\rightsquigarrow} x_0],[x_0 \stackrel{\gamma}{\rightsquigarrow} x]) \mapsto 
+[x_0 \stackrel{\omega}{\rightsquigarrow} x_0 \stackrel{\gamma}{\rightsquigarrow} x]$. This is 
+continuous because it is induced from the continuous concatenation $\Omega_{x_0}X \times P_{x_0}X 
+\to P_{x_0}X$, and the axioms for an action hold from the associativity of composition in 
+$\Pi_1(X)$. Note especially that the $\pi_1(X,x_0)$-action is \emph{free}, so that the 
+stabiliser subgroups are all trivial.
 
 Finally, since the fibre of $X^{(1)}$ at $x_0$ is the quotient of $\pi_1(X,x_0)$ by the stabiliser subgroup by the $\pi_1(X,x_0)$-action, and this stabiliser subgroup is $\pi_1(X^{(1)},c_{x_0})$, we have that $\pi_1(X^{(1)},c_{x_0})$ is trivial. Hence $X^{(1)}$ is simply-connected.
 \end{proof}
@@ -5350,9 +5357,467 @@ giving a map between the complexes.\marginnote{the Snake Lemma is thus `natural'
 means that given two short exact sequences of complexes, and maps between \emph{them}, 
 there is a map between the long exact sequences. This might happen, for instance, if one 
 is changing the coefficient ring in the cohomology of $\Delta$-sets, and one is in the 
-situation of one of the two motivational examples. Or, one might have a map of paits 
+situation of one of the two motivational examples. Or, one might have a map of pairs 
 $(X_\bullet,A_\bullet) \to (Y_\bullet,B_\bullet)$ of $\Delta$-sets, so that each of them 
 gives rise to a short exact sequence of complexes, and the map between the pairs induces a 
 map between the short exact sequences.
+
+
+The\lecturenum{25} cohomology of the complex of relative simplicial cochains turns out to
+be quite important, and also gives more flexibility in the definition of cohomology of a $\Delta$-set.
+We recover the complex $C^\bullet(X_\bullet,R)$ by taking $A_\bullet=\emptyset$, hence
+the complex $C^\bullet(X_\bullet,\emptyset;R)$.
+
+\begin{definition}
+Given a pair $(X_\bullet,A_\bullet)$ of $\Delta$-sets, its \emph{relative cohomology} is
+$H^k(X_\bullet,A_\bullet;R) := H^k(C^\bullet(X_\bullet,A_\bullet;R))$.
+\end{definition}
+
+\begin{example}\label{eg:dim_minus_one_skeleton_rel_cochains}
+Given $X_\bullet$ a finite-dimensional $\Delta$-set of dimension $n$, then 
+$(X_\bullet,\sk_{n-1}X_\bullet)$ is a pair, and so we get the relative cochain complex
+\[
+	0\to C^1(X_\bullet,\sk_{n-1}X_\bullet;R) \to \cdots \to C^{n-1}(X_\bullet,\sk_{n-1}X_\bullet;R) \to C^n(X_\bullet,\sk_{n-1}X_\bullet;R) \to 0
+\]
+but for $k < n$, $\sk_{n-1}X_k = X_k$, so that $C^k(X_\bullet,\sk_{n-1}X_\bullet) = \ker(\id_{R^{X_k}}) = 0$
+Moreover, $\sk_{n-1}X_n = \emptyset$, so that $C^n(X_\bullet,\sk_{n-1}X_\bullet;R) = \ker(R^{X_n} \to R^\emptyset=0) = R^{X_n}$. Hence the complex $C^\bullet(X_\bullet,\sk_{n-1}X_\bullet;R)$ 
+consists entirely of copies of the zero $R$-module, except at position $n$,\marginnote{This is often denoted $R^{X_n}[n]$ in homological algebra} where it is the module of 
+$R$-valued functions on $X_n$. Thus 
+\[
+	H^k(X_\bullet,\sk_{n-1}X_\bullet;R) = \begin{cases}
+						0 & k\neq n\\
+						R^{X_n} & k=n
+						\end{cases}
+\]
+\end{example}
+
+The proof of the following lemma follows immediately from the definitions.
+
+\begin{lemma}
+For $k < n$, $H^k(\sk_nX_\bullet,R) \simeq H^k(X_\bullet,R)$.
+\end{lemma}
+
+As a result, every cohomology module of a given $\Delta$-set can be calculated as a cohomology 
+module of a finite-dimensional $\Delta$-set, albeit the dimension of the $\Delta$ grows with the 
+dimension the cohomology module sits in.\marginnote{A more sophisticated result shows the cohomology modules can be approximated, in a precise way, by cohomology modules of \emph{finite} $\Delta$-sets. This will take us too far afield to cover now.}
+
+\begin{prop}
+Given a pair $(X_\bullet,A_\bullet)$ of $\Delta$-sets, there is a long exact sequence of $R$-modules
+\[
+\xymatrix{%adapted from https://tex.stackexchange.com/a/16516/141
+    0 \ar[r] & H^0(X_\bullet,A_\bullet;R) \ar[r] & H^0(X_\bullet,R) \ar[r] & H^0(A_\bullet,R) \ar@{->} `r/8pt[d] `/10pt[l] `^dl[ll] `^r/1pt[dll] [dll] \\
+             & H^1(X_\bullet,A_\bullet;R) \ar[r] & H^1(X_\bullet,R)\ar[r] &\cdots \\
+                &&\cdots \ar[r] & H^{k-1}(A_\bullet,R)
+                \ar@{->} `r/8pt[d] `/10pt[l] `^dl[ll] `^r/1pt[dll] [dll] \\
+             & H^k(X_\bullet,A_\bullet;R) \ar[r] & H^k(X_\bullet,R) \ar[r] & \cdots 
+}
+\]
+\end{prop}
+
+
+\begin{example}
+Consider for instance the pair $(\Delta[n],\partial\Delta[n])$\marginnote{A special case of 
+Example~\ref{eg:dim_minus_one_skeleton_rel_cochains}, as $\partial\Delta[n] = 
+\sk_{n-1}\Delta[n]$} We have $H^k(\Delta[n],\partial\Delta[n];R) = 0$ for $k\neq n$, and since 
+$\Delta[n]$ has a single $n$-simplex, $H^n(\Delta[n],\partial\Delta[n];R)=R$. The long exact 
+sequence breaks up into small pieces, namely
+\[
+	0\to H^k(\Delta[n],R) \xrightarrow{\simeq} H^k(\partial\Delta[n],R) \to 0
+\]
+for $k<n-1$, which we already knew on general grounds from the above example, and
+\[
+0\to H^{n-1}(\Delta[n],R) \to H^{n-1}(\partial\Delta[n],R) \to R \to 
+H^n(\Delta[n],R) \to 0
+\]
+From this we can see that the cohomology module $H^n(\Delta[n],R)$ is a quotient of the rank-one module $R$, so it is not so big.\marginnote{in fact it is trivial, but we haven't proved that yet!}
+\end{example}
+
+If we think of relative cohomology as a kind of cohomology of a `virtual quotient' by a sub-$\Delta$-set,
+then if take the pair to be $(X_\bullet,\{x\})$, where $x\in X_0$, then we really can take the quotient squashing $\{x\}$ to a point: it changes nothing!
+But the relative cohomology really is different from the ordinary cohomology, so the naive idea that it
+looks like a kind of quotient really needs a bit more subtle interpretation.
+
+\begin{example}
+Consider a really simple $\Delta$-set, namely $\partial\Delta[1]$, which has two $0$-simplices, and
+nothing else. Call these $x_0$ and $x_1$, and look at the relative cochain complex. The only non-zero
+module is
+\[
+C^0(\partial\Delta[1],\{x_0\};R) = \ker(R^{\{x_0,x_1\}} = R^2\xrightarrow{\pr_2} R^{\{x_0\}} = R) = R
+\]
+and so $H^0(\partial\Delta[1],\{x_0\};R) = R$ (and all other $H^k$ are $0$). Compare this to 
+$H^0(\partial\Delta[1],R) = R^2$.
+\end{example}
+
+More generally, given a $0$-dimensional $\Delta$-set with $n+1$ $0$-simplices and a chosen 
+basepoint, the relative cohomology will be a rank $n$ free $R$-module. So this counts the number 
+of points \emph{apart from the specified basepoint}. 
+
+This case comes up often enough that it warrants a special name. We call a $\Delta$-set with a specified
+$0$-simplex a \emph{pointed $\Delta$-set}.
+
+\begin{definition}
+Given a pointed $\Delta$-set $(X_\bullet,x)$, the \emph{reduced cohomology} is the 
+relative cohomology $H^k(X_\bullet,x;R)$.
+\end{definition}
+
+\begin{example}
+Define the $\Delta$-set $Pt_\bullet$ to be $Pt_n = \ast$\marginnote{this is infinite-dimensional, with one $n$-simplex for every $n\in \NN$} 
+for all $n\geq 0$, with all face maps the identity function. Thus $C^n(Pt_\bullet,R) = R$ for all $n$.
+We need to calculate the maps $\delta_n \colon R\to R$ that appear in the complex. Firstly, we think
+of the elements of $R$ as given by functions $\ast \to R$ (of sets), so precomposition with $d_i=\id_\ast$ becomes the identity function on $R$. Thus
+\[
+g \stackrel{\delta_n}{\mapsto} \sum_{i=0}^{n+1} (-1)^i g = \begin{cases}
+0 & n\text{ even}\\
+g & n\text{ odd}
+\end{cases}
+\]
+Thus the complex is
+\[
+	0\to R \xrightarrow{0} R \xrightarrow{\id}R \xrightarrow{0} R \xrightarrow{\id}R \to \cdots
+\]
+and so $H^0(Pt_\bullet,R) = R$, but $H^k(Pt_\bullet,R) = 0$ for all $k>0$. But $Pt_\bullet$ has a canonical basepoint, and $H^k(Pt_\bullet,\ast;R) = 0$ for all $k$.
+\end{example}
+
+You can think of $Pt_\bullet$ in the last example as a kind of infinite-dimensional fat point, or perhaps
+a kind of contractible `space', even though we haven't got a notion of continuous deformation of
+$\Delta$-sets. This is more of a combinatorial analogue, or, better, and algebraic one, since $\Delta$-sets
+are really just a way to construct examples of complexes, which are our simpler, algebraic,  versions of spaces.
+We can define an analogue of a map of complexes being weak homotopy equivalence as follows.
+
+\begin{definition}
+A map of complexes $f\colon A_\bullet\to B_\bullet$ is called a \emph{quasi-isomorphism} if
+$H^k(f)\colon H^k(A_\bullet) \to H^k(B_\bullet)$ is an isomorphism for all $k$.
+\end{definition}
+
+\begin{example}
+The map $C^\bullet(Pt_\bullet,R)\to C^\bullet(\sk_0Pt_\bullet,R)$ induced by the inclusion is a quasi-isomorphism, despite the domain being nontrivial in all non-negative positions, and the latter
+being concentrated in a single position.
+\end{example}
+
+We will need just one more homological algebra lemma\marginnote{not named after an animal this time!} that
+is very useful in practice.
+
+\begin{lemma}[5 Lemma]
+Given a diagram of $R$-modules
+\[
+	\xymatrix{
+	A\ar[r]^f \ar[d]^\alpha & B \ar[r]^g \ar[d]^\beta & C \ar[r]^h \ar[d]^\gamma & D \ar[r]^k \ar[d]^\delta & R \ar[d]^\varepsilon \\
+	A' \ar[r]_{f'} & B' \ar[r]_{g'} & C' \ar[r]_{h'} & D' \ar[r]_{k'} & E'
+	}
+\]
+where the rows are exact, then if $\alpha$ is surjective, $\beta$ and $\delta$ are isomorphisms, and $\varepsilon$ is injective, then $\gamma$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+The proof is, as usual, a diagram chase. We split the proof into two steps, each of which only uses half
+of the assumptions:
+\begin{enumerate}
+
+\item If $\varepsilon$ is injective, and $\beta$ and $\delta$ are surjective, then $\gamma$ is 
+surjective. Consider $c' \in C'$, and choose some $d\in D$ such that $\delta(d) = h'(c')$. 
+Consider $\varepsilon(k(d)) = k'(\delta(d)) = k'(h'(c')) = 0$. Since $\varepsilon$ is injective, 
+this means $k(d)=0$, and since the top row is exact, this means that $d\in \ker(k) = \im(h)$, so 
+that there exists $c\in C$ such that $d=h(c)$. It's not immediately true that $\gamma(c) = c'$, 
+so let us compare them: $h'(c'-\gamma(c)) = h'(c') - h'(\gamma(c)) = \delta(d) - \delta(h(c)) = 
+0$. By exactness of the bottom row, this means that $c' - \gamma(c) = g'(b')$ for some $b'\in 
+B$. But as $\beta$ is surjective, $b' = \beta(b)$ for some $b\in B$. That is, $c' - \gamma(c) = 
+g'(\beta(b)) = \gamma(g(b))$. We can rearrange this so that $c' = \gamma(c) + \gamma(g(b)) = \gamma(c+g(b))$, and hence $\gamma$ is surjective.
+
+\item If $\alpha$ is surjective, and $\beta$ and $\delta$ are injective, then $\gamma$ is injective. This is an exercise in dualising the above steps.\qedhere
+\end{enumerate}
+\end{proof}
+
+Now to revisit the idea of Euler characteristic of a finite $\Delta$-set, which is, recall, the
+sum\marginnote{the sum terminates, as $|X_d| = 0$ for all large enough $d$}
+\[
+	\chi(X_\bullet) = \sum_{d=0}^\infty (-1)^d |X_d|
+\]
+A key idea introduced at the beginning of this section was that we wanted to replace numerical invariants,
+such as cardinality of finite sets by vector spaces, or more generally modules, so that dimension replaced
+cardinality. We now have a different way to construct a numerical invariant from a $\Delta$-set, namely
+using the dimensions of the cohomology modules, in the case when we take $R = \RR$, say.\marginnote{any characteristic zero field would do}
+Thus we can define the \emph{cohomological Euler characteristic} to be
+\[
+	\chi^{coh}(X_\bullet) := \sum_{d=0}^\infty (-1)^d \dim H^d(X_\bullet,\RR)
+\]
+as long as this sum exists. While now this implies that $H^d(X_\bullet,\RR)=0$ for all large enough $d$,
+we certainly don't need to have $X_\bullet$ finite, or even finite-dimensional, as the example of $Pt_\bullet$ shows. In that case, $\chi^{coh}(X_\bullet) = 1$.
+We can also consider finite-dimensional but infinite $\Delta$-sets, for instance a triangulation of $\RR$ by $1$-simplices.
+
+\begin{example}
+Let $L_\bullet$ be the directed graph with $L_0 = \ZZ$ and $L_1 = \ZZ$, where $d_0(n) = n+1$ and $d_1(n) = n$.
+This has an edge from $n$ to $n+1$ for each $n$. Given $g\in \RR^{L_0} = \RR^\ZZ$, 
+$\delta_0(g)(n) = g(n+1) - g(n)$. So $\delta(g) = 0$ precisely if $g$ is constant, hence $\ker(\delta_0) = H^0(L_\bullet,\RR) = \RR$.
+
+And, given $h\in \RR^{L_1} = \RR^\ZZ$, define $g(0) = 0$, and then use $g(n+1) = h(n) + g(n)$ to
+define $g\colon \ZZ\to \RR$ for all nonzero $n\in\ZZ$, so that $\delta_0(g) = h$. Thus $\coker(\delta_0) = H^1(L_\bullet,\RR) = 0$. All other real-coefficient cohomology vector spaces are trivial,
+so that $\chi^{coh}(L_\bullet) = 1$.
+\end{example}
+
+However, now we have two numerical invariants of a finite $\Delta$-set, namely $\chi$ and $\chi^{coh}$,
+and it is not immediately obvious how they relate. Thankfully, they coincide, and so we can just call
+this the Euler characteristic
+
+\begin{prop}
+For a finite $\Delta$-set $X_\bullet$, we have $\chi(X_\bullet) = \chi^{coh}(X_\bullet)$
+\end{prop}
+
+\begin{proof}
+First, $|X_d| = \dim \RR^{X_d}$, and consider the part of the complex near there:
+\[
+	\RR^{X_{d-1}} \xrightarrow{\delta_{d-1}} \RR^{X_d} \xrightarrow{\delta_d} \RR^{X_{d+1}}
+\] 
+We can, using the standard inner product,  break $\RR^{X_d}$ into a direct sum:
+\begin{align*}
+\RR^{X_d}& = \ker\delta_d\oplus \im \delta_d\\
+	 & = \begin{cases}
+		H^d(X_\bullet,\RR) \oplus \im\delta_{d-1} \oplus \im\delta_d & d > 0\\
+		H^0(X_\bullet,\RR) \oplus \im \delta_0 & d=0
+	    \end{cases}
+\end{align*}
+We can unify these two cases if we agree that $H^{-1}(X_\bullet,\RR) = 0$. Then we have
+\[
+	\dim \RR^{X_d} = \dim H^d(X_\bullet,\RR) + \dim \im\delta_{d-1} + \dim\delta_d
+\]
+and so
+\begin{align*}
+\chi(X_\bullet) & = \sum_{d=0}^\infty (-1)^d |X_\bullet|\\
+		& = \sum_{d=0}^\infty (-1)^d \dim \RR^{X_d}\\
+		& = \sum_{d=0}^\infty (-1)^d \dim H^d(X_\bullet,\RR) + 
+			\sum_{d=0}^\infty (-1)^d\left(\dim\im\delta_{d-1} + \dim\im\delta_d \right)\\
+		& = \sum_{d=0}^\infty (-1)^d \dim H^d(X_\bullet,\RR) \\
+		& = \chi^{coh}(X_\bullet)
+\end{align*}
+\end{proof}
+
+We thus can drop the superscript on $\chi^{coh}$ and just talk about \textbf{the} Euler characteristic
+of a $\Delta$-set.
+
+\begin{rem}
+This proof can be adapted pretty much verbatim to show that for a complex $V_\bullet$ of finite-dimensional 
+vector spaces of finite length, say
+\[
+	0 \to V_m \to V_{m+1} \to \cdots \to V_{m+N} \to 0
+\]
+then
+\[
+	\sum_{d=m}^{m+N} (-1) \dim V_d = \sum_{d=m}^{m+N} (-1)^d H^d(V_\bullet).
+\]
+\end{rem}
+
+Recall\lecturenum{26} the geometric realisation of a $\Delta$-set $X_\bullet$:
+\[
+	|X_\bullet| = \left(\bigsqcup_{n=0}^\infty \disc(X_n) \times \Delta^n\right)_{\big/\sim}
+\]
+This space has a set of distinguished maps $\Delta^n \to |X_\bullet|$, namely for a given $x\in X_n$, 
+we have the composite
+\[
+	\Delta^n \to \disc(X_n) \times \Delta^n \into \bigsqcup_{n=0}^\infty \disc(X_n) \times \Delta^n \to |X_\bullet|
+\]
+Note also that precomposing this map with $\partial_i\colon \Delta^{n-1} \into \Delta^n$ gives another
+map in the distinguised class, corresponding to $d_i(x) \in X_{n-1}$.
+
+Note also that if we have a smooth manifold $M$ (for instance an open set of $\RR^n$) and $\omega$ is
+a differential $k$-form on $M$, then this determines a function\marginnote{by a smooth function on $\Delta^k$
+here it is enough to assume it is smooth on the interior and extends continuously to the boundary}
+\begin{align*}
+C^\infty(\Delta^k,M) &\to \RR\\
+(f\colon \Delta^k\to M) & \mapsto \int_{\Delta^k} f^*\omega
+\end{align*}
+Thus this gives a function from $k$-forms on $M$ to the vector space $\RR^{C^\infty(\Delta^k,M)}$. 
+This function also interacts well with the exterior derivative and, by Stokes' theorem, the restriction
+of the primitive of an exact form to the boundary.
+
+For a general topological space $X$, we are somewhere in the neighbourhood of these two ideas: since we do 
+not have distinguished maps $\Delta^n \to X$, we should consider \emph{all} maps and then functions on
+the set of these.
+
+\begin{definition}
+Let $X$ be a topological space. The \emph{singular cochain complex} of $X$ with coefficients in the 
+ring $R$, denoted $C^\bullet(X,R)$  is given by
+\[
+	0 \to R^{\Top(\Delta^0,X)} \xrightarrow{\delta} R^{\Top(\Delta^1,X)} \xrightarrow{\delta} R^{\Top(\Delta^2,X)}\to \cdots
+\]
+where $\delta(g) = \sum_{i=0}^n (-1)^i g\circ \partial_i$. The defines a functor $\Top^{op} \to \Cplx_R$.
+Given a map $f\colon X\to Y$, where the induced map $R^{\Top(\Delta^k,Y)} \to R^{\Top(\Delta^k,X)}$ is given by precomposing with the induced $\Top(\Delta^k,X) \to \Top(\Delta^kY)$.
+
+The \emph{singular cohomology} of $X$ with coefficients in $R$ is the cohomology of this complex:
+\[
+	H^n(X,R) := H^n(C^\bullet(X,R))
+\]
+and hence gives functors $H^n(-,R) \colon \Top^{op} \to \Mod_R$.
+\end{definition}
+
+These modules are \emph{huge} (in general). For example, take $X=I$ and $R=\ZZ/2$, and then 
+$|C^1(I,\ZZ/2)| = 2^{|\Top(\Delta^1,I)|} = 2^{|\RR|}$, but, as we shall see in a moment, $H^1(I,\ZZ/2)=0$. 
+Hence we \emph{must} rely on theorems to calculate the singular cohomology, unlike the much easier case
+of cohomology of $\Delta$-sets.
+
+However, here is the (more of less) only example we can calculate from the definition
+\begin{example}
+Let $X=\pt$. Then $\Top(\Delta^k,\pt) = \ast$, so that the singular cochain complex 
+is\marginnote{we've seen this before!}
+\[
+0 \to R \xrightarrow{0} R \xrightarrow{\id} R \xrightarrow{0} R\xrightarrow{\id} \cdots
+\]
+which has cohomology $H^0(\pt,R) = R$ and $H^k(\pt,R) = 0$ for $k>0$.
+\end{example}
+
+Just as for $\Delta$-sets, we have relative cohomology, which is useful for the additional flexibility
+it affords.
+
+\begin{definition}
+For $(X,A)$ a pair of spaces, the \emph{relative singular cochain complex} $C^\bullet(X,A;R)$ is the kernel of $i^*\colon C^\bullet(X,R) \to C^\bullet(A,R)$
+where $i\colon A\into X$ is the inclusion. This gives a functor $\Top^{(2),op}\to \Cplx_R$. We then define the \emph{relative singular cohomology}
+$H^k(X,A;R) = H^k(C^\bullet(X,A;R))$, which is functorial for maps of pairs of spaces.
+\end{definition}
+
+Note that we recover ordinary singular cohomology of $X$ as the relative cohomology of the pair 
+$(X,\emptyset)$. Using the same argument as for relative cohomology of $\Delta$-sets, we get
+
+\begin{prop}
+Given a pair $(X,A)$ of spaces, there is a long exact sequence
+\[
+0\to H^0(X,A;R) \to H^0(X,R) \to H^0(A,R) \to H^1(X,A;R) \to H^1(X,R) \to \cdots
+\]
+of $R$-modules.
+\end{prop}
+
+\begin{proof}
+There is a short exact sequence of complexes
+\[
+	0\to C^\bullet(X,A;R) \to C^\bullet(X,R)\to C^\bullet(A,R) \to 0
+\]
+and then apply Theorem~\ref{thm:alg_Mayer-Vietoris}.
+\end{proof}
+
+Let $(X,x)$ be a pointed space, and consider the long exact sequence of the relative cohomology of
+ the pair $(X,\pt) = (X,\{x\})$. Since $H^k(\pt,R) = 0$ for positive $k$, the long exact sequence breaks up into
+\[
+0\to H^0(X,\pt;R) \to H^0(X,R) \to H^0(\pt,R) = R \to H^1(X,\pt;R) \to H^1(X,R) \to 0
+\]
+and $0\to H^k(X,\pt;R) \xrightarrow{\simeq} H^k(X,R) \to 0$ for $k>1$. From the fragment at the 
+start of the exact sequence, we see that $H^0(X,\pt;R) \to H^0(X,R)$ is injective, and this is the 
+inclusion of the kernel of the map $H^0(X,R) \to R$. Thus $H^0(X,\{x\};R) = \ker(H^0(X,R) \to R)$.
+For simplicity, we denote $H^k(X,\{x\};R)$ by $H^k(X,x;R)$, and call it the \emph{reduced cohomology}
+of the pointed space $(X,x)$.
+
+
+\begin{rem}
+We also have the result that $H^1(X,R)$ is the quotient of $H^1(X,x;R)$ by the image of 
+$R\to H^1(X,x;R)$, but to say definitively what this is we would need to study the construction
+of this map. 
+\end{rem}
+
+\begin{example}
+For a discrete space $S$ with chosen basepoint $p\in S$, then $H^0(S,p;R) \simeq R^{S\setminus\{p\}}$.
+In particular, $H^0(\pt,\pt;R) = R^emptyset = 0$.
+\end{example}
+
+Since maps of pairs $(X,x) \to (Y,y)$ are just pointed maps, we have that reduced cohomology is a 
+functor $H^k(-;R)\colon\Top_*^{op} \to \Mod_R$.\marginnote{Exercise!} Note particularly that 
+we only have functoriality for pointed maps.
+
+
+Here's a first result that would help calculate (relative) cohomology
+
+\begin{prop}
+Given pairs of spaces $(X,A)$ and $(Y,B)$, there is a canonical isomorphism
+\[
+	H^k(X\sqcup Y,A\sqcup B;R) \xrightarrow{\simeq} H^k(X,A:R)\oplus H^k(Y,B;R)
+\]
+for all $k$. Even better: there is a canonical isomorphism of complexes
+\[
+	C^\bullet(X\sqcup Y,A\sqcup B;R) \xrightarrow{\simeq} C^\bullet(X,A:R)\oplus C^\bullet(Y,B;R)
+\]
+that, on passing to cohomology, give the previous isomorphisms.
+\end{prop}
+
+\begin{proof}
+This is because $\Top(\Delta^k,X\sqcup Y) = \Top(\Delta^k,X)\sqcup \Top(\Delta^k,Y)$, and the 
+earlier observation that $R^{P\sqcup Q} \simeq R^P\oplus R^Q$ for any sets $P$ and $Q$.
+\end{proof}
+
+Of course, we get the analogous result for plain cohomology by looking at pairs $(X,\emptyset)$ and 
+$(Y,\emptyset)$.
+
+Here is a much more powerful and difficult result. Recall that we write $f^*$ generically for $H^k(f)$.
+
+\begin{theorem}\label{thm:homotopy_invariance_cohom}
+If the maps $f,g\colon X\to Y$ are homotopic, then 
+\[
+	f^* = g^*\colon H^k(Y,R) \to H^k(X,R)
+\]
+for all $k$.
+\end{theorem}
+
+I will give a few corollaries of this before discussing what goes into the proof, and how we get the 
+above theorem from a stronger statement about complexes. The proofs of the following are applications
+of functoriality and the above theorem.
+
+\begin{corollary}
+If $X$ and $Y$ are homotopy equivalent, via $f\colon X\leftrightarrows Y:g$, say, then 
+$f^* = (g^*)^{-1}$ and $H^k(X,R)$ and $H^k(Y,R)$ are isomorphic for all $k$.
+\end{corollary}
+
+\begin{corollary}
+If a space $X$ is contractible, then $H^k(X,R) = 0$ for $k>0$ and $H^k(X,R) \simeq R$. More precisely,
+if $X$ is contractible to $x\in X$, then $H^k(X,R) \to H^k(\{x\},R)$ is an isomorphism for all $k$,
+and hence $H^k(X,x;R) = 0$ for all $k$.
+\end{corollary}
+
+\begin{corollary}
+Given a pointed space $X$ with a path $\gamma\colon x\rightsquigarrow x'$, the two induced maps 
+$H^0(X,R) \to H^0(\pt,R) = R$ given by the inclusion of $x$ and $x'$ are equal, so that 
+$H^0(X,x;R) = H^0(X,x';R)$. Thus reduced cohomology only depends on the path component of the basepoint,
+not the basepoint specifically.
+\end{corollary}
+
+We saw earlier the concept of quasi-isomorphism, which is an analogue for complexes of weak homotopy
+equivalence. But for spaces we have the stronger notion of homotopy of maps, and this should be reflected
+by some construction for complexes.
+
+\begin{definition}
+Let $f,g\colon A_\bullet \to B_\bullet$ be maps of complexes. A \emph{cochain homotopy} from $f$ 
+to $g$ is a collection of functions $\{h_n\colon A_n \to B_{n-1}\}$ satisfying the identities
+\[
+	\delta^B_{n-1}h_n + h_{n+1}\delta^A_n = f_n - g_n
+\]
+\end{definition}
+
+\begin{lemma}
+If there is a cochain homotopy from $f$ to $g$, both maps $A_\bullet\to B_\bullet$, then $H^k(f) = H^k(g)$.
+\end{lemma}
+
+\begin{proof}
+An element in $H^k(A_\bullet)$ is the equivalence class of some $c\in A_k$ such that $\delta^A_k(c) = 0$
+so
+\begin{align*}
+H^k(f)([c]) & = [f_k(c)]\\
+	& = [g_k(c) + \delta^B_{k-1}(h_k(c)) + h_{k+1}(\delta^A_k(x))]\\
+	& = [g_k(c)] + [\delta^B_{k-1}(h_k(c))] \\
+	& = [g_k(c)]\\
+	& = H^k(g)([c])
+\end{align*}
+\end{proof}
+
+Here is a stronger version of Theorem~\ref{thm:homotopy_invariance_cohom}:
+
+\begin{theorem}
+If the maps $f,g\colon X\to Y$ are homotopic, then there is a cochain homotopy between the two induced maps
+$C^\bullet(Y,R) \to C^\bullet(X,R)$.
+\end{theorem}
+
+The proof is reasonably detailed, but constructs an actual such cochain homotopy. Matters are 
+simplified somewhat because one can immediately reduce to the case $Y = I\times X$ and the two 
+functions being the inclusions $X\simeq \{i\}\times X \to I\times X$ for $i=0,1$. This is 
+because of functoriality and the given homotopy $H\colon I\times X \to Y$. Further, one can reduce 
+a lot of the work to the case $X=\Delta^k$, and an explicit triangulation of $I\times \Delta^k$, so
+that the inclusion maps $\Delta^k \to I\times \Delta^k$ come from maps of $\Delta$-sets. Then it is messy
+combinatorics to make sure the required identity holds.
+
+\end{document}
+
+Let\lecturenum{27} us consider for a short time again the reduced cohomology.
 
 \end{document}
