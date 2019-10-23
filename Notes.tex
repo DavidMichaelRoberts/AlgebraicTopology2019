@@ -5711,7 +5711,7 @@ of this map.
 
 \begin{example}
 For a discrete space $S$ with chosen basepoint $p\in S$, then $H^0(S,p;R) \simeq R^{S\setminus\{p\}}$.
-In particular, $H^0(\pt,\pt;R) = R^emptyset = 0$.
+In particular, $H^0(\pt,\pt;R) = R^\emptyset = 0$. 
 \end{example}
 
 Since maps of pairs $(X,x) \to (Y,y)$ are just pointed maps, we have that reduced cohomology is a 
@@ -5816,8 +5816,108 @@ a lot of the work to the case $X=\Delta^k$, and an explicit triangulation of $I\
 that the inclusion maps $\Delta^k \to I\times \Delta^k$ come from maps of $\Delta$-sets. Then it is messy
 combinatorics to make sure the required identity holds.
 
-\end{document}
 
-Let\lecturenum{27} us consider for a short time again the reduced cohomology.
+Let\lecturenum{27} us consider for a short time again the reduced cohomology, which as noted above is functorial for
+pointed maps. For an arbitrary space $X$, there is of course a canonical map $X\xrightarrow{!_X} \pt$, which induces a map in cohomology $R=H^0(\pt,R) \to H^0(X,R)$. Moreover, since for any map $f\colon X\to Y$ we have $!_Y \circ f = !_X$, the induced map in cohomology $H^0(Y,R) \to H^0(X,R)$ commutes with these maps from $R$. This is somewhat reminiscent of the situation with reduced cohomology, except now we have a map \emph{from} $R$, not \emph{to} $R$. But what is this map?
+
+\begin{ex}
+Given a space $X$, $H^0(X,R) \simeq R^{[\pt,X]}$, that is, functions that are constant on path-components. Moreover, given $f\colon X\to Y$, the induced map $H^0(Y,R) \to H^0(X,R)$ is given by precomposition with $[\pt,X]\to [\pt,Y]$.
+\end{ex}
+
+Thus $R = H^0(\pt,R) \to H^0(X,R)$ sends $r\in R$ to the constant function on $X$ with value $r$---assuming $X$ is not empty---so we shall denote it by $\mathrm{const}$. Further, given $x\in X$, the map $!$ is a retraction to $x\colon \pt \to X$, so that $!_X \circ x=\id_X$. Thus we have $R \xrightarrow{\mathrm{const}} H^0(X,R) \xrightarrow{\ev_x} R$ is the identity map on $R$, and so $\mathrm{const}$ is injective.
+
+\begin{definition}
+A \emph{left splitting} of a short exact sequence $0\to A \xrightarrow{i} B \xrightarrow{\pi} C \to 0$ of $R$-modules is a map $r\colon B\to A$ such that $r\circ i = \id_A$.
+\end{definition}
+
+Thus we have a short exact sequence $0 \to R\to H^0(X,R) \to \coker(\mathrm{const}) \to 0$, and $\ev_x$ is a left splitting.
+
+\begin{lemma}
+Given a left splitting $r$ of a short exact sequence $0\to A \xrightarrow{i} B \xrightarrow{\pi} C \to 0$, the map $(r,\pi)\colon B\to A\oplus C$ is an isomorphism, and $C \simeq \coker(r)$.
+\end{lemma}
+ 
+As a result, from a choice $x\in X$ we get an isomorphism $\coker(\mathrm{const})\simeq H^0(X,x;R)$. Since the map $\mathrm{const}$ is canonical, and doesn't depend on the choice of $x$, it turns out that reduced cohomology is essentially independent of the choice of basepoint.\marginnote{the submodule $H^0(X,x;R)\subseteq H^0(X,R)$ can be different for different choices of $x\in X$, though} Thus we can redefine reduced cohomology to be $\widetilde{H}^k(X,R) := \coker(H^k(\pt,R) \to H^k(X,R))$; for $k>0$, $\widetilde{H}^k(X,R)\simeq H^k(X,R)$, but otherwise $H^0(X,R) \simeq \widetilde{H}^0(X,R) \oplus R$. Further, this is functorial for all maps of spaces, not pointed maps.
+
+\begin{example}
+Given any path-connected space $X$ we get $\widetilde{H}^0(X,R) = 0$ for all $k$. In particular, if $X$ is contractible, then $\widetilde{H}^k(X,R) = 0$ for all $k$.
+\end{example}
+
+\begin{example}\label{eg:reduced_cohom_S0}
+For the $0$-sphere $S^0$, we have $\widetilde{H}^0(S^0,R) = R$ and $\widetilde{H}^k(S^0,R) = 0$ for $k > 0$.
+\end{example}
+
+Since we are in the realm of looking at long exact sequences, let us consider the topological space version of Mayer--Vietoris for a union of two subspaces. Take $\mathcal{U} = \{U,V\}$ an open cover of the space $X$. There is a pushout diagram
+\[
+	\xymatrix{
+	U\cap V \ar[r]^{i_V} \ar[d]_{i_U} & V \ar[d]^{j_V} \\
+	U \ar[r]_{j_U} & X
+	}
+\]
+We can define a map
+\begin{align}\label{eq:restr_to_intersection}
+C^\bullet(U,R) \oplus C^\bullet(V,R) & \to C^\bullet(U\cap V,R)\\
+(f,g) & \mapsto i^*_U f - i^*_Vg
+\end{align}
+which turns out to be onto: given $\widetilde{f}\colon \Top(\Delta^n,U\cap V) \to R$, we can define a function
+$f\colon \Top(\Delta^n,U) \to R$ by extension by zero, as $\Top(\Delta^n,U\cap V)$ is naturally a subset of $\Top(\Delta^n,U)$. Then $(f,0) \mapsto \widetilde{f}$. So if we define $C^\bullet_\mathcal{U}(X,R)$ as the kernel of (\ref{eq:restr_to_intersection}), we get a short exact sequence of complexes
+\[
+0 \to C^\bullet_\mathcal{U}(X,R) \to C^\bullet(U,R) \oplus C^\bullet(V,R) \to C^\bullet(U\cap V,R) \to 0
+\]
+We can identify this kernel as something concrete, namely 
+\[
+	C^k_\mathcal{U}(X,R) := \{f\colon \Top(\Delta^k,X) \to R\mid f(\sigma)=0\text{ if $\sigma\colon \Delta^k\to X$ doesn't factor through $U$ or $V$}\}
+\]
+The following result is key, but also has a very long and complicated proof
+\begin{prop}
+The inclusion $C^\bullet_\mathcal{U}(X,R) \to C^\bullet(X,R)$ is a quasi-isomorphism, so that
+\[
+	H^k(C^\bullet_\mathcal{U}(X,R)) \xrightarrow{\simeq} H^k(X,R).
+\]
+\end{prop}
+
+\begin{proof}
+This follows from reasoning similar to Hatcher's Proposition~2.21, albeit using cohomology, not homology.
+\end{proof}
+
+The idea of the proof is that given $\Delta^k \to X$, one can interatively retriangulate $\Delta^k$ by more and smaller simplices so that eventually you can break up $\Delta^k$ into a collection of functions on small simplices, each of which lands (by an application of the Lebesgue covering lemma) inside one of the open subsets $U$ or $V$. This is formally similar to how one can integrate over a simplex in a manifold by covering a manifold by charts, by breaking the simplex up into parts each of which land inside a chart, and then integrate each bit and add them up.
+
+\begin{theorem}{(Mayer--Vietoris)}\label{thm:mayer-vietoris}
+Given an open cover $\{U,V\}$ of the space $X$, there is a long exact sequence
+\[
+0\to H^0(X,R) \to H^0(U,R)\oplus H^0(V,R) \to H^0(U\cap V,R) \to H^1(X,R) \to H^1(U,R)\oplus H^1(V,R) \to \cdots
+\]
+of $R$-modules, and similarly with reduced cohomology, starting
+\[
+0\to \widetilde{H}^0(X,R) \to \widetilde{H}^0(U,R)\oplus \widetilde{H}^0(V,R) \to \widetilde{H}^0(U\cap V,R) \to H^1(X,R) \to \cdots
+\]
+\end{theorem}
+
+Here is a key example.
+
+\begin{example}
+Cover the sphere $S^n$ ($n\geq 1$) by two open sets $D^n_+$ and $D^n_-$, both homeomorphic to discs (hence contractible). Their intersection is homeomorphic to $S^{n-1}\times J$, for $J$ a small open interval, hence homotopic to $S^{n-1}$. We thus get by the Mayer--Vietoris theorem a long exact sequence
+\[
+\hspace{-1.5cm}0\to \widetilde{H}^0(S^n,R) \to \widetilde{H}^0(D^n_+,R)\oplus \widetilde{H}^0(D^n_-,R) \to \widetilde{H}^0(S^{n-1}\times J,R) \to H^1(S^n,R) \to H^1(D^n_+,R)\oplus H^1(D^n_-,R) \to H^1(S^{n-1}\times J,R) \to \cdots
+\]
+but since $D^n_\pm$ are contractible, this breaks up into pieces. Firstly, $0\to \widetilde{H}^0(S^n,R) \to 0$, hence $\widetilde{H}^0(S^n,R) =0$, which we knew already, as $S^n$ is path connected. Then for $k>0$ we have
+\[
+0\to \widetilde{H}^0(S^{n-1},R) \to H^1(S^n,R) \to 0
+\]
+and 
+\[
+0\to H^{k-1}(S^{n-1},R) \to H^k(S^n,R) \to 0
+\]
+for all $k > 1$. Hence we can attack this problem by induction as (combining the two cases) $\widetilde{H}^{k-1}(S^{n-1},R) \simeq \widetilde{H}^k(S^n,R)$. If we take $k=n$, then this gives
+\[
+\widetilde{H}^{n-1}(S^{n-1},R) \simeq \widetilde{H}^n(S^n,R)
+\]
+
+By Example~\ref{eg:reduced_cohom_S0} we know the reduced cohomology of $S^0$, namely $\widetilde{H}^0(S^0,R) = R$, so that $\widetilde{H}^n(S^n,R) = H^n(S^n,R) = R$ for all $n \geq 1$.
+\end{example}
+
+
+
+
+
 
 \end{document}
