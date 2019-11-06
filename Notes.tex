@@ -4,6 +4,7 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{intersections}
+\usetikzlibrary{hobby}
 \usepackage{tikz-cd}
 \usetikzlibrary{%
   matrix,%
@@ -81,7 +82,9 @@
 \DeclareMathOperator{\codisc}{codisc}
 \DeclareMathOperator*{\colim}{colim} 
 \DeclareMathOperator{\Sh}{Sh} 
+\DeclareMathOperator{\End}{End} 
 \DeclareMathOperator{\id}{id} 
+\DeclareMathOperator{\Deg}{deg} 
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\Sub}{Sub} 
 \DeclareMathOperator{\Aut}{Aut} 
@@ -5502,7 +5505,7 @@ is very useful in practice.
 Given a diagram of $R$-modules
 \[
 	\xymatrix{
-	A\ar[r]^f \ar[d]^\alpha & B \ar[r]^g \ar[d]^\beta & C \ar[r]^h \ar[d]^\gamma & D \ar[r]^k \ar[d]^\delta & R \ar[d]^\varepsilon \\
+	A\ar[r]^f \ar[d]^\alpha & B \ar[r]^g \ar[d]^\beta & C \ar[r]^h \ar[d]^\gamma & D \ar[r]^k \ar[d]^\delta & E \ar[d]^\varepsilon \\
 	A' \ar[r]_{f'} & B' \ar[r]_{g'} & C' \ar[r]_{h'} & D' \ar[r]_{k'} & E'
 	}
 \]
@@ -6164,6 +6167,38 @@ for $\iota_n\colon S^n \into D^{n+1}$ the boundary inclusion. That is, $X_{n+1} 
 \end{itemize}
 \end{definition}
 
+
+\begin{tikzpicture}[use Hobby shortcut,closed=true,scale=0.70]
+    \draw (-3,0) .. (-3,3) .. (-1,3.5).. (1,3).. (4,3.5).. (4,2.5).. (5,0) ..(2,-2).. (0,-1).. (-3,-2).. (-3.5,0.5);
+    \node at (4.2,4.2) {$X_n$};
+
+
+    \draw[thick,dotted,red] plot [smooth cycle, tension=0.5] coordinates {(-1,1.5) (0,2.5) (0.5,1) (0,1) (-1.1,2.5)};
+
+	\draw[xshift=-5cm,yshift=4cm,red] (0,0) ellipse (1 and 0.3);
+	\draw[xshift=-5cm,yshift=4cm] (1,0) arc (0:180:1);
+    \draw[shorten <=0.2cm,->] (1,0)++(-5.2cm,3.9cm) to[out=-60,in=170]  (-1.3,2);
+    \node at (-3.7,5.3) {$D^{n+1}$};
+    \node at (-5.5,3.3) {$S^n$};
+
+
+    \draw[thick,dotted,yshift=-2cm,red] plot [smooth cycle] coordinates {(1,1) (2,2) (3.5,2) (2,1)};
+
+	\draw[xshift=-7.5cm,yshift=2cm,red] (0,0) ellipse (1 and 0.3) ;
+	\draw[xshift=-7.5cm,yshift=2cm] (1,0) arc (0:180:1);
+	\draw[shorten <=0.2cm,->] (1,0)++(-7.7cm,1.9cm) to[out=-40,in=130]  (1.2,-0.5);
+
+
+
+	\draw[thick,dotted,xshift=-3cm,yshift=-1cm,red] (0,0) ellipse (1 and 0.5);
+
+	\draw[xshift=-7cm,yshift=-1cm,red] (0,0) ellipse (1 and 0.3); 
+	\draw[xshift=-7cm,yshift=-1cm] (1,0) arc (0:180:1);
+	\draw[shorten <=0.2cm,->] (1,0)++(-7.2cm,-1.1cm) to[out=-30,in=200]  (-4cm,-1.2cm);
+
+
+\end{tikzpicture}
+
 For simplicity, any space constructed as in the definition together with the data constructing 
 it is called a CW-complex. Note that for each $\alpha\in J_n$, we get a map $S^n \into 
 \disc(J_n) \times S^n \to X_n$, and so we can consider the maps $j_n$ as encoding a family of 
@@ -6229,6 +6264,105 @@ Note that we can get a reduced version $\widetilde{h}^k$ of $h^k$, and in this c
 We can derive, from the above axioms, all of the exact sequences and properties of cohomology, so
 the construction of singular cohomology can be seen as an existence proof of a series of functors satisfying
 the Eilenberg--Steenrod theorem. After that, one can usually just work with the abstract properties.
+
+\section{Classical applications}
+
+
+In\lecturenum{30} the remaining time, we will give some applications of the techniques we now have to classical problems, namely the existence of fixed points of maps $D^n\to D^n$, the proof of the fundamental theorem of algebra, and the existence of non-vanishing vector fields on spheres.
+
+Recall that the contraction mapping theorem implies that for any endomorphism $f\colon D^n \to D^n$ with the property that $|f(x)-f(y)| \leq C |x-y|$, for some uniform constant $C\in (0,1)$, there is a fixed point $x_0\in D^n$: $f(x_0) = x_0$.\marginnote{and in fact exactly one fixed point} But there are many endomorphisms that aren't contractions, and which have fixed points; for instance, rotations about $0$. Alternatively, the function $f$ could be constant in some small region (hence with many fixed points), but move other nearby points far apart. So what happens in general? This is answered by the following theorem. Let us call an endomorphism $f\colon X \to X$ of any space $X$ \emph{free} if $f(x)\neq x$ for all $x\in X$.\marginnote{we are of course only considering continuous endomorphisms}
+
+\begin{theorem}{(Brouwer fixed-point theorem)}
+No endomorphism $f\colon D^n\to D^n$ is free.
+\end{theorem}
+
+\begin{proof}
+Define the map $g_f\colon D^n \to \partial D^n = S^{n-1}$ by the following picture
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8]
+
+\begin{scope}
+\clip[draw,name path=circ] (0,0) circle [radius=3];
+\draw [name path=line] (0.5,-0.5)  -- (2,4);
+\end{scope}
+
+\fill  (1,1) circle (2pt) node[left] {$x$};
+\fill  (0.5,-0.5) circle (2pt) node[left] {$f(x)$};
+
+\fill ({(3+sqrt(43/2))/5},{3*(3+sqrt(43/2))/5 - 2})circle (2pt) node[above right] {$g_f(x)$};
+
+\end{tikzpicture}\end{center}
+
+Then $g_f$ is continuous\sidenote{Exercise! Try using a sequential characterisation} and moreover if $x\in \partial D^n$ then $g_f(x)=x$. If $i$ denotes the inclusion $\partial D^n \into D^n$, then we have $g_f\circ i = \id_{\partial D^n}$. Apply the funtor $H^{n-1}(-,\ZZ)$ to get
+\[
+	\ZZ \simeq H^{n-1}(\partial D^n,\ZZ) \xrightarrow{i^*} H^{n-1}(D^n,\ZZ) \xrightarrow{g_f^*} H^{n-1}(\partial D^n,\ZZ) \simeq \ZZ,
+\]
+which is the identity map on $\ZZ$. But $H^{n-1}(D^n,\ZZ) =0$, hence a contradiction, and so there is so such endomorphism.
+\end{proof}
+
+\begin{rem}
+Usually this is stated as ``every endomorphism has a fixed point'', though the proof directly shows that no endomorphism can fail to have a fixed point.\marginnote{the distinction is important in both non-classical logic and numerical/computational settings} The location of the fixed point can jump discontinuously given a continuous family of endomorphisms, and so there is no `method' to construct the fixed point, unlike in the case of the contraction mapping theorem. In that case, the proof constructs a Cauchy sequence converging to the (unique) fixed point, but here the fixed point set can have rather wild behaviour.
+\end{rem}
+
+Another even more classical result is the fundamental theorem of algebra. The proof requires \emph{some} topological input\marginnote{the minimum required seems to be that of a \emph{real-closed field} $k$: ordered, and every odd-degree polynomial has a root. Given such a field, the extension $k[\sqrt{-1}]$ is then algebraically closed. The intermediate value theorem guarantees this for $k=\RR$.} and here we will implicitly use the fundamental group of the space of non-zero complex numbers $\CC^\times$, which is isomorphic to $\ZZ$. I will again state this in a slightly non-standard way, reflecting the actual content of the proof. Recall that a \emph{monic} polynomial is one with the coefficient of the leading term equal to $1$. We will consider polynomials with complex coefficients.
+
+\begin{theorem}{(Fundamental Theorem of Algebra)}
+A non-constant monic polynomial function $p\colon \CC \to \CC$ cannot factor through the inclusion $\CC^\times \into \CC$.
+\end{theorem}
+
+\begin{proof}
+For fixed $R \gg 0$, then $p_R(\theta) := p(Re^{i\theta}) \approx R^n e^{in\theta}=:q(\theta)$. Even better, there is a homotopy between $p_R$ and $q$, as functions $S^1\to \CC^\times$. Note that $q$ is not homotopic to a constant function, using a path-lifting argument through the covering map $\exp\colon \CC \to \CC^\times$. Now assume $p$ factors through $\CC^\times$. There is then a homotopy between $p_R$ and the constant function at $p(0)$, as functions $S^1\to \CC^\times$, via $(t,\theta)\mapsto p((1-t)Re^{i\theta})$. Thus we get a contraction, as this would imply $q$ is homotopic to the constant function at $p(0)$, and so $p$ cannot land in $\CC^\times$.
+\end{proof}
+
+The last result belongs to the area of differential topology, which is the intersection between differential geometry and topology. Recall that there is a nonvanishing vector field on $S^1$ given by translating the unit tangent vector at $1$. More concretely, we can take $S^1 \subset \RR^2$, and the tangent vector at $(x,y)$ to be $(-y,x)$. One can ask if it is possible to find a nonvanishing vector field on other spheres \marginnote{or even how many, which is a harder problem!}. The nickname of the following theorem comes from the case of $S^2$, where one can visualise a vector field as being given by little hairs, the tangency condition corresponding to asking the hair be combed flat. 
+
+\begin{theorem}{(Hairy sphere theorem)}\label{thm:hairy_sphere}
+There exists a nonvanishing vector field on $S^n$ if and only if $n$ is odd.
+\end{theorem}
+
+The proof requires some additional technology, which I will give without proofs. The only difficult part is the lemma below, a proof can be found in Hatcher.
+Note that we can assume the vector field on has length $1$ everywhere, and this allows us to think of the vector field as a map $S^n \to S^n$, as we can identify the unit sphere in $T_pS^n \subset \RR^{n+1}$ with $S^n$. Then, given such a map, it induces a homomorphism $f^*\colon \ZZ \simeq H^n(S^n,\ZZ) \to H^n(S^n,\ZZ) \simeq \ZZ$.
+
+\begin{definition}
+Given a function $f\colon S^n \to S^n$, define the \emph{degree} $\Deg(f)$ of $f$ to be the integer $f^*(1)\in H^n(S^n,\ZZ) \simeq \ZZ$.
+\end{definition}
+
+The degree of a map has the following properties, which follow quickly from the definition.
+\begin{enumerate}
+\item If $f$ is not surjective, then $\Deg(f)=0$, as it factors through a chart, which is contractible;
+\item $\Deg(\id_{S^n})=1$;
+\item $\Deg(g\circ f) = \Deg(g)\Deg(f)$;
+\item If $f$ is homotopic to $g$, then $\Deg(f) = \Deg(g)$;
+\end{enumerate}
+As a result, $\Deg$ gives a map of monoids $[S^n,S^n] \to \End(\ZZ)\simeq (\ZZ,\times)$
+
+\begin{lemma}
+Define the coordinate reflection map $r_i(x_1,\ldots,x_{n+1}) = (x_1,\ldots,-x_i,\ldots,x_{n+1})$. Then $\Deg(r_i) = -1$.
+\end{lemma}
+
+Hatcher gives a proof using an explicit calculation with a triangulation of $S^n$ using two copies of $\Delta[n]$ that are swapped under $r_i$.\marginnote{if you have seen de~Rham cohomology, then the degree of this map can be seen as arising from the reversal of orientation of $S^n$, and the resulting sign change in the global volume form}
+
+\begin{corollary}
+For the antipodal map $-\id_{S^n}$, $\Deg(-\id_{S^n}) = (-1)^{n+1}$.
+\end{corollary}
+
+\begin{proof}{(of Theorem \ref{thm:hairy_sphere})}
+Assume we have $v\colon S^n\to S^n$ corresponding to a nonvanishing vector field. We can think of this as a map $v\colon S^n \to \S^n \into \RR^{n+1}$ satisfying $v(x)\cdot x = 0$ for all $x\in S^n$. Define the map
+\begin{align*}
+h\colon I \times S^n & \to \RR^{n+1}\\
+(t,x) & \mapsto \cos(\pi t) x + \sin(\pi t) v(x)
+\end{align*}
+Then $h(t,x)\cdot h(t,x) = 1$, so is a map $I\times S^n \to S^n$. Moreover, $h(0,x) = x$, and $h(1,x)=-x$ so that $h$ is a homotopy between $\id_{S^n}$ and $-\id_{S^n}$. Sinc degree is a homotopy invariant, this implies that $1 = \Deg(\id_{S^n}) = \Deg(-\id_{S^n}) = (-1)^{n+1}$. Thus a nonvanishing vector field can only exist if $n$ is odd.
+
+Conversely, if $n=2k-1$, for $x\in S^{2k-1} \subset\RR^{2k}$ define 
+\[
+	v(x) = (-x_2,x_1,-x_4,x_3,\ldots,-x_{2k},x_{2k=1})
+\]
+which gives a map $S^{2k-1} \to S^{2k-1}$ such that $v(x)\cdot x = 1$, hence is a nonvanishing vector field. This looks like the vector field on the circle above on each circle $S^1 \subset \RR^2 \subset \RR^2 \times \cdots \times \RR^2$ ($k$ times).
+
+
+\end{proof}
 
 
 \end{document}
