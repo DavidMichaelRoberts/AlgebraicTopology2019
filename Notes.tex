@@ -481,7 +481,7 @@ arising from a collection of subintervals $[a,t_1]$, $[t_1,t_2]$,\ldots,$[t_k,b]
 with the subspace topology from $\RR$.
 \end{example}
 
-These exercises give us what is sometimes known as the \emph{gluing lemma}:
+These exercises give us what is sometimes known as the \emph{gluing} (or \emph{pasting}) \emph{lemma}:
 
 \begin{lemma}\label{lemma:gluing_lemma}
 Consider a space $X$ and an arbitrary open cover $\{U_\alpha\}_{\alpha\in I}$ 
@@ -564,7 +564,7 @@ important enough to have a name.
 
 \begin{definition}\label{def:connected}
 A space $X$ is \emph{connected}\marginnote{If you know the `usual' definition, this is 
-equivalent to it} if every continuous map to a discrete space has image a single point.
+equivalent to it} if every continuous map from $X$ to a discrete space has image a single point.
 \end{definition}
 
 So the interval $I$ is an example of a connected space. Even better: if a pair of points $x,y\in X$ 
@@ -1372,8 +1372,8 @@ Lemma~\ref{lemma:compact_open_base}, which we call the \emph{compact-open topolo
 \end{definition}
 
 When $X$ is a metric space, then the compact-open topology and the topology arising from the 
-sup metric coincide. A key property of the compact-open topology is that homotopies $H\colon 
-I\times I \to X$ give continuous paths $h\colon I \to X^I$ (defined by $h_t\colon s\mapsto H(t,s)$) and vice-versa. Moreover:
+sup metric coincide. A key property of the compact-open topology is that homotopies\marginnote{More generally, for any space $Y$, continuous maps $I\times Y \to X$ are in bijection with continuous maps $Y \to X^I$}
+$H\colon I\times I \to X$ give continuous paths $h\colon I \to X^I$ (defined by $h_t\colon s\mapsto H(t,s)$) and vice-versa. Moreover:
 
 \begin{lemma}
 
@@ -2379,7 +2379,7 @@ with $J\colon W\to V_1\oplus V_2$ the map $w\mapsto (L_1(w),-L_2(w))$ is a pusho
 
 
 \begin{theorem}[Seifert--van Kampen theorem]
-Let $X$ be a space, and $\{U,V\}$ a cover by nhds. Then
+Let $X$ be a space, and $\{U,V\}$ a cover by nhds.\marginnote{A cover by nhds is equivalent to the interiors being an open cover.} Then
 \[
 	\xymatrix{
 		\Pi_1(U\cap V) \ar[r]^-{i_V} \ar[d]_{i_U} & \Pi_1(V) \ar[d]\\
@@ -2654,7 +2654,7 @@ Let $\cC$ be a category and let $\cD \into \cC$ be a full subcategory. Let
 }
 \]
 be a commutative square in $\cD$ that is a pushout square in $\cC$. Then it is a pushout
-square in $\cC$.
+square in $\cD$.
 \end{lemma}
 
 \begin{proof}
@@ -3487,7 +3487,7 @@ The\lecturenum{18} assignment
 is then a functor $\Top_* \to \Ab$.
 
 \begin{example}
-For $S$ a discrete space, $\pi_n(S,*) = 1$, since all $S^n \to S$ are constant maps ($S^n$ is connected!)
+For $T$ a discrete space, $\pi_n(T,*) = 1$, since all $S^n \to T$ are constant maps ($S^n$ is connected!)
 \end{example}
 
 \begin{example}
@@ -3775,7 +3775,7 @@ Exercise.
 By construction, there is a continuous, bijective map $\mathrm{slpc}(X) \to X$ that is the identity map on the underlying sets.
 
 \begin{lemma}
-The map $\mathrm{slpc}(X) \to X$ is a weak homotopy equivalence, and a is not a homotopy equivalence if $X$ is not already slpc.
+The map $\mathrm{slpc}(X) \to X$ is a weak homotopy equivalence, and is not a homotopy equivalence if $X$ is not already slpc.
 \end{lemma}
 
 Thus if we cannot tell apart spaces that are weakly homotopy equivalent, it is relatively harmless to work only with slpc spaces.
@@ -5163,11 +5163,11 @@ sequences, which are super powerful, but also much less intuitive.
 \end{rem}
 
 \begin{theorem}\label{thm:alg_Mayer-Vietoris}
-Given a short exact sequence 
+Given\marginnote{I call this the \emph{algebraic Mayer--Vietoris} theorem, but it is also known as the \emph{zig-zag lemma}} a short exact sequence 
 \[
         0\to A_\bullet \xrightarrow{i} B_\bullet \xrightarrow{\pi} C_\bullet \to 0
 \]
-of $R$-modules, there is a long exact sequence
+of complexes of $R$-modules, there is a long exact sequence
 \[
 \cdots \xrightarrow{\delta^{k-1}} H^k(A_\bullet) \xrightarrow{H^k(i)} H^k(B_\bullet) \xrightarrow{H^k(\pi)} H^k(C_\bullet)
 \xrightarrow{\delta^k} H^{k+1}(A_\bullet) \xrightarrow{H^{k+1}(i)} (B_\bullet) \to \cdots
@@ -5679,7 +5679,7 @@ $H^k(X,A;R) = H^k(C^\bullet(X,A;R))$, which is functorial for maps of pairs of s
 Note that we recover ordinary singular cohomology of $X$ as the relative cohomology of the pair 
 $(X,\emptyset)$. Using the same argument as for relative cohomology of $\Delta$-sets, we get
 
-\begin{prop}
+\begin{prop}\label{prop:les_of_pair_of_spaces}
 Given a pair $(X,A)$ of spaces, there is a long exact sequence
 \[
 0\to H^0(X,A;R) \to H^0(X,R) \to H^0(A,R) \to H^1(X,A;R) \to H^1(X,R) \to \cdots
@@ -5966,12 +5966,12 @@ Let $(X,A)$ be a pair of spaces, and $Z\subset A$ a subspace such that $\overlin
 for all $k$.
 \end{theorem}
 
-If we think of relative cohomology of $(X,A)$ as telling us about the cohomology of $X/A$, then the above theorem reflects the homeomorphism $(X\setminus Z)/(A\setminus Z) \simeq X/Z$ that exists for all $(X,A)$ and $Z\subset A$ satsifying the hypotheses of the theorem.\marginnote{Not mentioned earlier, but $X\setminus \emptyset := X\sqcup \pt$, where the basepoint of $X\setminus \emptyset$ is the new disjoint point.}
+If we think of relative cohomology of $(X,A)$ as telling us about the cohomology of $X/A$, then the above theorem reflects the homeomorphism $(X\setminus Z)/(A\setminus Z) \simeq X/A$ that exists for all $(X,A)$ and $Z\subset A$ satsifying the hypotheses of the theorem.\marginnote{Not mentioned earlier, but $X\setminus \emptyset := X\sqcup \pt$, where the basepoint of $X\setminus \emptyset$ is the new disjoint point.}
 
 This theorem allows us to prove that relative cohomology, at least in certain cases, really \emph{is} the cohomology of the quotient.
 
 \begin{theorem}\label{thm:collapse}
-Let $(X,A)$ be a pair such that $A$ is a non-empty closed subspace, and that there exists a nhd $U\subset A$ so that $A$ is a deformation retract of $U$. The quotient map $(X,A) \to (X/A,A/A) = (X/A,\ast)$ induces an isomorphism
+Let $(X,A)$ be a pair such that $A$ is a non-empty closed subspace, and that there exists a nhd $U\supset A$ so that $A$ is a deformation retract of $U$. The quotient map $(X,A) \to (X/A,A/A) = (X/A,\ast)$ induces an isomorphism
 \[
 	H^k(X,A;R) \xrightarrow{\simeq} H^k(X/A,\ast;R) = \widetilde{H}^k(X/A,R)
 \]
@@ -5987,12 +5987,12 @@ An example of such a pair arises from a pair $\Delta$-sets: $(X_\bullet,A_\bulle
 \begin{corollary}
 Given $(X,A)$ as in Theorem~\ref{thm:collapse}, there is a long exact sequence
 \[
-0\to \widetilde{H}^0(X/A,R) \to \widetilde{H}^0(X,R) \to \widetilde{H}^0(A,R) \to H^1(X/A,R) \to \cdots
+0\to \widetilde{H}^0(X/A,R) \to H^0(X,R) \to H^0(A,R) \to H^1(X/A,R) \to \cdots
 \]
 \end{corollary}
 
 \begin{proof}
-Apply Theorem~\ref{thm:collapse} to the long exact sequence of a pair.
+Apply Theorem~\ref{thm:collapse} to the long exact sequence of a pair that appears in Proposition~\ref{prop:les_of_pair_of_spaces}.
 \end{proof}
 
 A canonical example of a pair of $\Delta$-sets arises as follows. Given $X_\bullet$ $n$-dimensional, we can consider $\sk_{n-1}X_\bullet \subset X_\bullet$. There are homeomorphisms
